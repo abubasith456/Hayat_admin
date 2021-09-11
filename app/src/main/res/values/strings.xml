@@ -1,0 +1,36 @@
+<resources>
+    <string name="app_name">Trizions</string>
+    <string name="invest_influence_impact_text">Invest Influence Impact</string>
+    <string name="ok">Ok</string>
+    <string name="no">No</string>
+    <string name="success">Success</string>
+    <string name="confirm">Confirm</string>
+    <string name="warning">Warning</string>
+    <string name="error_network">Please check your internet connection.</string>
+    <string name="sign_in_title">Sign-in</string>
+    <string name="mobile_number">Mobile Number</string>
+    <string name="enter_mobile_number">Enter your Mobile Number</string>
+    <string name="password">Password</string>
+    <string name="enter_password">Enter your Password</string>
+    <string name="forgot_password_text_part_one">Forgot your password? </string>
+    <string name="forgot_password_text_part_two"> RECOVER IT!</string>
+    <string name="sign_in">Sign-in</string>
+    <string name="does_not_have_account">Don\'t have an account\ ?&#160;</string>
+    <string name="sign_up">Sign-up</string>
+    <string name="error_mobile_number">This information is required. Please enter your mobile number.</string>
+    <string name="error_email">This information is required. Please enter your email.</string>
+    <string name="invalid_email">The email address you\'ve entered is invalid. Please try again</string>
+    <string name="error_password">This information is required. Please enter your password.</string>
+    <string name="error_user_name">This information is required. Please enter your user name.</string>
+
+    <string name="sign_up_title_small">Sign Up</string>
+    <string name="user_name">User name</string>
+    <string name="enter_user_name">Enter your user name</string>
+    <string name="enter_email_address">Enter your Email Address</string>
+    <string name="email_address">E-mail Address</string>
+    <string name="next">Next</string>
+
+    <string name="forgot_password_title">Forgot Password</string>
+    <string name="retrieve_account">Retrieve Account</string>
+
+</resources>
