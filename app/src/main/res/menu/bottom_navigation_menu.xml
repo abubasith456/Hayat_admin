@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+  <item
+      android:id="@+id/navigation_about_us"
+      android:icon="@drawable/tab_icon_about_us"
+      android:title="@string/tab_title_about_us" />
+
+  <item
+      android:id="@+id/navigation_products_and_services"
+      android:icon="@drawable/tab_icon_product_and_service"
+      android:title="@string/tab_title_products_and_services" />
+
+  <item
+      android:id="@+id/navigation_projects"
+      android:icon="@drawable/tab_icon_projects"
+      android:title="@string/tab_title_projects" />
+
+  <item
+      android:id="@+id/navigation_clients"
+      android:icon="@drawable/tab_icon_clients"
+      android:title="@string/tab_title_clients" />
+
+  <item
+      android:id="@+id/navigation_contact_us"
+      android:icon="@drawable/tab_icon_contact_us"
+      android:title="@string/tab_title_contact_us" />
+</menu>

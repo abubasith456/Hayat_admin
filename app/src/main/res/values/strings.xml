@@ -1,8 +1,11 @@
 <resources>
     <string name="app_name">Trizions</string>
     <string name="invest_influence_impact_text">Invest Influence Impact</string>
+
+    <!-- Login Flow -->
     <string name="ok">Ok</string>
     <string name="no">No</string>
+    <string name="yes">Yes</string>
     <string name="success">Success</string>
     <string name="confirm">Confirm</string>
     <string name="warning">Warning</string>
@@ -22,15 +25,60 @@
     <string name="invalid_email">The email address you\'ve entered is invalid. Please try again</string>
     <string name="error_password">This information is required. Please enter your password.</string>
     <string name="error_user_name">This information is required. Please enter your user name.</string>
-
     <string name="sign_up_title_small">Sign Up</string>
     <string name="user_name">User name</string>
     <string name="enter_user_name">Enter your user name</string>
     <string name="enter_email_address">Enter your Email Address</string>
     <string name="email_address">E-mail Address</string>
     <string name="next">Next</string>
-
     <string name="forgot_password_title">Forgot Password</string>
     <string name="retrieve_account">Retrieve Account</string>
+
+    <!-- Tab Bar Title -->
+    <string name="tab_title_about_us">About Us</string>
+    <string name="tab_title_products_and_services">Products</string>
+    <string name="tab_title_projects">Projects</string>
+    <string name="tab_title_clients">Clients</string>
+    <string name="tab_title_contact_us">Contact us</string>
+
+    <!-- About Us -->
+    <string name="welcome_message">Good Morning</string>
+    <string name="about_us_header_text">Custom IoT Solutions for Enterprises</string>
+    <string name="about_us_text">Our IoT app developers provide services from product conceptualization to ongoing IoT development services.
+    Being a full-stack IoT software development company, we build custom IoT applications specific to our clients.
+    As a reliable IoT app development partner, we consider security as an integral part of IoT hardware design and app development.</string>
+    <string name="about_us_services_header_text">Our IoT Development Services</string>
+    <string name="about_us_services_text">* IoT Hardware Design\n* IoT Firmware Integration\n* Mobile Apps for IoT Devices\n* Custom IoT Product Development\n</string>
+
+    <!-- About Us -->
+    <string name="contact_us_company_name_text">Trizions Management Consultancy (OPC) Private Limited</string>
+    <string name="contact_us_text">No. 159/1a1a1, TSR Avenue, Sundar Nagar,\nMannivakkam,\nChennai,\nIndia - 600048</string>
+    <string name="call_us">+91 9980919307</string>
+
+    <!-- Chat & Notifications -->
+    <string name="search_not_found">Search not found</string>
+    <string name="chat">Chat</string>
+    <string name="notifications">Notifications</string>
+    <string name="action_leave">Leave</string>
+    <string name="action_send">Send</string>
+    <string name="prompt_message">Message</string>
+    <string name="connect">Connected</string>
+    <string name="disconnect">Disconnected, Please check your internet connection</string>
+    <string name="error_connect">Failed to connect</string>
+    <string name="message_welcome">Welcome to Socket.IO Chat –</string>
+    <plurals name="message_participants">
+        <item quantity="one">there\'s %d participant</item>
+        <item quantity="other">there are %d participants</item>
+    </plurals>
+    <string name="message_user_joined">%s joined</string>
+    <string name="message_user_left">%s left</string>
+    <string name="user_action_typing">is typing</string>
+    <string name="msg_token_fmt" translatable="false">InstanceID Token: %s</string>
+    <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
+    <!-- [START fcm_default_icon_string] -->
+    <string name="default_notification_channel_name" translatable="true">Weather</string>
+    <!-- [END fcm_default_icon_string] -->
+    <string name="msg_subscribe_failed">Failed to subscribe to weather topic</string>
+    <string name="fcm_message">FCM Message</string>
 
 </resources>

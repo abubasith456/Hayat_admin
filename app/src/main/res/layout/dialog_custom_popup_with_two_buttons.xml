@@ -70,11 +70,11 @@
                     android:layout_marginEnd="@dimen/_5sdp"
                     android:layout_marginTop="@dimen/_5sdp"
                     android:layout_marginBottom="@dimen/_5sdp"
-                    android:background="@drawable/background_rounded_edit_text_gray"
+                    android:background="@drawable/background_corner_radius"
                     android:fontFamily="@font/work_sans_semibold"
                     android:textAlignment="center"
                     android:textAllCaps="false"
-                    android:textColor="@color/colorBlack"
+                    android:textColor="@color/colorWhite"
                     android:text="@string/no"
                     android:textSize="@dimen/_16sdp" />
 

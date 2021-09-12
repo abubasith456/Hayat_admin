@@ -16,6 +16,8 @@ import androidx.annotation.Nullable;
 
 import com.trizions.BaseActivity;
 import com.trizions.R;
+import com.trizions.dialog.CustomDialog;
+import com.trizions.ui.dashboard.DashBoardActivity;
 import com.trizions.utils.Utils;
 
 import butterknife.BindView;
@@ -75,7 +77,7 @@ public class LoginActivity extends BaseActivity {
             if (validate(editTextMobileNumberInput.getText().toString().trim(), editTextPasswordInput.getText().toString())) {
                 Utils.hideSoftKeyboard(LoginActivity.this);
                 if(Utils.isNetworkConnectionAvailable(this)){
-
+                    showCustomDialog("", "Logged in successfully", getResources().getString(R.string.ok), getResources().getString(R.string.success), onDismissListener);
                 } else {
                     showCustomDialog("", getResources().getString(R.string.error_network), getResources().getString(R.string.ok), getResources().getString(R.string.confirm), null);
                 }
@@ -84,6 +86,14 @@ public class LoginActivity extends BaseActivity {
             Log.e("Error ==> ", "" + exception);
         }
     }
+
+    CustomDialog.OnDismissListener onDismissListener = () -> {
+        invalidateErrorMessages();
+        Intent intent = new Intent(LoginActivity.this, DashBoardActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+        finish();
+    };
 
     @OnClick(R.id.layoutSignUp)
     void onSignUpClick(){
