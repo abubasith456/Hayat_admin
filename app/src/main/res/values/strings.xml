@@ -50,13 +50,13 @@
     <string name="about_us_services_header_text">Our IoT Development Services</string>
     <string name="about_us_services_text">* IoT Hardware Design\n* IoT Firmware Integration\n* Mobile Apps for IoT Devices\n* Custom IoT Product Development\n</string>
 
-    <!-- About Us -->
+    <!-- Contact Us -->
     <string name="contact_us_company_name_text">Trizions Management Consultancy (OPC) Private Limited</string>
     <string name="contact_us_text">No. 159/1a1a1, TSR Avenue, Sundar Nagar,\nMannivakkam,\nChennai,\nIndia - 600048</string>
     <string name="call_us">+91 9980919307</string>
 
     <!-- Chat & Notifications -->
-    <string name="search_not_found">Search not found</string>
+    <string name="result_not_found">Results not found</string>
     <string name="chat">Chat</string>
     <string name="notifications">Notifications</string>
     <string name="action_leave">Leave</string>
