@@ -54,6 +54,7 @@
     <string name="contact_us_company_name_text">Trizions Management Consultancy (OPC) Private Limited</string>
     <string name="contact_us_text">No. 159/1a1a1, TSR Avenue, Sundar Nagar,\nMannivakkam,\nChennai,\nIndia - 600048</string>
     <string name="call_us">+91 9980919307</string>
+    <string name="email_us">hr_admin_010@trizions.com</string>
 
     <!-- Chat & Notifications -->
     <string name="result_not_found">Results not found</string>

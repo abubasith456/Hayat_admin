@@ -41,7 +41,7 @@
                 android:drawablePadding="@dimen/_5sdp"
                 android:ellipsize="end"
                 android:singleLine="false"
-                android:text="Raheja Towers"
+                android:text="Raheja Towers (D001)"
                 android:fontFamily="@font/work_sans_bold"
                 android:gravity="start|center"
                 android:textColor="@color/colorPrimary"

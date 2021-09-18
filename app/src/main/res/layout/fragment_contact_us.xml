@@ -69,38 +69,38 @@
                 android:textColor="@color/colorBlack"
                 android:textSize="@dimen/_12sdp" />
 
-            <LinearLayout
-                android:id="@+id/callLayout"
+            <TextView
+                android:id="@+id/textViewCall"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_height="@dimen/_25sdp"
+                android:layout_marginStart="@dimen/_7sdp"
                 android:layout_marginTop="@dimen/_10sdp"
-                android:layout_marginEnd="@dimen/_10sdp"
-                android:layout_marginBottom="@dimen/_20sdp"
-                android:orientation="horizontal"
-                tools:ignore="UseCompoundDrawables">
+                android:layout_marginEnd="@dimen/_5sdp"
+                android:ellipsize="end"
+                android:fontFamily="@font/work_sans_semibold"
+                android:gravity="start|center"
+                android:singleLine="false"
+                android:text="@string/call_us"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/_12sdp"
+                app:drawableStartCompat="@drawable/icon_call" />
 
-                <ImageView
-                    android:layout_width="@dimen/_28sdp"
-                    android:layout_height="@dimen/_28sdp"
-                    android:layout_marginTop="@dimen/_5sdp"
-                    android:src="@drawable/icon_call"
-                    tools:ignore="ContentDescription" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/_28sdp"
-                    android:layout_marginStart="@dimen/_7sdp"
-                    android:layout_marginTop="@dimen/_5sdp"
-                    android:layout_marginEnd="@dimen/_5sdp"
-                    android:ellipsize="end"
-                    android:fontFamily="@font/work_sans_semibold"
-                    android:gravity="start|center"
-                    android:singleLine="false"
-                    android:text="@string/call_us"
-                    android:textColor="@color/colorBlack"
-                    android:textSize="@dimen/_12sdp" />
-            </LinearLayout>
+            <TextView
+                android:id="@+id/textViewEmail"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_25sdp"
+                android:layout_marginStart="@dimen/_7sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_5sdp"
+                android:ellipsize="end"
+                android:fontFamily="@font/work_sans_semibold"
+                android:gravity="start|center"
+                android:singleLine="false"
+                android:text="@string/email_us"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/_12sdp"
+                app:drawableStartCompat="@drawable/icon_email" />
 
         </LinearLayout>
 

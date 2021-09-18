@@ -56,8 +56,8 @@ public class ContactUsFragment extends BaseFragment implements GoogleApiClient.C
     @BindView(R.id.contactUsLayout)
     LinearLayout contactUsLayout;
 
-    @BindView(R.id.callLayout)
-    LinearLayout callLayout;
+    @BindView(R.id.textViewCall)
+    TextView textViewCall;
 
     @BindView(R.id.mapExpandCollapseButton)
     Button mapExpandCollapseButton;
@@ -196,8 +196,8 @@ public class ContactUsFragment extends BaseFragment implements GoogleApiClient.C
         return (int)(dp * scale + 0.5f);
     }
 
-    @OnClick(R.id.callLayout)
-    public void onCallLayoutButtonAction() {
+    @OnClick(R.id.textViewCall)
+    public void onCallButtonAction() {
         try {
             if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
                 Toast.makeText(getActivity(), "You need to allow call permission to make call from this app", Toast.LENGTH_SHORT).show();
@@ -205,6 +205,17 @@ public class ContactUsFragment extends BaseFragment implements GoogleApiClient.C
             }
             Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:+91 9980919307"));
             startActivity(intent);
+        } catch (Exception exception) {
+            Log.e("Error ==> ", "" + exception);
+        }
+    }
+
+    @OnClick(R.id.textViewEmail)
+    public void onEmailButtonAction() {
+        try {
+            Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
+            emailIntent.setData(Uri.parse("mailto:hr_admin_010@trizions.com"));
+            startActivity(Intent.createChooser(emailIntent, "Send feedback"));
         } catch (Exception exception) {
             Log.e("Error ==> ", "" + exception);
         }
