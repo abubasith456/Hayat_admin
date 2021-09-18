@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -45,7 +46,6 @@ public class CurrentProjectsFragment extends BaseFragment {
     String searchText = "";
 
     ArrayList<String> projectsArray = new ArrayList<>();
-
 
     public CurrentProjectsFragment() {
 
@@ -113,17 +113,17 @@ public class CurrentProjectsFragment extends BaseFragment {
     }
 
     public class ProjectsAdapter extends RecyclerView.Adapter<ProjectsViewHolder> {
-        private ArrayList<String> bookMarksList;
+        private ArrayList<String> projectsArray;
         private Activity mActivity;
 
-        public ProjectsAdapter(ArrayList<String> bookMarksList, Activity activity)
+        public ProjectsAdapter(ArrayList<String> projectsArray, Activity activity)
         {
-            this.bookMarksList = bookMarksList;
+            this.projectsArray = projectsArray;
             mActivity = activity;
         }
 
-        public void setBookMarksList(ArrayList<String> bookMarksList){
-            this.bookMarksList = bookMarksList;
+        public void setBookMarksList(ArrayList<String> projectsArray){
+            this.projectsArray = projectsArray;
             notifyDataSetChanged();
         }
         @NonNull
@@ -134,12 +134,12 @@ public class CurrentProjectsFragment extends BaseFragment {
 
         @Override
         public void onBindViewHolder(@NonNull ProjectsViewHolder holder, int position) {
-            holder.bind(bookMarksList.get(position), mActivity);
+            holder.bind(projectsArray.get(position), mActivity);
         }
 
         @Override
         public int getItemCount() {
-            return bookMarksList.size();
+            return projectsArray.size();
         }
     }
 
@@ -168,8 +168,24 @@ public class CurrentProjectsFragment extends BaseFragment {
                 if (response != null) {
 
                 }
+                textViewProjectAddress.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        onAddressButtonAction();
+                    }
+                });
 
             } catch (Exception exception){
+                Log.e("Error ==> ", "" + exception);
+            }
+        }
+
+        public void onAddressButtonAction() {
+            try {
+                Intent intent = new Intent(Intent.ACTION_VIEW,
+                        Uri.parse("google.navigation:q=Sundar Nagar, Mannivakkam, Chennai, India - 600048"));
+                startActivity(intent);
+            } catch (Exception exception) {
                 Log.e("Error ==> ", "" + exception);
             }
         }

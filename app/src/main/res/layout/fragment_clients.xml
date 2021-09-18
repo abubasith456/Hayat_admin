@@ -22,7 +22,7 @@
             android:layout_marginTop="@dimen/_5sdp">
 
             <TextView
-                android:id="@+id/empty_text"
+                android:id="@+id/textViewNoResult"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
@@ -33,10 +33,10 @@
                 android:textSize="@dimen/_14sdp" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/search_recycler"
+                android:id="@+id/recyclerViewClients"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                tools:listitem="@layout/row_item_view_activity"
+                tools:listitem="@layout/row_item_view_clients"
                 />
         </FrameLayout>
 
