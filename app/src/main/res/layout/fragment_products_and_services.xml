@@ -15,20 +15,30 @@
             android:layout_height="@dimen/_8sdp"
             android:background="@drawable/background_shadow" />
 
-        <ScrollView
+        <FrameLayout
+            android:id="@+id/list_layout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_15sdp">
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/_5sdp">
 
-            <LinearLayout
+            <TextView
+                android:id="@+id/textViewNoResult"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_8sdp"
-                android:layout_marginEnd="@dimen/_8sdp"
-                android:orientation="vertical">
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:visibility="gone"
+                android:fontFamily="@font/work_sans_semibold"
+                android:text="@string/result_not_found"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/_14sdp" />
 
-            </LinearLayout>
-        </ScrollView>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewClients"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:listitem="@layout/row_item_view_product_and_services"
+                />
+        </FrameLayout>
 
     </LinearLayout>
 
