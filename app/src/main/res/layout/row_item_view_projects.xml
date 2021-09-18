@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -58,12 +59,12 @@
                 android:drawablePadding="@dimen/_5sdp"
                 android:ellipsize="end"
                 android:singleLine="false"
-                android:drawableLeft="@drawable/icon_progress_status"
                 android:text="30% completed"
                 android:fontFamily="@font/work_sans_medium"
                 android:gravity="start|center"
                 android:textColor="@color/colorBlack"
-                android:textSize="@dimen/_12sdp" />
+                android:textSize="@dimen/_12sdp"
+                app:drawableLeftCompat="@drawable/icon_progress_status" />
 
             <TextView
                 android:id="@+id/textViewProjectDetails"
@@ -76,12 +77,12 @@
                 android:drawablePadding="@dimen/_5sdp"
                 android:ellipsize="end"
                 android:singleLine="false"
-                android:drawableLeft="@drawable/icon_work"
                 android:text="New lights installation and repair existing lights."
                 android:fontFamily="@font/work_sans_medium"
                 android:gravity="start|center"
                 android:textColor="@color/colorBlack"
-                android:textSize="@dimen/_12sdp" />
+                android:textSize="@dimen/_12sdp"
+                app:drawableLeftCompat="@drawable/icon_work" />
 
             <TextView
                 android:id="@+id/textViewProjectAddress"
@@ -93,12 +94,12 @@
                 android:drawablePadding="@dimen/_5sdp"
                 android:ellipsize="end"
                 android:singleLine="false"
-                android:drawableLeft="@drawable/icon_location_new"
                 android:text="No. 3/65, 11th cross street, Mannivakkam, Chennai"
                 android:fontFamily="@font/work_sans_medium"
                 android:gravity="start|center"
                 android:textColor="@color/colorBlack"
-                android:textSize="@dimen/_12sdp" />
+                android:textSize="@dimen/_12sdp"
+                app:drawableLeftCompat="@drawable/icon_location_new" />
 
         </LinearLayout>
 

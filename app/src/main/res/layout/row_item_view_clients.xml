@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -50,12 +51,12 @@
                 android:drawablePadding="@dimen/_5sdp"
                 android:ellipsize="end"
                 android:singleLine="false"
-                android:drawableLeft="@drawable/icon_work"
                 android:text="Zoho Software Solutions"
                 android:fontFamily="@font/work_sans_medium"
                 android:gravity="start|center"
                 android:textColor="@color/colorBlack"
-                android:textSize="@dimen/_12sdp" />
+                android:textSize="@dimen/_12sdp"
+                app:drawableLeftCompat="@drawable/icon_work" />
 
             <TextView
                 android:id="@+id/textViewMobileNumber"
@@ -68,12 +69,12 @@
                 android:drawablePadding="@dimen/_5sdp"
                 android:ellipsize="end"
                 android:singleLine="false"
-                android:drawableLeft="@drawable/icon_call"
                 android:text="+ 91 9789999321"
                 android:fontFamily="@font/work_sans_medium"
                 android:gravity="start|center"
                 android:textColor="@color/colorBlack"
-                android:textSize="@dimen/_12sdp" />
+                android:textSize="@dimen/_12sdp"
+                app:drawableLeftCompat="@drawable/icon_call" />
 
             <TextView
                 android:id="@+id/textViewEmail"
@@ -85,12 +86,12 @@
                 android:drawablePadding="@dimen/_5sdp"
                 android:ellipsize="end"
                 android:singleLine="false"
-                android:drawableLeft="@drawable/icon_email"
                 android:text="contact@zoho.com"
                 android:fontFamily="@font/work_sans_medium"
                 android:gravity="start|center"
                 android:textColor="@color/colorBlack"
-                android:textSize="@dimen/_12sdp" />
+                android:textSize="@dimen/_12sdp"
+                app:drawableLeftCompat="@drawable/icon_email" />
 
         </LinearLayout>
 
@@ -114,12 +115,12 @@
         android:drawablePadding="@dimen/_5sdp"
         android:ellipsize="end"
         android:singleLine="false"
-        android:drawableLeft="@drawable/icon_location_new"
         android:text="No. 3/65, 11th cross street, Mannivakkam, Chennai"
         android:fontFamily="@font/work_sans_medium"
         android:gravity="start|center"
         android:textColor="@color/colorBlack"
-        android:textSize="@dimen/_12sdp" />
+        android:textSize="@dimen/_12sdp"
+        app:drawableLeftCompat="@drawable/icon_location_new" />
 
     <View
         android:layout_width="match_parent"
