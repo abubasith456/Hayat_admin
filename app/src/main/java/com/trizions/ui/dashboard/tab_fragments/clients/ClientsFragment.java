@@ -21,9 +21,9 @@ import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.trizions.BaseFragment;
 import com.trizions.R;
-import com.trizions.ui.dashboard.tab_fragments.projects.CurrentProjectsFragment;
 import com.trizions.utils.PhotoPreViewActivity;
 
 import java.util.ArrayList;
@@ -44,8 +44,23 @@ public class ClientsFragment extends BaseFragment {
 
     OnClientsListener mCallback;
     SharedPreferences pref;
-    ArrayList<String> clientsArray = new ArrayList<>();
+    ArrayList<ClientInfo> clientsArray = new ArrayList<>();
     ClientsAdapter clientsAdapter;
+
+    class ClientInfo{
+        String clientName;
+        String businessName;
+        String mobileNumber;
+        String email;
+        String address;
+        ClientInfo(String clientName,String businessName,String mobileNumber,String email,String address){
+            this.clientName = clientName;
+            this.businessName = businessName;
+            this.mobileNumber = mobileNumber;
+            this.email = email;
+            this.address = address;
+        }
+    }
 
     public ClientsFragment() {
 
@@ -94,8 +109,10 @@ public class ClientsFragment extends BaseFragment {
 
     public void setUpRecyclerView() {
         try {
-            for(int i = 1; i <= 10; i++)
-                clientsArray.add("Project " + 1);
+           clientsArray.clear();
+           clientsArray.add(new ClientInfo("Rakesh Sharma","Zoho Software Solutions","+91 9673839256","contact@zoho.com","No. 3/65, 11th  cross street,Mannivakkam,Chennai"));
+            clientsArray.add(new ClientInfo("Ram","Infotech Software Solutions","+91 9379206386","contact@infotech.com","No. 4/55, 12th  cross street,Chennai"));
+            clientsArray.add(new ClientInfo("Karthik","Wipro Software Solutions","+91 9872826064","contact@wipro.com","No. 5/68, 13th  cross street,Chennai"));
             clientsAdapter = new ClientsAdapter(clientsArray, getActivity());
             LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
             recyclerViewClients.setLayoutManager(mLayoutManager);
@@ -108,17 +125,16 @@ public class ClientsFragment extends BaseFragment {
     }
 
     public class ClientsAdapter extends RecyclerView.Adapter<ClientsViewHolder> {
-        private ArrayList<String> clientsArray;
+        private ArrayList<ClientInfo> clientsArray;
         private Activity mActivity;
 
-        public ClientsAdapter(ArrayList<String> clientsArray, Activity activity)
+        public ClientsAdapter(ArrayList<ClientInfo> clientsArray, Activity activity)
         {
             this.clientsArray = clientsArray;
             mActivity = activity;
         }
 
         public void setBookMarksList(ArrayList<String> clientsArray){
-            this.clientsArray = clientsArray;
             notifyDataSetChanged();
         }
         @NonNull
@@ -156,16 +172,21 @@ public class ClientsFragment extends BaseFragment {
             super(itemView);
             try {
                 ButterKnife.bind(this, itemView);
-            } catch (Exception exception){
+            } catch (Exception exception) {
                 Log.e("Error ==> ", "" + exception);
             }
         }
 
-        public void bind(final String response, final Activity activity) {
+        public void bind(final ClientInfo response, final Activity activity) {
             try {
                 if (response != null) {
 
                 }
+                textViewClientName.setText(response.clientName);
+                textViewBusinessName.setText(response.businessName);
+                textViewMobileNumber.setText(response.mobileNumber);
+                textViewEmail.setText(response.email);
+                textViewAddress.setText(response.address);
                 textViewMobileNumber.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -187,7 +208,7 @@ public class ClientsFragment extends BaseFragment {
                     }
                 });
 
-            } catch (Exception exception){
+            } catch (Exception exception) {
                 Log.e("Error ==> ", "" + exception);
             }
         }
@@ -228,12 +249,14 @@ public class ClientsFragment extends BaseFragment {
         private void openPhotoPreView(String photoPreviewUrl, Activity activity) {
             try {
                 Intent objIntent = new Intent(activity, PhotoPreViewActivity.class);
-                objIntent.putExtra("PhotoPreviewKey",photoPreviewUrl);
+                objIntent.putExtra("PhotoPreviewKey", photoPreviewUrl);
                 activity.startActivity(objIntent);
-            } catch (Exception exception){
+            } catch (Exception exception) {
                 Log.e("Error ==> ", "" + exception);
             }
         }
+
+
     }
 
 
