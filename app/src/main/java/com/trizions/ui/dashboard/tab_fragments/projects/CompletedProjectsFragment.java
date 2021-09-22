@@ -21,6 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.trizions.BaseFragment;
 import com.trizions.R;
 import com.trizions.ui.dashboard.tab_fragments.products_and_services.ProductsAndServicesFragment;
+import com.trizions.utils.Const;
 import com.trizions.utils.PhotoPreViewActivity;
 
 import java.util.ArrayList;
@@ -28,13 +29,16 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class CurrentProjectsFragment extends BaseFragment {
+public class CompletedProjectsFragment extends BaseFragment {
+
 
     @BindView(R.id.recyclerViewProjects)
     RecyclerView recyclerViewProjects;
 
+
     @BindView(R.id.textViewNoResult)
     TextView textViewNoResult;
+
 
     @BindView(R.id.progress_bar)
     FrameLayout progressBar;
@@ -43,15 +47,15 @@ public class CurrentProjectsFragment extends BaseFragment {
 
     ProductsAndServicesFragment.OnProductsAndServicesListener mCallback;
 
-    ArrayList<CurrentProjectsInfo> CurrentProjectsArray = new ArrayList<>();
+    ArrayList<CompletedProjectsInfo> CompletedProjectsArray = new ArrayList<>();
 
-    static class CurrentProjectsInfo {
+    static class CompletedProjectsInfo {
         String ProjectName;
         String ProjectStatus;
         String ProjectWork;
         String ProjectAddress;
 
-        CurrentProjectsInfo(String ProjectName, String ProjectStatus, String ProjectWork, String ProjectAddress) {
+        CompletedProjectsInfo(String ProjectName, String ProjectStatus, String ProjectWork, String ProjectAddress) {
             this.ProjectName = ProjectName;
             this.ProjectStatus = ProjectStatus;
             this.ProjectWork = ProjectWork;
@@ -60,7 +64,7 @@ public class CurrentProjectsFragment extends BaseFragment {
 
     }
 
-    public CurrentProjectsFragment() {
+    public CompletedProjectsFragment() {
 
     }
 
@@ -105,12 +109,12 @@ public class CurrentProjectsFragment extends BaseFragment {
     @SuppressLint("NotifyDataSetChanged")
     public void setUpRecyclerView() {
         try {
-            CurrentProjectsArray.clear();
-            CurrentProjectsArray.add(new CurrentProjectsInfo("Trizion", "30% completed", "New lights installation and repair existing lights", "No. 3/65, 11th cross street, Mannaivakkam, Chennai"));
-            CurrentProjectsArray.add(new CurrentProjectsInfo("Abu", "50% completed", "Android development", "No. 1/107 I, West street, Enangudi, Nagapattinum"));
-            CurrentProjectsArray.add(new CurrentProjectsInfo("Arun", "50% completed", "Android development", "No. 1/97 A, North street, Kodavasal, Kumbagonam"));
-            CurrentProjectsArray.add(new CurrentProjectsInfo("Basith", "80% completed", "Admin and Android development", "No. 2/45, Anna street, 11th cross street, Mannarkudi, Thiruvarur"));
-            projectsAdapter = new ProjectsAdapter(CurrentProjectsArray, getActivity());
+            CompletedProjectsArray.clear();
+            CompletedProjectsArray.add(new CompletedProjectsInfo("Amazon", "100% completed", "Update installation", "No. 440, 11th Terry Avenue Seattle, WA 98109 , USA"));
+            CompletedProjectsArray.add(new CompletedProjectsInfo("Flipkart", "100% completed", "Bug Fixing", "No. 10, Lazer Street, Sathya Nagar, Chennai"));
+            CompletedProjectsArray.add(new CompletedProjectsInfo("Max Fashion", "50% completed", "Android development", "No. 1/97 A, North street, Kodavasal, Kumbagonam"));
+            CompletedProjectsArray.add(new CompletedProjectsInfo("Jio", "80% completed", "Admin and Android development", "No. 2/45, Anna street, 11th cross street, Mannarkudi, Thiruvarur"));
+            projectsAdapter = new ProjectsAdapter(CompletedProjectsArray, getActivity());
             LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
             recyclerViewProjects.setLayoutManager(mLayoutManager);
             recyclerViewProjects.setAdapter(projectsAdapter);
@@ -122,16 +126,16 @@ public class CurrentProjectsFragment extends BaseFragment {
     }
 
     public class ProjectsAdapter extends RecyclerView.Adapter<ProjectsViewHolder> {
-        private ArrayList<CurrentProjectsInfo> CurrentProjectArray;
+        private ArrayList<CompletedProjectsInfo> CompletedProjectsArray;
         private Activity mActivity;
 
-        public ProjectsAdapter(ArrayList<CurrentProjectsInfo> projectsArray, Activity activity) {
-            this.CurrentProjectArray = projectsArray;
+        public ProjectsAdapter(ArrayList<CompletedProjectsInfo> projectsArray, Activity activity) {
+            this.CompletedProjectsArray = projectsArray;
             mActivity = activity;
         }
 
-        public void setBookMarksList(ArrayList<CurrentProjectsInfo> projectsArray) {
-            this.CurrentProjectArray = projectsArray;
+        public void setBookMarksList(ArrayList<CompletedProjectsInfo> projectsArray) {
+            this.CompletedProjectsArray = projectsArray;
             notifyDataSetChanged();
         }
 
@@ -143,12 +147,12 @@ public class CurrentProjectsFragment extends BaseFragment {
 
         @Override
         public void onBindViewHolder(@NonNull ProjectsViewHolder holder, int position) {
-            holder.bind(CurrentProjectArray.get(position), mActivity);
+            holder.bind(CompletedProjectsArray.get(position), mActivity);
         }
 
         @Override
         public int getItemCount() {
-            return CurrentProjectArray.size();
+            return CompletedProjectsArray.size();
         }
     }
 
@@ -172,7 +176,7 @@ public class CurrentProjectsFragment extends BaseFragment {
             }
         }
 
-        public void bind(final CurrentProjectsInfo response, final Activity activity) {
+        public void bind(final CompletedProjectsInfo response, final Activity activity) {
             try {
                 if (response != null) {
 

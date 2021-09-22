@@ -88,7 +88,7 @@ public class ProjectsFragment extends BaseFragment {
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getChildFragmentManager());
         adapter.addFragment(new CurrentProjectsFragment(), "Current");
-        adapter.addFragment(new CurrentProjectsFragment(), "Completed");
+        adapter.addFragment(new CompletedProjectsFragment(), "Completed");
         viewPager.setAdapter(adapter);
     }
 
