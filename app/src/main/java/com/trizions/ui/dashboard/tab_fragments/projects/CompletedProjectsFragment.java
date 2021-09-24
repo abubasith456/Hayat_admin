@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -157,7 +158,8 @@ public class CompletedProjectsFragment extends BaseFragment {
     }
 
     public class ProjectsViewHolder extends RecyclerView.ViewHolder {
-
+        @BindView(R.id.detailsLinearLayout)
+        LinearLayout detailsLinearLayout;
         @BindView(R.id.textViewProjectName)
         TextView textViewProjectName;
         @BindView(R.id.textViewProjectStatus)
@@ -185,7 +187,11 @@ public class CompletedProjectsFragment extends BaseFragment {
                 textViewProjectStatus.setText(response.ProjectStatus);
                 textViewProjectDetails.setText(response.ProjectWork);
                 textViewProjectAddress.setText(response.ProjectAddress);
-
+                detailsLinearLayout = detailsLinearLayout.findViewById(R.id.detailsLinearLayout);
+                detailsLinearLayout.setOnClickListener(view -> {
+                    Intent intent = new Intent(getActivity(), ProjectsTrackActivity.class);
+                    startActivity(intent);
+                });
             } catch (Exception exception) {
                 Log.e("Error ==> ", "" + exception);
             }

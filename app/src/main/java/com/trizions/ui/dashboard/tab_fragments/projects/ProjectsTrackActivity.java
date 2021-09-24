@@ -1,5 +1,12 @@
 package com.trizions.ui.dashboard.tab_fragments.projects;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.viewpager.widget.ViewPager;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -12,15 +19,8 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentPagerAdapter;
-import androidx.viewpager.widget.ViewPager;
-
-import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.tabs.TabLayout;
+import com.trizions.BaseActivity;
 import com.trizions.BaseFragment;
 import com.trizions.R;
 import com.trizions.utils.PhotoPreViewActivity;
@@ -30,63 +30,35 @@ import java.util.List;
 
 import butterknife.BindView;
 
-public class ProjectsFragment extends BaseFragment {
+public class ProjectsTrackActivity extends BaseActivity {
 
-    @BindView(R.id.viewpager)
-    ViewPager viewPager;
-    @BindView(R.id.appBarLayout)
-    AppBarLayout appBarLayout;
-    @BindView(R.id.tabLayout)
-    TabLayout tabLayout;
-
-    @BindView(R.id.progress_bar)
-    FrameLayout progressBar;
+    @BindView(R.id.appBarLayoutDetails)
+    LinearLayout appBarLayoutDetails;
+    @BindView(R.id.tabLayoutDetails)
+    TabLayout tabLayoutDetails;
+    @BindView(R.id.viewpagerDetails)
+    ViewPager viewpagerDetails;
+    @BindView(R.id.progress_barDetails)
+    FrameLayout progressbarDetails;
     OnProjectsListener mCallback;
     SharedPreferences pref;
-
-    public ProjectsFragment() {
-
-    }
-
-    @Override
-    public void onAttach(@NonNull Context context) {
-        super.onAttach(context);
-        try {
-            mCallback = (OnProjectsListener) context;
-        } catch (Exception exception){
-            Log.e("Error ==> ", "" + exception);
-        }
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setRetainInstance(true);
-    }
-
-    @Override
-    protected View createView(final LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_projects, container, false);
-        return view;
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
+        setContentView(R.layout.activity_projects_details);
         try {
-            setupViewPager(viewPager);
-            tabLayout.setupWithViewPager(viewPager);
+            setupViewPager(viewpagerDetails);
+            tabLayoutDetails.setupWithViewPager(viewpagerDetails);
         } catch (Exception exception){
             Log.e("Error ==> ", "" + exception);
         }
     }
 
     private void setupViewPager(ViewPager viewPager) {
-        ViewPagerAdapter adapter = new ViewPagerAdapter(getChildFragmentManager());
-        adapter.addFragment(new CurrentProjectsFragment(), "Current");
-        adapter.addFragment(new CompletedProjectsFragment(), "Completed");
+        ProjectsTrackActivity.ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        adapter.addFragment(new ProjectsDetailsFragment(), "Current");
+        //adapter.addFragment(new ProjectsDetailsFragment(), "Completed");
         viewPager.setAdapter(adapter);
     }
 
@@ -131,7 +103,7 @@ public class ProjectsFragment extends BaseFragment {
 
     public void showProgress() {
         try {
-            progressBar.setVisibility(View.VISIBLE);
+            progressbarDetails.setVisibility(View.VISIBLE);
         } catch (Exception exception){
             Log.e("Error ==> ", "" + exception);
         }
@@ -139,7 +111,7 @@ public class ProjectsFragment extends BaseFragment {
 
     public void hideProgress() {
         try {
-            progressBar.setVisibility(View.GONE);
+            progressbarDetails.setVisibility(View.GONE);
         } catch (Exception exception){
             Log.e("Error ==> ", "" + exception);
         }
@@ -149,3 +121,4 @@ public class ProjectsFragment extends BaseFragment {
         void onShowDetailsView(String message);
     }
 }
+
