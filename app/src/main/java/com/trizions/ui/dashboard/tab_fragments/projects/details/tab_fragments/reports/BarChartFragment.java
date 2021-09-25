@@ -1,7 +1,5 @@
-package com.trizions.ui.dashboard.tab_fragments.projects;
+package com.trizions.ui.dashboard.tab_fragments.projects.details.tab_fragments.reports;
 
-import android.annotation.SuppressLint;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -10,7 +8,6 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.FragmentTransaction;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.Legend;

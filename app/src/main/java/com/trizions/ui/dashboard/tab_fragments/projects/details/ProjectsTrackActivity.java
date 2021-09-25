@@ -1,4 +1,4 @@
-package com.trizions.ui.dashboard.tab_fragments.projects;
+package com.trizions.ui.dashboard.tab_fragments.projects.details;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -17,6 +17,9 @@ import androidx.viewpager.widget.ViewPager;
 import com.google.android.material.tabs.TabLayout;
 import com.trizions.BaseActivity;
 import com.trizions.R;
+import com.trizions.ui.dashboard.tab_fragments.projects.details.tab_fragments.client.ProjectsClientsFragments;
+import com.trizions.ui.dashboard.tab_fragments.projects.details.tab_fragments.details.ProjectsDetailsFragment;
+import com.trizions.ui.dashboard.tab_fragments.projects.details.tab_fragments.reports.ProjectsReportsFragment;
 import com.trizions.utils.PhotoPreViewActivity;
 
 import java.util.ArrayList;

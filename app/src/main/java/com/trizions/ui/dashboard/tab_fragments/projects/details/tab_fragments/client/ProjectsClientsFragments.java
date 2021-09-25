@@ -1,4 +1,4 @@
-package com.trizions.ui.dashboard.tab_fragments.projects;
+package com.trizions.ui.dashboard.tab_fragments.projects.details.tab_fragments.client;
 
 import android.Manifest;
 import android.app.Activity;
@@ -23,7 +23,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.trizions.BaseFragment;
 import com.trizions.R;
-import com.trizions.ui.dashboard.tab_fragments.clients.ClientsFragment;
+import com.trizions.ui.dashboard.tab_fragments.projects.ProjectsFragment;
 import com.trizions.utils.PhotoPreViewActivity;
 
 import java.util.ArrayList;

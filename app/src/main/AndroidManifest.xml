@@ -65,7 +65,7 @@
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".ui.dashboard.tab_fragments.projects.ProjectsTrackActivity"
+            android:name=".ui.dashboard.tab_fragments.projects.details.ProjectsTrackActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustPan"></activity>

@@ -1,33 +1,20 @@
-package com.trizions.ui.dashboard.tab_fragments.projects;
+package com.trizions.ui.dashboard.tab_fragments.projects.details.tab_fragments.reports;
 
-import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.RecyclerView;
 
-import com.trizions.BaseActivity;
 import com.trizions.BaseFragment;
 import com.trizions.R;
-import com.trizions.ui.dashboard.tab_fragments.products_and_services.ProductsAndServicesFragment;
-import com.trizions.utils.PhotoPreViewActivity;
-
-import java.util.ArrayList;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class ProjectsReportsFragment extends BaseFragment {

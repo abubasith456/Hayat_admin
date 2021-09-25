@@ -1,4 +1,4 @@
-package com.trizions.ui.dashboard.tab_fragments.projects;
+package com.trizions.ui.dashboard.tab_fragments.projects.details.tab_fragments.reports;
 
 import android.graphics.Color;
 import android.os.Bundle;

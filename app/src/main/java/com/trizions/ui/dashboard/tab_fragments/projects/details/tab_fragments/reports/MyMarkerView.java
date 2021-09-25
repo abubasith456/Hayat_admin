@@ -1,7 +1,6 @@
-package com.trizions.ui.dashboard.tab_fragments.projects;
+package com.trizions.ui.dashboard.tab_fragments.projects.details.tab_fragments.reports;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.components.MarkerView;
