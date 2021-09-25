@@ -81,5 +81,13 @@
     <!-- [END fcm_default_icon_string] -->
     <string name="msg_subscribe_failed">Failed to subscribe to weather topic</string>
     <string name="fcm_message">FCM Message</string>
+    <!--    project reports-->
+    <string name="pie_chart">pie chart</string>
+    <string name="bar_chart">Bar Chart</string>
+    <string name="no_3_65_11th_cross_street_mannivakkam_chennai">No. 3/65, 11th cross street, Mannivakkam, Chennai</string>
+    <string name="contact_zoho_com">contact@zoho.com</string>
+    <string name="_91_9789999321">+ 91 9789999321</string>
+    <string name="zoho_software_solutions">Zoho Software Solutions</string>
+    <string name="rakesh_sharma">Rakesh Sharma</string>
 
 </resources>

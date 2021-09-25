@@ -68,8 +68,8 @@ public class ProjectsTrackActivity extends BaseActivity {
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new ProjectsDetailsFragment(), "Details");
-        adapter.addFragment(new ProjectsDetailsFragment(),"Report");
-        adapter.addFragment(new ProjectsDetailsFragment(),"Client");
+        adapter.addFragment(new ProjectsReportsFragment(),"Report");
+        adapter.addFragment(new ProjectsClientsFragments(),"Client");
         adapter.addFragment(new ProjectsDetailsFragment(),"BOQ");
         adapter.addFragment(new ProjectsDetailsFragment(),"Documents");
         viewPager.setAdapter(adapter);
