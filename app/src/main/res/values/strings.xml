@@ -56,6 +56,24 @@
     <string name="call_us">+91 9980919307</string>
     <string name="email_us">hr_admin_010@trizions.com</string>
 
+    <!-- Project Details -->
+    <string name="percentage">30% completed</string>
+    <string name="title">Description:</string>
+    <string name="details">New lights installation and repair existing lights.</string>
+    <string name="address">No. 3/65, 11th cross street, Mannivakkam, Chennai</string>
+    <string name="description">The concept of lighting installation is used mostly in reference to installations of artificial electric illumination, in which case the installation includes the lighting devices with their light sources, the starting and controlling apparatus, supply mains, switchboards, and various electrical equipment used for this work. The concept of lighting installation is used mostly in reference to installations of artificial electric illumination, in which case the installation includes the lighting devices with their light sources, the starting and controlling apparatus, supply mains, switchboards, and various electrical equipment used for this work</string>
+
+    <!-- Project reports-->
+    <string name="pie_chart">pie chart</string>
+    <string name="bar_chart">Bar Chart</string>
+    <string name="no_3_65_11th_cross_street_mannivakkam_chennai">No. 3/65, 11th cross street, Mannivakkam, Chennai</string>
+    <string name="contact_zoho_com">contact@zoho.com</string>
+    <string name="_91_9789999321">+ 91 9789999321</string>
+    <string name="zoho_software_solutions">Zoho Software Solutions</string>
+    <string name="rakesh_sharma">Rakesh Sharma</string>
+
+
+
     <!-- Chat & Notifications -->
     <string name="result_not_found">Results not found</string>
     <string name="chat">Chat</string>
@@ -76,18 +94,9 @@
     <string name="user_action_typing">is typing</string>
     <string name="msg_token_fmt" translatable="false">InstanceID Token: %s</string>
     <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
-    <!-- [START fcm_default_icon_string] -->
     <string name="default_notification_channel_name" translatable="true">Weather</string>
-    <!-- [END fcm_default_icon_string] -->
     <string name="msg_subscribe_failed">Failed to subscribe to weather topic</string>
     <string name="fcm_message">FCM Message</string>
-    <!--    project reports-->
-    <string name="pie_chart">pie chart</string>
-    <string name="bar_chart">Bar Chart</string>
-    <string name="no_3_65_11th_cross_street_mannivakkam_chennai">No. 3/65, 11th cross street, Mannivakkam, Chennai</string>
-    <string name="contact_zoho_com">contact@zoho.com</string>
-    <string name="_91_9789999321">+ 91 9789999321</string>
-    <string name="zoho_software_solutions">Zoho Software Solutions</string>
-    <string name="rakesh_sharma">Rakesh Sharma</string>
+
 
 </resources>
