@@ -12,6 +12,8 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.annotation.Nullable;
 
 import com.trizions.BaseActivity;
@@ -39,6 +41,8 @@ public class LoginActivity extends BaseActivity {
     LinearLayout layoutSignUp;
     @BindView(R.id.layoutForgotPassword)
     LinearLayout layoutForgotPassword;
+    @BindView(R.id.layoutScanCode)
+    LinearLayout layoutScanCode;
     @BindView(R.id.progressBar)
     FrameLayout progressBar;
 
@@ -114,6 +118,27 @@ public class LoginActivity extends BaseActivity {
             startActivity(new Intent(LoginActivity.this, ForgotPasswordActivity.class));
         } catch (Exception exception){
             Log.e("Error ==> ", "" + exception);
+        }
+    }
+
+    @OnClick(R.id.layoutScanCode)
+    void onScanCodeClick(){
+        try{
+            Intent intent =new Intent(LoginActivity.this, ScanBarCodeActivity.class);
+            startActivityForResult(intent,2);
+        } catch (Exception exception){
+            Log.e("Error ==> ","" + exception);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode,int resultCode,Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == 2);
+        {
+            String message = data.getStringExtra("MESSAGE");
+            Toast.makeText(getApplicationContext(),""+ message,Toast.LENGTH_SHORT).show();
         }
     }
 

@@ -18,6 +18,7 @@
     <string name="forgot_password_text_part_one">Forgot your password? </string>
     <string name="forgot_password_text_part_two"> RECOVER IT!</string>
     <string name="sign_in">Sign-in</string>
+    <string name="scan_code">Scan Code</string>
     <string name="does_not_have_account">Don\'t have an account\ ?&#160;</string>
     <string name="sign_up">Sign-up</string>
     <string name="error_mobile_number">This information is required. Please enter your mobile number.</string>

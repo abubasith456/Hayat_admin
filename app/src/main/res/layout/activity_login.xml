@@ -233,10 +233,36 @@
                     android:textSize="@dimen/_16sdp" />
             </LinearLayout>
 
+            <LinearLayout
+                android:id="@+id/layoutScanCode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:layout_marginEnd="@dimen/_5sdp"
+                android:layout_marginBottom="@dimen/_20sdp"
+                android:background="@drawable/background_corner_radius_white"
+                android:gravity="center"
+                android:padding="@dimen/_8sdp">
 
-        </LinearLayout>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/work_sans_semibold"
+                    android:text="@string/scan_code"
+                    android:textAlignment="center"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="@dimen/_16sdp" />
+
+
+            </LinearLayout>
 
     </LinearLayout>
+
+    </LinearLayout>
+
+
 
     <FrameLayout
         android:id="@+id/progressBar"
