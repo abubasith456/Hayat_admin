@@ -8,7 +8,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
@@ -17,6 +19,7 @@ import androidx.viewpager.widget.ViewPager;
 import com.google.android.material.tabs.TabLayout;
 import com.trizions.BaseActivity;
 import com.trizions.R;
+import com.trizions.ui.dashboard.tab_fragments.projects.details.tab_fragments.boq.BoqFragment;
 import com.trizions.ui.dashboard.tab_fragments.projects.details.tab_fragments.client.ProjectsClientsFragments;
 import com.trizions.ui.dashboard.tab_fragments.projects.details.tab_fragments.details.ProjectsDetailsFragment;
 import com.trizions.ui.dashboard.tab_fragments.projects.details.tab_fragments.reports.ProjectsReportsFragment;
@@ -27,7 +30,7 @@ import java.util.List;
 
 import butterknife.BindView;
 
-public class ProjectsTrackActivity extends BaseActivity {
+public class ProjectsTrackActivity<supportActionBar> extends BaseActivity {
 
     @BindView(R.id.appBarLayoutDetails)
     LinearLayout appBarLayoutDetails;
@@ -37,6 +40,9 @@ public class ProjectsTrackActivity extends BaseActivity {
     ViewPager viewpagerDetails;
     @BindView(R.id.progress_barDetails)
     FrameLayout progressbarDetails;
+    @BindView(R.id.textViewHeader)
+    TextView textViewHeader;
+
     OnProjectsListener mCallback;
     SharedPreferences pref;
 
@@ -44,6 +50,9 @@ public class ProjectsTrackActivity extends BaseActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_projects_details);
+
+        textViewHeader.setText(getIntent().getStringExtra("Project Title"));
+
         try {
             setupViewPager(viewpagerDetails);
             viewpagerDetails.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayoutDetails));
@@ -66,14 +75,16 @@ public class ProjectsTrackActivity extends BaseActivity {
         } catch (Exception exception){
             Log.e("Error ==> ", "" + exception);
         }
+
     }
+
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new ProjectsDetailsFragment(), "Details");
         adapter.addFragment(new ProjectsReportsFragment(),"Report");
         adapter.addFragment(new ProjectsClientsFragments(),"Client");
-        adapter.addFragment(new ProjectsDetailsFragment(),"BOQ");
+        adapter.addFragment(new BoqFragment(),"BOQ");
         adapter.addFragment(new ProjectsDetailsFragment(),"Documents");
         viewPager.setAdapter(adapter);
         tabLayoutDetails.setupWithViewPager(viewPager);

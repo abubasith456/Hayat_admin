@@ -328,7 +328,7 @@ public class DashBoardActivity extends BaseActivity implements AboutUsFragment.O
         }
     }
 
-    @OnClick(R.id.menuOne)
+    @OnClick(R.id.textViewNotification)
     void setMenuOne(){
         try {
             sideMenu.setVisibility(View.GONE);
@@ -338,7 +338,7 @@ public class DashBoardActivity extends BaseActivity implements AboutUsFragment.O
         }
     }
 
-    @OnClick(R.id.menuTwo)
+    @OnClick(R.id.textViewChat)
     void setMenuTwo(){
         try {
             sideMenu.setVisibility(View.GONE);
@@ -348,7 +348,7 @@ public class DashBoardActivity extends BaseActivity implements AboutUsFragment.O
         }
     }
 
-    @OnClick(R.id.menuThree)
+    @OnClick(R.id.textViewLogout)
     void setMenuThree(){
         try {
             showCustomDialogWithTwoButtons("", "Do you want to Logout?", getResources().getString(R.string.yes), getResources().getString(R.string.confirm), onDismissListener);

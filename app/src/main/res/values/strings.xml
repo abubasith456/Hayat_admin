@@ -73,7 +73,23 @@
     <string name="zoho_software_solutions">Zoho Software Solutions</string>
     <string name="rakesh_sharma">Rakesh Sharma</string>
 
-
+    <!-- Project BOQ -->
+    <string name="meter">Meter</string>
+    <string name="_7320">7320</string>
+    <string name="clamps">Clamps</string>
+    <string name="pcs">Pcs</string>
+    <string name="_1623">1623</string>
+    <string name="conduit">Conduit</string>
+    <string name="_541">541</string>
+    <string name="couplers">Couplers</string>
+    <string name="junction_box">Junction Box</string>
+    <string name="_232">232</string>
+    <string name="led_bulkhead_lights">LED Bulkhead Lights</string>
+    <string name="screws_and_fixtures">Screws and Fixtures</string>
+    <string name="_3246">3246</string>
+    <string name="grand_total">Grand Total</string>
+    <string name="_13735">13735</string>
+    <string name="material_specification">Material Specification</string>
 
     <!-- Chat & Notifications -->
     <string name="result_not_found">Results not found</string>
@@ -98,6 +114,10 @@
     <string name="default_notification_channel_name" translatable="true">Weather</string>
     <string name="msg_subscribe_failed">Failed to subscribe to weather topic</string>
     <string name="fcm_message">FCM Message</string>
+    <string name="material">Material</string>
+    <string name="umo">UMO</string>
+    <string name="quantity">Quantity</string>
+    <string name="cables_2_5_sq_m">Cables(2.5 SQ M)</string>
 
 
 </resources>

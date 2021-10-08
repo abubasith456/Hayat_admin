@@ -160,7 +160,7 @@
                 tools:ignore="UselessParent">
 
                 <TextView
-                    android:id="@+id/menuOne"
+                    android:id="@+id/textViewNotification"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_50sdp"
                     android:fontFamily="@font/work_sans_semibold"
@@ -177,7 +177,7 @@
                     android:background="@color/colorBlack" />
 
                 <TextView
-                    android:id="@+id/menuTwo"
+                    android:id="@+id/textViewChat"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_50sdp"
                     android:fontFamily="@font/work_sans_semibold"
@@ -194,7 +194,7 @@
                     android:background="@color/colorBlack" />
 
                 <TextView
-                    android:id="@+id/menuThree"
+                    android:id="@+id/textViewLogout"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_50sdp"
                     android:fontFamily="@font/work_sans_semibold"

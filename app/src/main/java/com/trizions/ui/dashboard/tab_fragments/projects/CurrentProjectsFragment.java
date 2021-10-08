@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -186,7 +187,9 @@ public class CurrentProjectsFragment extends BaseFragment {
                 textViewProjectAddress.setText(response.ProjectAddress);
                 detailsLinearLayout = detailsLinearLayout.findViewById(R.id.detailsLinearLayout);
                 detailsLinearLayout.setOnClickListener(view -> {
+                    String text = textViewProjectName.getText().toString();
                     Intent intent = new Intent(getActivity(), ProjectsTrackActivity.class);
+                    intent.putExtra("Project Title",text);
                     startActivity(intent);
                 });
 

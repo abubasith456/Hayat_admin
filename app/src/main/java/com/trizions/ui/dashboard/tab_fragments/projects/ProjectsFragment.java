@@ -41,7 +41,6 @@ public class ProjectsFragment extends BaseFragment {
 
     @BindView(R.id.progress_bar)
     FrameLayout progressBar;
-    OnProjectsListener mCallback;
     SharedPreferences pref;
 
     public ProjectsFragment() {
@@ -52,7 +51,6 @@ public class ProjectsFragment extends BaseFragment {
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         try {
-            mCallback = (OnProjectsListener) context;
         } catch (Exception exception){
             Log.e("Error ==> ", "" + exception);
         }
@@ -143,9 +141,5 @@ public class ProjectsFragment extends BaseFragment {
         } catch (Exception exception){
             Log.e("Error ==> ", "" + exception);
         }
-    }
-
-    public interface OnProjectsListener {
-        void onShowDetailsView(String message);
     }
 }
