@@ -76,6 +76,8 @@ dependencies {
     implementation "androidx.camera:camera-view:1.0.0-alpha29"
     // Google ML kit
     implementation 'com.google.mlkit:barcode-scanning:17.0.0'
+    //Gallery View
+    implementation 'com.github.sheetalkumar105:androidimagevideogallery:1.05'
 
 
     testImplementation 'junit:junit:4.13.2'

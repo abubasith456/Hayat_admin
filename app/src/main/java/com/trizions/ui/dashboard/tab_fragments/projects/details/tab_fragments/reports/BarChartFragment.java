@@ -62,7 +62,8 @@ public class BarChartFragment extends BaseFragment {
             xAxis.setValueFormatter(new IndexAxisValueFormatter(days));
             xAxis.setCenterAxisLabels(true);
             xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-            xAxis.setGranularity(1);
+            xAxis.setTextSize(10f);
+            xAxis.setGranularity(1f);
             xAxis.setGranularityEnabled(true);
 
             barChart.setScaleEnabled(false);
@@ -74,13 +75,14 @@ public class BarChartFragment extends BaseFragment {
             barChart.getDescription().setEnabled(false);
             barChart.getAxisRight().setEnabled(false);
 
-            float barSpace = 1.0f;
-            float groupSpace = 1.0f;
-            data.setBarWidth(0.55f);
+            float barSpace =0.40f;
+            float groupSpace =0.90f;
+            data.setBarWidth(0.40f);
 
             barChart.getXAxis().setAxisMinimum(0);
             barChart.getXAxis().setAxisMaximum(0 + barChart.getBarData().getGroupWidth(groupSpace, barSpace) * 7);
             barChart.getAxisLeft().setAxisMinimum(0);
+            barChart.getXAxis().setGranularity(1);
             barChart.groupBars(0, groupSpace, barSpace);
             barChart.animateY(1000);
 
@@ -90,7 +92,7 @@ public class BarChartFragment extends BaseFragment {
             legend.setOrientation(Legend.LegendOrientation.VERTICAL);
 
             MyMarkerView myMarkerView = new MyMarkerView(this, xAxisFormatter);
-            myMarkerView.setChartView(barChart); // For bounds control
+            myMarkerView.setChartView(barChart);
             barChart.setMarker(myMarkerView);
         } catch (Exception exception) {
             Log.e("Error ==> ", "" + exception);

@@ -7,8 +7,8 @@
     <TextView
         android:id="@+id/textViewContent"
         android:layout_width="wrap_content"
-        android:layout_height="60dp"
-        android:layout_marginStart="@dimen/_5sdp"
+        android:layout_height="@dimen/_55sdp"
+        android:layout_marginStart="@dimen/_1sdp"
         android:layout_marginTop="@dimen/_5sdp"
         android:layout_marginEnd="@dimen/_5sdp"
         android:background="@drawable/background_marker_view"
@@ -19,10 +19,9 @@
         android:paddingBottom="@dimen/_1sdp"
         android:singleLine="true"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:textColor="@android:color/white"
-        android:textSize="@dimen/_20sdp"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/_10sdp"
         android:textStyle="bold"
         tools:ignore="MissingConstraints" />
-
 
 </LinearLayout>

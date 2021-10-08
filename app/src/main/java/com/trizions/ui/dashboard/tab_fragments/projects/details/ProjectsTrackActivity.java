@@ -22,6 +22,7 @@ import com.trizions.R;
 import com.trizions.ui.dashboard.tab_fragments.projects.details.tab_fragments.boq.BoqFragment;
 import com.trizions.ui.dashboard.tab_fragments.projects.details.tab_fragments.client.ProjectsClientsFragments;
 import com.trizions.ui.dashboard.tab_fragments.projects.details.tab_fragments.details.ProjectsDetailsFragment;
+import com.trizions.ui.dashboard.tab_fragments.projects.details.tab_fragments.documents.ProjectsDocumentsFragment;
 import com.trizions.ui.dashboard.tab_fragments.projects.details.tab_fragments.reports.ProjectsReportsFragment;
 import com.trizions.utils.PhotoPreViewActivity;
 
@@ -85,7 +86,7 @@ public class ProjectsTrackActivity<supportActionBar> extends BaseActivity {
         adapter.addFragment(new ProjectsReportsFragment(),"Report");
         adapter.addFragment(new ProjectsClientsFragments(),"Client");
         adapter.addFragment(new BoqFragment(),"BOQ");
-        adapter.addFragment(new ProjectsDetailsFragment(),"Documents");
+        adapter.addFragment(new ProjectsDocumentsFragment(),"Documents");
         viewPager.setAdapter(adapter);
         tabLayoutDetails.setupWithViewPager(viewPager);
 

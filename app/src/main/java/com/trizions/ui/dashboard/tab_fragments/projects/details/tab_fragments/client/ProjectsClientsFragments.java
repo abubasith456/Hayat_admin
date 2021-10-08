@@ -43,7 +43,6 @@ public class ProjectsClientsFragments extends BaseFragment {
     @BindView(R.id.progress_bar)
     FrameLayout progressBar;
 
-    ProjectsFragment.OnProjectsListener mCallback;
 
     ProjectsClientsAdapter projectsClientsAdapter;
 
@@ -55,14 +54,16 @@ public class ProjectsClientsFragments extends BaseFragment {
         String ProjectsClientsMobileNumber;
         String ProjectsClientsEmail;
         String ProjectsClientsAddress;
+        String ProjectsClientsRoll;
 
-        ProjectsClientsInfo(String ProjectsClientsName, String ProjectsClientsBusinessName, String ProjectsClientsMobileNumber, String ProjectsClientsEmail, String ProjectsClientsAddress) {
+        ProjectsClientsInfo(String ProjectsClientsName, String ProjectsClientsBusinessName, String ProjectsClientsMobileNumber, String ProjectsClientsEmail, String ProjectsClientsAddress,String ProjectsClientsRoll) {
 
             this.ProjectsClientsName = ProjectsClientsName;
             this.ProjectsClientsBusinessName = ProjectsClientsBusinessName;
             this.ProjectsClientsMobileNumber = ProjectsClientsMobileNumber;
             this.ProjectsClientsEmail = ProjectsClientsEmail;
             this.ProjectsClientsAddress = ProjectsClientsAddress;
+            this.ProjectsClientsRoll=ProjectsClientsRoll;
 
         }
     }
@@ -71,7 +72,6 @@ public class ProjectsClientsFragments extends BaseFragment {
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         try {
-            mCallback = (ProjectsFragment.OnProjectsListener) context;
         } catch (Exception exception) {
             Log.e("Error ==> ", "" + exception);
         }
@@ -86,7 +86,7 @@ public class ProjectsClientsFragments extends BaseFragment {
     @Override
     protected View createView(final LayoutInflater inflater, ViewGroup container,
                               Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_clients, container, false);
+        return inflater.inflate(R.layout.fragment_projects_client, container, false);
     }
 
     @Override
@@ -112,7 +112,7 @@ public class ProjectsClientsFragments extends BaseFragment {
     public void setUpRecyclerView() {
         try {
             ProjectsClientsArray.clear();
-            ProjectsClientsArray.add(new ProjectsClientsFragments.ProjectsClientsInfo("Rakesh Sharma", "Zoho Software Solutions", "+91 9673839256", "contact@zoho.com", "No. 3/65, 11th  cross street,Mannivakkam,Chennai"));
+            ProjectsClientsArray.add(new ProjectsClientsFragments.ProjectsClientsInfo("Rakesh Sharma", "Zoho Software Solutions", "+91 9673839256", "contact@zoho.com", "No. 3/65, 11th  cross street,Mannivakkam,Chennai","Manager"));
             projectsClientsAdapter = new ProjectsClientsFragments.ProjectsClientsAdapter(ProjectsClientsArray, getActivity());
             LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
             recyclerViewClients.setLayoutManager(mLayoutManager);
@@ -140,7 +140,7 @@ public class ProjectsClientsFragments extends BaseFragment {
         @NonNull
         @Override
         public ProjectsClientsFragments.ProjectsClientsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            return new ProjectsClientsFragments.ProjectsClientsViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.row_item_view_clients, parent, false));
+            return new ProjectsClientsFragments.ProjectsClientsViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.row_item_view_projects_client, parent, false));
         }
 
         @Override
@@ -156,16 +156,18 @@ public class ProjectsClientsFragments extends BaseFragment {
 
     public class ProjectsClientsViewHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.textViewClientName)
+        @BindView(R.id.textViewProjectClientName)
         TextView textViewClientName;
-        @BindView(R.id.textViewBusinessName)
+        @BindView(R.id.textViewProjectClientBusinessName)
         TextView textViewBusinessName;
-        @BindView(R.id.textViewMobileNumber)
+        @BindView(R.id.textViewProjectClientMobileNumber)
         TextView textViewMobileNumber;
-        @BindView(R.id.textViewEmail)
+        @BindView(R.id.textViewProjectsClientEmail)
         TextView textViewEmail;
-        @BindView(R.id.textViewAddress)
+        @BindView(R.id.textViewProjectsClientAddress)
         TextView textViewAddress;
+        @BindView(R.id.textViewProjectClientRoll)
+                TextView textViewRoll;
 
         ProjectsClientsViewHolder(View itemView) {
             super(itemView);
@@ -186,6 +188,7 @@ public class ProjectsClientsFragments extends BaseFragment {
                 textViewMobileNumber.setText(response.ProjectsClientsMobileNumber);
                 textViewEmail.setText(response.ProjectsClientsEmail);
                 textViewAddress.setText(response.ProjectsClientsAddress);
+                textViewRoll.setText(response.ProjectsClientsRoll);
                 textViewMobileNumber.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

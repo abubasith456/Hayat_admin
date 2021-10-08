@@ -29,8 +29,6 @@ class MyMarkerView extends MarkerView {
         format = new DecimalFormat("###.0");
     }
 
-    // runs every time the MarkerView is redrawn, can be used to update the
-    // content (user-interface)
     @Override
     public void refreshContent(Entry e, Highlight highlight) {
 

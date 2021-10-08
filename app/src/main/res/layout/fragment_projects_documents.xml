@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_15sdp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textViewAddImage"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_10sdp"
+                android:layout_weight="1"
+                android:background="@color/colorPrimary"
+                android:clickable="true"
+                android:focusable="true"
+                android:fontFamily="@font/work_sans_medium"
+                android:gravity="center"
+                android:padding="@dimen/_10sdp"
+                android:text="Add Image"
+                android:textColor="@color/colorWhite" />
+
+            <TextView
+                android:id="@+id/textViewAddVideo"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_10sdp"
+                android:layout_weight="1"
+                android:background="@color/colorPrimary"
+                android:clickable="true"
+                android:gravity="center"
+                android:padding="@dimen/_10sdp"
+                android:text="Add Video"
+                android:fontFamily="@font/work_sans_medium"
+                android:textColor="@color/colorWhite"
+                android:focusable="true" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/textViewShowGallery"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_10sdp"
+            android:background="@color/colorPrimary"
+            android:clickable="true"
+            android:gravity="center"
+            android:padding="@dimen/_10sdp"
+            android:text="Show Gallery"
+            android:fontFamily="@font/work_sans_medium"
+            android:textColor="@color/colorWhite"
+            android:focusable="true" />
+    </LinearLayout>
+</LinearLayout>
