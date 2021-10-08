@@ -14,25 +14,27 @@
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/buttonPieChart"
-            android:layout_width="@dimen/_100sdp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="@dimen/_40sdp"
-            android:layout_marginStart="@dimen/_30sdp"
+            android:layout_marginStart="@dimen/_20sdp"
             android:layout_marginTop="@dimen/_10sdp"
-            android:layout_marginEnd="@dimen/_35sdp"
+            android:layout_marginEnd="@dimen/_15sdp"
             android:layout_marginBottom="@dimen/_10sdp"
-            android:background="@drawable/background_corner_radius_pink"
+            android:background="@drawable/background_corner_radius"
             android:text="@string/pie_chart"
             android:textColor="@color/colorWhite" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/buttonBarChart"
-            android:layout_width="@dimen/_100sdp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="@dimen/_40sdp"
-            android:layout_marginStart="@dimen/_20sdp"
+            android:layout_marginStart="@dimen/_10sdp"
             android:layout_marginTop="@dimen/_10sdp"
             android:layout_marginEnd="@dimen/_20sdp"
             android:layout_marginBottom="@dimen/_10sdp"
-            android:background="@drawable/background_corner_radius_pink"
+            android:background="@drawable/background_corner_radius"
             android:text="@string/bar_chart"
             android:textColor="@color/colorWhite" />
     </LinearLayout>

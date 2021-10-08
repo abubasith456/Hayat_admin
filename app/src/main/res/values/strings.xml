@@ -74,6 +74,9 @@
     <string name="rakesh_sharma">Rakesh Sharma</string>
 
     <!-- Project BOQ -->
+    <string name="material">Material</string>
+    <string name="umo">UMO</string>
+    <string name="quantity">Quantity</string>
     <string name="meter">Meter</string>
     <string name="_7320">7320</string>
     <string name="clamps">Clamps</string>
@@ -90,6 +93,25 @@
     <string name="grand_total">Grand Total</string>
     <string name="_13735">13735</string>
     <string name="material_specification">Material Specification</string>
+
+    <!-- Material Specification -->
+    <string name="cables_2_5_sq_m">Cables(2.5 SQ M)</string>
+    <string name="specification">Specification</string>
+    <string name="brand">Brand</string>
+    <string name="bulkhead_lights">Bulkhead Lights</string>
+    <string name="wall_mounted_led_light_bulkhead_ip65_20w">Wall mounted LED light bulkhead IP65 20W</string>
+    <string name="one_light">ONE Light</string>
+    <string name="g_i_conduits">G.I conduits</string>
+    <string name="_25mm">25mm</string>
+    <string name="cot">COT</string>
+    <string name="cables">Cables</string>
+    <string name="_4c_25sqmm">4C-25SqMM</string>
+    <string name="ducab">Ducab</string>
+    <string name="_3_way_junction_box">3-Way junction box</string>
+    <string name="_25mm_for_gi_conduit">25mm for GI conduit</string>
+    <string name="rexton">Rexton</string>
+
+
 
     <!-- Chat & Notifications -->
     <string name="result_not_found">Results not found</string>
@@ -114,10 +136,7 @@
     <string name="default_notification_channel_name" translatable="true">Weather</string>
     <string name="msg_subscribe_failed">Failed to subscribe to weather topic</string>
     <string name="fcm_message">FCM Message</string>
-    <string name="material">Material</string>
-    <string name="umo">UMO</string>
-    <string name="quantity">Quantity</string>
-    <string name="cables_2_5_sq_m">Cables(2.5 SQ M)</string>
+
 
 
 </resources>

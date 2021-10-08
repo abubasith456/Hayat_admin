@@ -16,14 +16,13 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimary</item>
         <item name="colorAccent">@color/colorAccent</item>
-
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="android:windowNoTitle">true</item>
 
-        <item name="actionMenuTextColor">#ffffff</item>
-        <item name="android:actionMenuTextColor">#ffffff</item>
-        <item name="colorControlNormal">#ffffff</item>
+        <item name="actionMenuTextColor">@color/colorWhite</item>
+        <item name="android:actionMenuTextColor">@color/colorWhite</item>
+        <item name="colorControlNormal">@color/colorWhite</item>
     </style>
 
     <style name="AppTheme.Dialog.Cancel" parent="AppTheme.Dialog">

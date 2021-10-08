@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 
 import com.trizions.BaseActivity;
 import com.trizions.R;
+import com.trizions.ui.dashboard.DashBoardActivity;
 import com.trizions.ui.dashboard.tab_fragments.about_us.AboutUsFragment;
 
 import butterknife.BindView;
@@ -32,6 +33,18 @@ public class MaterialSpecificationActivity extends BaseActivity {
            finish();
         } catch (Exception exception){
             Log.e("Error ==> ", "" + exception);
+        }
+    }
+
+    @OnClick(R.id.buttonHome)
+    void onButtonHmeClick(){
+        try{
+            Intent intent = new Intent(getApplicationContext(), DashBoardActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+            finish();
+        } catch (Exception exception){
+            Log.e("Error ==>","" + exception);
         }
     }
 

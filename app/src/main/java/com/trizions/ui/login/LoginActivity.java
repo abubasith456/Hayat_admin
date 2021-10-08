@@ -137,7 +137,7 @@ public class LoginActivity extends BaseActivity {
 
         if(requestCode == 2);
         {
-            String message = data.getStringExtra("MESSAGE");
+            String message = data.getStringExtra("BarCode Value");
             Toast.makeText(getApplicationContext(),""+ message,Toast.LENGTH_SHORT).show();
         }
     }

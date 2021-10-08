@@ -15,7 +15,7 @@
             <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/_50sdp"
-            android:background="@color/colorWhite"
+                android:background="@drawable/background_tint"
             android:gravity="center_vertical"
             android:orientation="horizontal"
             android:padding="@dimen/_2sdp">
@@ -29,7 +29,7 @@
                 android:paddingStart="@dimen/_10sdp"
                 android:paddingEnd="@dimen/_10sdp"
                 android:text=""
-                android:textColor="@color/colorPrimaryDark"
+                android:textColor="@color/colorWhite"
                 android:textSize="@dimen/_16sdp" />
 
         </LinearLayout>

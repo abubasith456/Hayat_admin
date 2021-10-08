@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
@@ -25,8 +26,8 @@ public class BoqFragment extends BaseFragment {
     LinearLayout linearLayoutTable;
     @BindView(R.id.progress_bar)
     FrameLayout progressbar;
-    @BindView(R.id.layoutMaterialSpecification)
-    LinearLayout layoutMaterialSpecification;
+    @BindView(R.id.textViewMaterialSpecification)
+    TextView textViewMaterialSpecification;
 
     public void BoqFragment() {
     }
@@ -61,7 +62,7 @@ public class BoqFragment extends BaseFragment {
         }
     }
 
-    @OnClick(R.id.layoutMaterialSpecification)
+    @OnClick(R.id.textViewMaterialSpecification)
     void onMaterialSpecificationClick(){
         Intent intent = new Intent(getActivity(), MaterialSpecificationActivity.class);
         startActivity(intent);

@@ -2,7 +2,8 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -13,7 +14,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/_50sdp"
-            android:background="@color/colorWhite"
+            android:background="@drawable/background_tint"
             android:gravity="center_vertical"
             android:orientation="horizontal"
             android:padding="@dimen/_2sdp">
@@ -25,6 +26,7 @@
                 android:paddingBottom="@dimen/_12sdp"
                 android:paddingStart="@dimen/_10sdp"
                 android:paddingEnd="@dimen/_10sdp"
+                app:tint="@color/colorWhite"
                 android:src="@drawable/icon_arrow_back"/>
             <TextView
                 android:layout_width="0dp"
@@ -36,7 +38,7 @@
                 android:gravity="start|center_vertical"
                 android:layout_gravity="center"
                 android:text="@string/chat"
-                android:textColor="@color/colorPrimaryDark"
+                android:textColor="@color/colorWhite"
                 android:textSize="@dimen/_16sdp" />
 
             <ImageView
@@ -48,6 +50,7 @@
                 android:paddingStart="@dimen/_10sdp"
                 android:paddingEnd="@dimen/_10sdp"
                 android:src="@drawable/icon_delete"
+                app:tint="@color/colorWhite"
                 android:contentDescription="TODO" />
 
         </LinearLayout>

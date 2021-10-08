@@ -160,7 +160,7 @@ public class ScanBarCodeActivity extends BaseActivity {
                 imageAnalysis = null;
                 String rawValue = barcode.getRawValue();
                 Intent intent=new Intent();
-                intent.putExtra("MESSAGE",rawValue);
+                intent.putExtra("BarCode Value",rawValue);
                 setResult(2,intent);
                 finish();
             }

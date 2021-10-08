@@ -421,28 +421,25 @@
     </TableLayout>
 
 
-
-    <LinearLayout
-        android:id="@+id/layoutMaterialSpecification"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_130sdp"
-        android:gravity="center"
-        android:layout_gravity="end"
-        android:layout_marginEnd="@dimen/_20sdp"
-
-        android:orientation="horizontal">
-
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:id="@+id/textViewMaterialSpecification"
+            android:layout_width="@dimen/_200sdp"
+            android:layout_height="@dimen/_40sdp"
+            android:layout_gravity="center"
+            android:gravity="center"
             android:text="@string/material_specification"
-            android:textSize="@dimen/_16sdp"
-            android:fontFamily="@font/work_sans_bold"
-            android:textColor="@color/colorPrimaryDark"
-            android:textAlignment="center"/>
+            android:layout_marginStart="@dimen/_5sdp"
+            android:layout_marginEnd="@dimen/_5sdp"
+            android:layout_marginTop="@dimen/_150sdp"
+            android:layout_marginBottom="@dimen/_15sdp"
+            android:background="@drawable/background_corner_radius"
+            android:fontFamily="@font/work_sans_semibold"
+            android:textAlignment="center"
+            android:textAllCaps="false"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/_16sdp" />
 
-    </LinearLayout>
+
 
     <FrameLayout
         android:id="@+id/progress_bar"

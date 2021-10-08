@@ -14,7 +14,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/_50sdp"
-            android:background="@color/colorWhite"
+            android:background="@drawable/background_tint"
             android:gravity="center_vertical"
             android:orientation="horizontal"
             android:padding="@dimen/_2sdp">
@@ -31,6 +31,7 @@
                     android:layout_height="@dimen/_25sdp"
                     android:layout_gravity="center"
                     android:gravity="start"
+                    app:tint="@color/colorWhite"
                     android:src="@drawable/icon_menu"
                     android:tint="@color/colorPrimaryDark" />
             </LinearLayout>
@@ -43,7 +44,7 @@
                 android:paddingStart="@dimen/_10sdp"
                 android:paddingEnd="@dimen/_10sdp"
                 android:text="@string/app_name"
-                android:textColor="@color/colorPrimaryDark"
+                android:textColor="@color/colorWhite"
                 android:textSize="@dimen/_16sdp" />
 
             <LinearLayout
@@ -67,7 +68,7 @@
                     android:textColor="@color/colorWhite"
                     android:textSize="@dimen/_14sdp"
                     tools:ignore="ContentDescription"
-                    app:tint="@color/colorPrimaryDark" />
+                    app:tint="@color/colorWhite" />
 
                 <ImageView
                     android:id="@+id/filterButton"
@@ -81,7 +82,7 @@
                     android:textColor="@color/colorWhite"
                     android:textSize="@dimen/_14sdp"
                     tools:ignore="ContentDescription"
-                    app:tint="@color/colorPrimaryDark" />
+                    app:tint="@color/colorWhite" />
 
                 <ImageView
                     android:id="@+id/locationButton"
@@ -95,7 +96,7 @@
                     android:textColor="@color/colorWhite"
                     android:textSize="@dimen/_14sdp"
                     tools:ignore="ContentDescription"
-                    app:tint="@color/colorPrimaryDark" />
+                    app:tint="@color/colorWhite" />
             </LinearLayout>
 
         </LinearLayout>
