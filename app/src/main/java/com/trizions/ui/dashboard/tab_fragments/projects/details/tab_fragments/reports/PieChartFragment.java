@@ -62,8 +62,8 @@ public class PieChartFragment extends BaseFragment {
             entries.add(new PieEntry(45, "Pending"));
 
             ArrayList<Integer> colors = new ArrayList<>();
-            colors.add(ColorTemplate.rgb("#FFBB86FC"));
-            colors.add(ColorTemplate.rgb("#FF6200EE"));
+            colors.add(ColorTemplate.rgb("#400CF5"));
+            colors.add(ColorTemplate.rgb("#A03CDC"));
 
             PieDataSet dataSet = new PieDataSet(entries, "");
             dataSet.setColors(colors);
@@ -72,7 +72,7 @@ public class PieChartFragment extends BaseFragment {
             data.setDrawValues(true);
             data.setValueFormatter(new PercentFormatter(pieChart));
             data.setValueTextSize(12f);
-            data.setValueTextColor(Color.BLACK);
+            data.setValueTextColor(Color.WHITE);
 
             pieChart.setData(data);
             pieChart.invalidate();
@@ -81,7 +81,7 @@ public class PieChartFragment extends BaseFragment {
             pieChart.setDrawHoleEnabled(true);
             pieChart.setUsePercentValues(true);
             pieChart.setEntryLabelTextSize(10);
-            pieChart.setEntryLabelColor(Color.BLACK);
+            pieChart.setEntryLabelColor(Color.WHITE);
             pieChart.setCenterTextSize(10);
             pieChart.getDescription().setEnabled(false);
 

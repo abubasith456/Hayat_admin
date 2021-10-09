@@ -75,12 +75,12 @@ public class BarChartFragment extends BaseFragment {
             barChart.getDescription().setEnabled(false);
             barChart.getAxisRight().setEnabled(false);
 
-            float barSpace =0.40f;
-            float groupSpace =0.90f;
-            data.setBarWidth(0.40f);
+            float barSpace =0.90f;
+            float groupSpace =0.60f;
+            data.setBarWidth(0.70f);
 
             barChart.getXAxis().setAxisMinimum(0);
-            barChart.getXAxis().setAxisMaximum(0 + barChart.getBarData().getGroupWidth(groupSpace, barSpace) * 7);
+            barChart.getXAxis().setAxisMaximum(0 + barChart.getBarData().getGroupWidth(groupSpace, barSpace) * 10);
             barChart.getAxisLeft().setAxisMinimum(0);
             barChart.getXAxis().setGranularity(1);
             barChart.groupBars(0, groupSpace, barSpace);

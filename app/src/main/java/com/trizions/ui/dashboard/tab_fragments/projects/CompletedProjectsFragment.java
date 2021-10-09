@@ -113,8 +113,8 @@ public class CompletedProjectsFragment extends BaseFragment {
             CompletedProjectsArray.clear();
             CompletedProjectsArray.add(new CompletedProjectsInfo("Amazon", "100% completed", "Update installation", "No. 440, 11th Terry Avenue Seattle, WA 98109 , USA"));
             CompletedProjectsArray.add(new CompletedProjectsInfo("Flipkart", "100% completed", "Bug Fixing", "No. 10, Lazer Street, Sathya Nagar, Chennai"));
-            CompletedProjectsArray.add(new CompletedProjectsInfo("Max Fashion", "50% completed", "Android development", "No. 1/97 A, North street, Kodavasal, Kumbagonam"));
-            CompletedProjectsArray.add(new CompletedProjectsInfo("Jio", "80% completed", "Admin and Android development", "No. 2/45, Anna street, 11th cross street, Mannarkudi, Thiruvarur"));
+            CompletedProjectsArray.add(new CompletedProjectsInfo("Max Fashion", "100% completed", "Android development", "No. 1/97 A, North street, Kodavasal, Kumbagonam"));
+            CompletedProjectsArray.add(new CompletedProjectsInfo("Jio", "100% completed", "Admin and Android development", "No. 2/45, Anna street, 11th cross street, Mannarkudi, Thiruvarur"));
             projectsAdapter = new ProjectsAdapter(CompletedProjectsArray, getActivity());
             LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
             recyclerViewProjects.setLayoutManager(mLayoutManager);
@@ -189,7 +189,9 @@ public class CompletedProjectsFragment extends BaseFragment {
                 textViewProjectAddress.setText(response.ProjectAddress);
                 detailsLinearLayout = detailsLinearLayout.findViewById(R.id.detailsLinearLayout);
                 detailsLinearLayout.setOnClickListener(view -> {
+                    String text = textViewProjectName.getText().toString();
                     Intent intent = new Intent(getActivity(), ProjectsTrackActivity.class);
+                    intent.putExtra("Project Title",text);
                     startActivity(intent);
                 });
             } catch (Exception exception) {
