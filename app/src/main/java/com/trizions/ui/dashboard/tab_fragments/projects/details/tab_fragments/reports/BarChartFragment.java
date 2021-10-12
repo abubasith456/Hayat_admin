@@ -56,8 +56,7 @@ public class BarChartFragment extends BaseFragment {
 
             barDataSet1.setValueTextSize(15f);
 
-            DayAxisValueFormatter xAxisFormatter = new DayAxisValueFormatter(barChart);
-            String[] days = new String[]{"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
+            String[] days = new String[]{"SUN", "MON", "TUS", "WED", "THU", "FRI", "SAT"};
             XAxis xAxis = barChart.getXAxis();
             xAxis.setValueFormatter(new IndexAxisValueFormatter(days));
             xAxis.setCenterAxisLabels(true);
@@ -67,7 +66,7 @@ public class BarChartFragment extends BaseFragment {
             xAxis.setGranularityEnabled(true);
 
             barChart.setScaleEnabled(false);
-            barChart.setDragEnabled(true);
+            barChart.setDragEnabled(false);
             barChart.setVisibleXRangeMaximum(3);
             barChart.getAxisLeft().setDrawGridLines(false);
             barChart.getXAxis().setDrawGridLines(false);
@@ -75,12 +74,12 @@ public class BarChartFragment extends BaseFragment {
             barChart.getDescription().setEnabled(false);
             barChart.getAxisRight().setEnabled(false);
 
-            float barSpace =0.90f;
-            float groupSpace =0.60f;
-            data.setBarWidth(0.70f);
+            float barSpace =0.70f;
+            float groupSpace =0.85f;
+            data.setBarWidth(0.75f);
 
             barChart.getXAxis().setAxisMinimum(0);
-            barChart.getXAxis().setAxisMaximum(0 + barChart.getBarData().getGroupWidth(groupSpace, barSpace) * 10);
+            barChart.getXAxis().setAxisMaximum(0 + barChart.getBarData().getGroupWidth(groupSpace, barSpace) * 8);
             barChart.getAxisLeft().setAxisMinimum(0);
             barChart.getXAxis().setGranularity(1);
             barChart.groupBars(0, groupSpace, barSpace);
@@ -91,9 +90,6 @@ public class BarChartFragment extends BaseFragment {
             legend.setHorizontalAlignment(Legend.LegendHorizontalAlignment.RIGHT);
             legend.setOrientation(Legend.LegendOrientation.VERTICAL);
 
-            MyMarkerView myMarkerView = new MyMarkerView(this, xAxisFormatter);
-            myMarkerView.setChartView(barChart);
-            barChart.setMarker(myMarkerView);
         } catch (Exception exception) {
             Log.e("Error ==> ", "" + exception);
         }
