@@ -43,6 +43,7 @@ public class ProjectsTrackActivity<supportActionBar> extends BaseActivity {
     FrameLayout progressbarDetails;
     @BindView(R.id.textViewHeader)
     TextView textViewHeader;
+    String projectStatusValue;
 
     OnProjectsListener mCallback;
     SharedPreferences pref;
@@ -52,7 +53,8 @@ public class ProjectsTrackActivity<supportActionBar> extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_projects_details);
 
-        textViewHeader.setText(getIntent().getStringExtra("Project Title"));
+        textViewHeader.setText(getIntent().getStringExtra("ProjectTitle"));
+        projectStatusValue = getIntent().getStringExtra("PieChartValue");
 
         try {
             setupViewPager(viewpagerDetails);
@@ -83,7 +85,7 @@ public class ProjectsTrackActivity<supportActionBar> extends BaseActivity {
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new ProjectsDetailsFragment(), "Details");
-        adapter.addFragment(new ProjectsReportsFragment(),"Report");
+        adapter.addFragment(new ProjectsReportsFragment(projectStatusValue),"Report");
         adapter.addFragment(new ProjectsClientsFragments(),"Client");
         adapter.addFragment(new BoqFragment(),"BOQ");
         adapter.addFragment(new ProjectsDocumentsFragment(),"Documents");

@@ -23,6 +23,11 @@ public class ProjectsReportsFragment extends BaseFragment {
     Button buttonBarChart;
     @BindView(R.id.buttonPieChart)
     Button buttonPieChart;
+    String projectStatusValue;
+
+    public ProjectsReportsFragment(String projectStatusValue) {
+        this.projectStatusValue=projectStatusValue;
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -67,8 +72,9 @@ public class ProjectsReportsFragment extends BaseFragment {
     @OnClick(R.id.buttonPieChart)
     public void loadPieChartFragment() {
         try {
+
             FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.frameLayout, new PieChartFragment());
+            fragmentTransaction.replace(R.id.frameLayout, new PieChartFragment(projectStatusValue));
             fragmentTransaction.commit();
         } catch (Exception exception) {
             Log.e("Error ==> ", "" + exception);

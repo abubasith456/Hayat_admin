@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/rlay_Order1"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -36,7 +35,7 @@
                 android:singleLine="false"
                 android:fontFamily="@font/work_sans_medium"
                 android:gravity="start|center"
-                android:text="Rob Finnerty"
+                android:text="@string/rob_finnerty"
                 android:textColor="@color/colorPrimary"
                 android:textSize="@dimen/_13sdp" />
 
@@ -52,7 +51,7 @@
                 android:singleLine="false"
                 android:fontFamily="@font/work_sans_medium"
                 android:gravity="start|center"
-                android:text="Engineer"
+                android:text="@string/engineer"
                 android:textColor="@color/colorBlack"
                 android:textSize="@dimen/_12sdp" />
 
@@ -62,7 +61,7 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="@dimen/_1sdp"
         android:layout_marginStart="@dimen/_10sdp"
         android:layout_marginEnd="@dimen/_10sdp"
         android:layout_marginTop="@dimen/_3sdp"

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/colorWhite"
@@ -34,31 +33,11 @@
                 android:drawablePadding="@dimen/_5sdp"
                 android:ellipsize="end"
                 android:singleLine="false"
-                android:text="Waste Management Systems"
+                android:text="@string/waste_management_systems"
                 android:fontFamily="@font/work_sans_bold"
                 android:gravity="start|center"
                 android:textColor="@color/colorPrimary"
                 android:textSize="@dimen/_13sdp" />
-
-            <!--
-            <TextView
-                android:id="@+id/textViewProjectStatus"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_7sdp"
-                android:layout_marginEnd="@dimen/_9sdp"
-                android:layout_marginTop="@dimen/_3sdp"
-                android:layout_marginBottom="@dimen/_3sdp"
-                android:drawablePadding="@dimen/_5sdp"
-                android:ellipsize="end"
-                android:singleLine="false"
-                android:text="30% completed"
-                android:fontFamily="@font/work_sans_medium"
-                android:gravity="start|center"
-                android:textColor="@color/colorBlack"
-                android:textSize="@dimen/_12sdp"
-                app:drawableLeftCompat="@drawable/icon_progress_status" />
-                -->
 
             <TextView
                 android:id="@+id/textViewProjectDetails"
@@ -71,31 +50,12 @@
                 android:drawablePadding="@dimen/_5sdp"
                 android:ellipsize="end"
                 android:singleLine="false"
-                android:text="Project Details"
+                android:text="@string/project_details"
                 android:fontFamily="@font/work_sans_medium"
                 android:gravity="start|center"
                 android:textColor="@color/colorBlack"
                 android:textSize="@dimen/_12sdp"
                 app:drawableLeftCompat="@drawable/icon_logo" />
-
-            <!--
-            <TextView
-                android:id="@+id/textViewProjectAddress"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_7sdp"
-                android:layout_marginEnd="@dimen/_9sdp"
-                android:layout_marginTop="@dimen/_3sdp"
-                android:drawablePadding="@dimen/_5sdp"
-                android:ellipsize="end"
-                android:singleLine="false"
-                android:text="No. 3/65, 11th cross street, Mannivakkam, Chennai"
-                android:fontFamily="@font/work_sans_medium"
-                android:gravity="start|center"
-                android:textColor="@color/colorBlack"
-                android:textSize="@dimen/_12sdp"
-                app:drawableLeftCompat="@drawable/icon_location_new" />
-                -->
 
         </LinearLayout>
 
@@ -103,7 +63,7 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="@dimen/_1sdp"
         android:layout_marginStart="@dimen/_10sdp"
         android:layout_marginEnd="@dimen/_10sdp"
         android:layout_marginTop="@dimen/_3sdp"

@@ -31,9 +31,10 @@ public class PieChartFragment extends BaseFragment {
 
     @BindView(R.id.pieChart)
     PieChart pieChart;
+    String projectStatusValue;
 
-    PieChartFragment() {
-
+    public PieChartFragment(String projectStatusValue) {
+        this.projectStatusValue=projectStatusValue;
     }
 
     @Override
@@ -57,14 +58,14 @@ public class PieChartFragment extends BaseFragment {
 
     private void loadPieChartData() {
         try {
+            float projectCompleteValue = Float.parseFloat(projectStatusValue);
+            float projectPendingValue = 100-projectCompleteValue;
             ArrayList<PieEntry> entries = new ArrayList<>();
-            entries.add(new PieEntry(55, "Completed"));
-            entries.add(new PieEntry(45, "Pending"));
-
+            entries.add(new PieEntry(projectCompleteValue, "Completed"));
+            entries.add(new PieEntry(projectPendingValue, "Pending"));
             ArrayList<Integer> colors = new ArrayList<>();
             colors.add(ColorTemplate.rgb("#400CF5"));
             colors.add(ColorTemplate.rgb("#A03CDC"));
-
             PieDataSet dataSet = new PieDataSet(entries, "");
             dataSet.setColors(colors);
 

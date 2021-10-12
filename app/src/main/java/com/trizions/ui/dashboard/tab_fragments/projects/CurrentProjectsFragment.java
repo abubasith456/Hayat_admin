@@ -188,8 +188,11 @@ public class CurrentProjectsFragment extends BaseFragment {
                 detailsLinearLayout = detailsLinearLayout.findViewById(R.id.detailsLinearLayout);
                 detailsLinearLayout.setOnClickListener(view -> {
                     String text = textViewProjectName.getText().toString();
+                    String  projectStatusValue = response.ProjectStatus;
+                    projectStatusValue = projectStatusValue.replace("% completed","");
                     Intent intent = new Intent(getActivity(), ProjectsTrackActivity.class);
-                    intent.putExtra("Project Title",text);
+                    intent.putExtra("ProjectTitle",text);
+                    intent.putExtra("PieChartValue",projectStatusValue);
                     startActivity(intent);
                 });
 
