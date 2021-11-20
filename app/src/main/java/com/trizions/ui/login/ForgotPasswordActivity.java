@@ -18,24 +18,34 @@ import androidx.annotation.Nullable;
 import com.trizions.BaseActivity;
 import com.trizions.R;
 import com.trizions.dialog.CustomDialog;
+import com.trizions.model.login.forgot_password.ForgotPasswordRequest;
+import com.trizions.model.login.forgot_password.ForgotPasswordResponse;
+import com.trizions.rest_client.BCRequests;
 import com.trizions.utils.Const;
 import com.trizions.utils.Utils;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+
 
 public class ForgotPasswordActivity extends BaseActivity {
 
     @BindView(R.id.linearLayoutBack)
     LinearLayout linearLayoutBack;
-    @BindView(R.id.editTextMobileNumber)
-    EditText editTextMobileNumber;
-    @BindView(R.id.mTextViewMobileNumberError)
-    TextView mTextViewMobileNumberError;
+    @BindView(R.id.editTextEmailAddress)
+    EditText editTextEmailAddress;
+    @BindView(R.id.mTextViewEmailAddressError)
+    TextView mTextViewEmailAddressError;
     @BindView(R.id.layoutForgotPassword)
     LinearLayout layoutForgotPassword;
     @BindView(R.id.progressBar)
     FrameLayout progressBar;
+
+    ForgotPasswordResponse forgotPasswordResponse;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -43,8 +53,8 @@ public class ForgotPasswordActivity extends BaseActivity {
         setContentView(R.layout.activity_forgot_password);
 
         try{
-            editTextMobileNumber.addTextChangedListener(new TextChange(editTextMobileNumber));
-            editTextMobileNumber.setOnEditorActionListener(editorListener);
+            editTextEmailAddress.addTextChangedListener(new TextChange(editTextEmailAddress));
+            editTextEmailAddress.setOnEditorActionListener(editorListener);
         } catch (Exception exception){
             Log.e("Error ==> ", "" + exception);
         }
@@ -57,7 +67,7 @@ public class ForgotPasswordActivity extends BaseActivity {
                 case EditorInfo.IME_ACTION_NEXT:
                     break;
                 case EditorInfo.IME_ACTION_DONE:
-                    validate(editTextMobileNumber.getText().toString().trim());
+                    validate(editTextEmailAddress.getText().toString().trim());
                     break;
             }
             return false;
@@ -78,9 +88,9 @@ public class ForgotPasswordActivity extends BaseActivity {
     @OnClick(R.id.layoutForgotPassword)
     void onForgotPasswordClick(){
         try {
-            if (validate(editTextMobileNumber.getText().toString().trim())) {
+            if (validate(editTextEmailAddress.getText().toString().trim())) {
                 if(isNetworkConnectionAvailable()){
-
+                    forgotPassword();
                 }  else {
                     showCustomDialog("", getResources().getString(R.string.error_network), getResources().getString(R.string.ok), getResources().getString(R.string.confirm), null);
                 }
@@ -90,6 +100,32 @@ public class ForgotPasswordActivity extends BaseActivity {
         }
     }
 
+    private void forgotPassword() {
+        ForgotPasswordRequest forgotPasswordRequest = new ForgotPasswordRequest();
+        forgotPasswordRequest.setEmail(editTextEmailAddress.getText().toString());
+
+        Call<ForgotPasswordResponse> forgotPasswordResponseCall = BCRequests.getInstance().getBCRestService().retrieve(forgotPasswordRequest);
+        forgotPasswordResponseCall.enqueue(new Callback<ForgotPasswordResponse>() {
+            @Override
+            public void onResponse(Call<ForgotPasswordResponse> call, Response<ForgotPasswordResponse> response) {
+                forgotPasswordResponse = response.body();
+                if (forgotPasswordResponse !=null){
+                    String status = forgotPasswordResponse.getStatus();
+                    String message = forgotPasswordResponse.getMessage();
+                    if(status.equals("success")){
+                        showCustomDialog("", message, getResources().getString(R.string.ok), getResources().getString(R.string.success), onDismissListener);
+                    }else{
+                        showCustomDialog("", message, getResources().getString(R.string.ok), getResources().getString(R.string.warning), null);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ForgotPasswordResponse> call, Throwable throwable) {
+                showCustomDialog("",throwable.getMessage() , getResources().getString(R.string.ok), getResources().getString(R.string.warning), null);
+            }
+        });
+    }
     CustomDialog.OnDismissListener onDismissListener = () -> {
         startActivity(new Intent(ForgotPasswordActivity.this, LoginActivity.class));
         finish();
@@ -99,9 +135,9 @@ public class ForgotPasswordActivity extends BaseActivity {
         boolean valid = true;
         try {
             if (strEmail.isEmpty()) {
-                editTextMobileNumber.setBackground(getResources().getDrawable(R.drawable.background_rounded_edit_text_error));
-                mTextViewMobileNumberError.setVisibility(View.VISIBLE);
-                mTextViewMobileNumberError.setText(getResources().getString(R.string.error_mobile_number));
+                editTextEmailAddress.setBackground(getResources().getDrawable(R.drawable.background_rounded_edit_text_error));
+                mTextViewEmailAddressError.setVisibility(View.VISIBLE);
+                mTextViewEmailAddressError.setText(getResources().getString(R.string.error_mobile_number));
                 valid = false;
             }
         } catch (Exception exception){
@@ -112,10 +148,10 @@ public class ForgotPasswordActivity extends BaseActivity {
 
     private void invalidateErrorMessages() {
         try {
-            mTextViewMobileNumberError.setText("");
-            mTextViewMobileNumberError.setVisibility(View.GONE);
-            editTextMobileNumber.setText("");
-            editTextMobileNumber.setBackground(getResources().getDrawable(R.drawable.background_rounded_edit_text_gray));
+            mTextViewEmailAddressError.setText("");
+            mTextViewEmailAddressError.setVisibility(View.GONE);
+            editTextEmailAddress.setText("");
+            editTextEmailAddress.setBackground(getResources().getDrawable(R.drawable.background_rounded_edit_text_gray));
         } catch (Exception exception){
             Log.e("Error ==> ", "" + exception);
         }
@@ -136,10 +172,10 @@ public class ForgotPasswordActivity extends BaseActivity {
         public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
             try {
                 String s = charSequence.toString();
-                if(view.getId() == R.id.editTextMobileNumber){
+                if(view.getId() == R.id.editTextEmailAddress){
                     if(s.length() > 0) {
-                        editTextMobileNumber.setBackground(getResources().getDrawable(R.drawable.background_rounded_edit_text_gray));
-                        mTextViewMobileNumberError.setVisibility(View.GONE);
+                        editTextEmailAddress.setBackground(getResources().getDrawable(R.drawable.background_rounded_edit_text_gray));
+                        mTextViewEmailAddressError.setVisibility(View.GONE);
                     }
                 }
             } catch (Exception exception){

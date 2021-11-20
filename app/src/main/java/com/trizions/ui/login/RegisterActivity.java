@@ -15,13 +15,20 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 
 import com.trizions.BaseActivity;
+import com.trizions.BuildConfig;
 import com.trizions.R;
 import com.trizions.dialog.CustomDialog;
+import com.trizions.model.login.register.RegisterRequest;
+import com.trizions.model.login.register.RegisterResponse;
+import com.trizions.rest_client.BCRequests;
 import com.trizions.utils.EmailValidator;
 import com.trizions.utils.Utils;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class RegisterActivity extends BaseActivity {
@@ -49,6 +56,7 @@ public class RegisterActivity extends BaseActivity {
     FrameLayout progressBar;
 
     private EmailValidator emailValidator;
+    RegisterResponse registerResponse;
 
     boolean isUserNameAvail, isMobileNumberAvail, isEmailAvail, isPasswordAvail = false;
 
@@ -105,7 +113,7 @@ public class RegisterActivity extends BaseActivity {
             if (validate(editTextSignUpUserName.getText().toString(), editTextSignUpMobileNumber.getText().toString(), editTextSignUpEmail.getText().toString().trim(), editTextSignUpPassword.getText().toString())) {
                 Utils.hideSoftKeyboard(RegisterActivity.this);
                 if(Utils.isNetworkConnectionAvailable(this)){
-
+                    registration();
                 } else {
                     showCustomDialog("", getResources().getString(R.string.error_network), getResources().getString(R.string.ok), getResources().getString(R.string.confirm), null);
                 }
@@ -115,6 +123,36 @@ public class RegisterActivity extends BaseActivity {
         }
     }
 
+    private void registration() {
+        RegisterRequest registerRequest = new RegisterRequest();
+        registerRequest.setUserName(editTextSignUpUserName.getText().toString());
+        registerRequest.setMobileNumber(editTextSignUpMobileNumber.getText().toString());
+        registerRequest.setEmail(editTextSignUpEmail.getText().toString());
+        registerRequest.setPassword(editTextSignUpPassword.getText().toString());
+
+        Call<RegisterResponse> registerResponseCall = BCRequests.getInstance().getBCRestService().register(registerRequest);
+        registerResponseCall.enqueue(new Callback<RegisterResponse>() {
+            @Override
+            public void onResponse(Call<RegisterResponse> call, Response<RegisterResponse> response) {
+                if(response.isSuccessful()){
+                    registerResponse =response.body();
+                    if(registerResponse !=null){
+                        String status = registerResponse.getStatus();
+                        String message = registerResponse.getMessage();
+                        if(status.equals("success")){
+                            showCustomDialog("", message, getResources().getString(R.string.ok), getResources().getString(R.string.success), onDismissListener);
+                        }else{
+                            showCustomDialog("", message, getResources().getString(R.string.ok), getResources().getString(R.string.warning), null);
+                        }
+                    }
+                }
+            }
+            @Override
+            public void onFailure(Call<RegisterResponse> call, Throwable throwable) {
+                showCustomDialog("",throwable.getMessage() , getResources().getString(R.string.ok), getResources().getString(R.string.success), null);
+            }
+        });
+    }
     CustomDialog.OnDismissListener onDismissListener = () -> finish();
 
     private void invalidateErrorMessages() {
