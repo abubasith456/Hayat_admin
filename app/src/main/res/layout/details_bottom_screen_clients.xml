@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/layoutHeader"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_50sdp"
+        android:background="@drawable/background_tint"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/imageBack"
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_20sdp"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:background="@drawable/ic_back"
+            android:backgroundTint="@color/colorWhite" />
+
+        <ImageView
+            android:id="@+id/imageEdit"
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_20sdp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:layout_marginBottom="@dimen/_10sdp"
+            android:background="@drawable/icon_edit"
+            android:backgroundTint="@color/colorWhite" />
+
+        <TextView
+            android:id="@+id/textVewHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:fontFamily="@font/work_sans_bold"
+            android:text="@string/client_details"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/_16sdp" />
+
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/imageViewBottomScreenAvatar"
+        android:layout_width="@dimen/_50sdp"
+        android:layout_height="@dimen/_50sdp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:src="@drawable/tab_icon_about_us"
+        tools:ignore="ContentDescription" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_5sdp"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:layout_marginEnd="@dimen/_5sdp"
+        android:layout_marginBottom="@dimen/_5sdp"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_weight="1"
+            android:gravity="start|center_vertical"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textViewBottomScreenClientName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_7sdp"
+                android:layout_marginTop="@dimen/_3sdp"
+                android:layout_marginEnd="@dimen/_9sdp"
+                android:layout_marginBottom="@dimen/_3sdp"
+                android:drawablePadding="@dimen/_5sdp"
+                android:ellipsize="end"
+                android:fontFamily="@font/work_sans_bold"
+                android:gravity="start|center"
+                android:singleLine="false"
+                android:text="@string/rakesh_sharma"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/_13sdp" />
+
+            <TextView
+                android:id="@+id/textViewBottomScreenClientRoll"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_7sdp"
+                android:layout_marginTop="@dimen/_3sdp"
+                android:layout_marginEnd="@dimen/_9sdp"
+                android:layout_marginBottom="@dimen/_3sdp"
+                android:drawablePadding="@dimen/_5sdp"
+                android:ellipsize="end"
+                android:fontFamily="@font/work_sans_medium"
+                android:gravity="start|center"
+                android:singleLine="false"
+                android:text="@string/manager"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/_12sdp"
+                app:drawableLeftCompat="@drawable/icon_roll" />
+
+            <TextView
+                android:id="@+id/textViewBottomScreenBusinessName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_7sdp"
+                android:layout_marginTop="@dimen/_3sdp"
+                android:layout_marginEnd="@dimen/_9sdp"
+                android:layout_marginBottom="@dimen/_3sdp"
+                android:drawablePadding="@dimen/_5sdp"
+                android:ellipsize="end"
+                android:fontFamily="@font/work_sans_medium"
+                android:gravity="start|center"
+                android:singleLine="false"
+                android:text="@string/zoho_software_solutions"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/_12sdp"
+                app:drawableLeftCompat="@drawable/icon_work" />
+
+            <TextView
+                android:id="@+id/textViewBottomScreenMobileNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_7sdp"
+                android:layout_marginTop="@dimen/_3sdp"
+                android:layout_marginEnd="@dimen/_9sdp"
+                android:layout_marginBottom="@dimen/_3sdp"
+                android:drawablePadding="@dimen/_5sdp"
+                android:ellipsize="end"
+                android:fontFamily="@font/work_sans_medium"
+                android:gravity="start|center"
+                android:singleLine="false"
+                android:text="@string/_91_9789999321"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/_12sdp"
+                app:drawableLeftCompat="@drawable/icon_call" />
+
+            <TextView
+                android:id="@+id/textViewBottomScreenEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_7sdp"
+                android:layout_marginTop="@dimen/_3sdp"
+                android:layout_marginEnd="@dimen/_9sdp"
+                android:drawablePadding="@dimen/_5sdp"
+                android:ellipsize="end"
+                android:fontFamily="@font/work_sans_medium"
+                android:gravity="start|center"
+                android:singleLine="false"
+                android:text="@string/contact_zoho_com"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/_12sdp"
+                app:drawableLeftCompat="@drawable/icon_email" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/textViewBottomScreenAddress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_12sdp"
+        android:layout_marginTop="@dimen/_3sdp"
+        android:layout_marginEnd="@dimen/_9sdp"
+        android:drawablePadding="@dimen/_5sdp"
+        android:ellipsize="end"
+        android:fontFamily="@font/work_sans_medium"
+        android:gravity="start|center"
+        android:singleLine="false"
+        android:text="@string/no_3_65_11th_cross_street_mannivakkam_chennai"
+        android:textColor="@color/colorBlack"
+        android:textSize="@dimen/_12sdp"
+        app:drawableLeftCompat="@drawable/icon_location_new" />
+
+    <TextView
+        android:id="@+id/textViewDeleteClient"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginEnd="@dimen/_10sdp"
+        android:layout_marginBottom="@dimen/_10sdp"
+        android:fontFamily="@font/work_sans_medium"
+        android:text="@string/delete"
+        android:textColor="@color/colorRed"
+        android:textSize="@dimen/_16sdp" />
+
+</LinearLayout>

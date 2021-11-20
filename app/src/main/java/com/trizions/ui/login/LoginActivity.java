@@ -10,12 +10,31 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.trizions.BaseActivity;
 import com.trizions.R;
 import com.trizions.dialog.CustomDialog;
@@ -24,6 +43,8 @@ import com.trizions.model.login.LoginResponse;
 import com.trizions.rest_client.BCRequests;
 import com.trizions.ui.dashboard.DashBoardActivity;
 import com.trizions.utils.Utils;
+
+import java.util.HashMap;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -47,17 +68,34 @@ public class LoginActivity extends BaseActivity {
     LinearLayout layoutSignUp;
     @BindView(R.id.layoutForgotPassword)
     LinearLayout layoutForgotPassword;
-    @BindView(R.id.layoutScanCode)
-    LinearLayout layoutScanCode;
+    @BindView(R.id.imageViewSignupGoogle)
+    ImageView imageViewSignupGoogle;
+    @BindView(R.id.imageViewSignupWithMobileNUmber)
+    ImageView imageViewSignupWithMobileNUmber;
+    //    @BindView(R.id.layoutScanCode)
+//    LinearLayout layoutScanCode;
     @BindView(R.id.progressBar)
     FrameLayout progressBar;
 
     LoginResponse loginResponse;
+    Integer userId;
+    FirebaseAuth firebaseAuth;
+    private FirebaseFirestore firebaseFirestore;
+    private GoogleSignInClient googleSignInClient;
+    static final int RC_SIGN_IN = 100;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseFirestore = FirebaseFirestore.getInstance();
+        GoogleSignInOptions googleSignInOptions = new GoogleSignInOptions
+                .Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
+        googleSignInClient = GoogleSignIn.getClient(this, googleSignInOptions);
 
         try {
             editTextMobileNumberInput.addTextChangedListener(new LoginActivity.TextChange(editTextMobileNumberInput));
@@ -66,6 +104,20 @@ public class LoginActivity extends BaseActivity {
             editTextPasswordInput.setOnEditorActionListener(editorListener);
         } catch (Exception exception) {
             Log.e("Error ==> ", "" + exception);
+        }
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        FirebaseUser currentUser = firebaseAuth.getCurrentUser();
+        if (currentUser != null) {
+            invalidateErrorMessages();
+            Intent intent = new Intent(LoginActivity.this, DashBoardActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.putExtra("userId", String.valueOf(userId));
+            startActivity(intent);
+            finish();
         }
     }
 
@@ -90,7 +142,7 @@ public class LoginActivity extends BaseActivity {
                 Utils.hideSoftKeyboard(LoginActivity.this);
                 if (Utils.isNetworkConnectionAvailable(this)) {
                     showProgress();
-                    signInUser();
+                    firebaseLogin();
                 } else {
                     showCustomDialog("", getResources().getString(R.string.error_network), getResources().getString(R.string.ok), getResources().getString(R.string.confirm), null);
                 }
@@ -100,47 +152,38 @@ public class LoginActivity extends BaseActivity {
         }
     }
 
-    private void signInUser() {
-        LoginRequest loginRequest = new LoginRequest();
-        loginRequest.setMobileNumber(editTextMobileNumberInput.getText().toString());
-        loginRequest.setPassword(editTextPasswordInput.getText().toString());
-
-        Call<LoginResponse> loginResponseCall = BCRequests.getInstance().getBCRestService().login(loginRequest);
-        loginResponseCall.enqueue(new Callback<LoginResponse>() {
-            @Override
-            public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
-                try {
-                    if (response.isSuccessful()) {
-                        hideProgress();
-                        loginResponse = response.body();
-                        if (response != null && loginResponse != null) {
-                            String status = loginResponse.getStatus();
-                            String message = loginResponse.getMessage();
-                            if (status.equals("success")) {
-                                showCustomDialog("", message, getResources().getString(R.string.ok), getResources().getString(R.string.success), onDismissListener);
+    private void firebaseLogin() {
+        try {
+            firebaseAuth.signInWithEmailAndPassword(editTextMobileNumberInput.getText().toString(), editTextPasswordInput.getText().toString())
+                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                hideProgress();
+                                FirebaseUser user = firebaseAuth.getCurrentUser();
+                                showCustomDialog("", "Login successfully", getResources().getString(R.string.ok), getResources().getString(R.string.success), onDismissListener);
                             } else {
-                                showCustomDialog("", message, getResources().getString(R.string.ok), getResources().getString(R.string.warning), null);
+                                hideProgress();
                             }
                         }
-                    }
-                } catch (Exception exception) {
-                    Log.e("Error ==> ", "" + exception);
+                    }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    hideProgress();
+                    showCustomDialog("", e.getMessage(), getResources().getString(R.string.ok), getResources().getString(R.string.warning), null);
+
                 }
-            }
-
-            @Override
-            public void onFailure(Call<LoginResponse> call, Throwable t) {
-                hideProgress();
-                showCustomDialog("", t.getMessage(), getResources().getString(R.string.ok), getResources().getString(R.string.warning), null);
-            }
-        });
-
+            });
+        } catch (Exception exception) {
+            Log.e("Error ==> ", "" + exception);
+        }
     }
 
     CustomDialog.OnDismissListener onDismissListener = () -> {
         invalidateErrorMessages();
         Intent intent = new Intent(LoginActivity.this, DashBoardActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.putExtra("userId", String.valueOf(userId));
         startActivity(intent);
         finish();
     };
@@ -167,26 +210,134 @@ public class LoginActivity extends BaseActivity {
         }
     }
 
-    @OnClick(R.id.layoutScanCode)
-    void onScanCodeClick() {
+    @OnClick(R.id.imageViewSignupGoogle)
+    void onSignupGoogleButtonClick() {
         try {
-            Intent intent = new Intent(LoginActivity.this, ScanBarCodeActivity.class);
-            startActivityForResult(intent, 2);
+            Utils.hideSoftKeyboard(LoginActivity.this);
+            invalidateErrorMessages();
+            signupWithGoogle();
         } catch (Exception exception) {
             Log.e("Error ==> ", "" + exception);
         }
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == 2) ;
-        {
-            String message = data.getStringExtra("BarCode Value");
-            Toast.makeText(getApplicationContext(), "" + message, Toast.LENGTH_SHORT).show();
+    @OnClick(R.id.imageViewSignupWithMobileNUmber)
+    void onSignupWithMobileNumberClick(){
+        try {
+            Utils.hideSoftKeyboard(LoginActivity.this);
+            invalidateErrorMessages();
+            startActivity(new Intent(LoginActivity.this, LoginWithMobileNumberActivity.class));
+        } catch (Exception exception) {
+            Log.e("Error ==> ", "" + exception);
         }
     }
+
+    private void signupWithGoogle() {
+        try {
+            Intent signInIntent = googleSignInClient.getSignInIntent();
+            startActivityForResult(signInIntent, RC_SIGN_IN);
+        } catch (Exception exception) {
+            Log.e("Error ==> ", "" + exception);
+        }
+    }
+
+    private void signupWithMobileNumber() {
+        try {
+
+        }catch (Exception exception) {
+            Log.e("Error ==> ", "" + exception);
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == RC_SIGN_IN) {
+            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+            try {
+                showProgress();
+                GoogleSignInAccount account = task.getResult(ApiException.class);
+                firebaseAuthWithGoogle(account.getIdToken());
+            } catch (ApiException e) {
+                Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    private void firebaseAuthWithGoogle(String idToken) {
+        try {
+            showProgress();
+            AuthCredential credential = GoogleAuthProvider.getCredential(idToken, null);
+            firebaseAuth.signInWithCredential(credential)
+                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                hideProgress();
+                                String userName = task.getResult().getUser().getDisplayName();
+                                String userEmail = task.getResult().getUser().getEmail();
+                                String userId = task.getResult().getUser().getUid();
+                                storeUserInfo(userName, userEmail, userId);
+                            } else {
+                            }
+                        }
+                    });
+        } catch (Exception exception) {
+            Log.e("Error ==> ", "" + exception);
+        }
+
+
+    }
+
+    private void storeUserInfo(String userName, String userEmail, String userId) {
+        try {
+            HashMap<String, Object> addFieldInfo = new HashMap<>();
+            addFieldInfo.put("userId", "" + userId);
+            addFieldInfo.put("userName", "" + userName);
+            addFieldInfo.put("userEmailAddress", "" + userEmail);
+            addFieldInfo.put("userMobileNumber", "" + "");
+            DocumentReference databaseReference = firebaseFirestore.collection("Users").document(userId);
+            databaseReference.set(addFieldInfo).addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(@NonNull Void unused) {
+                    invalidateErrorMessages();
+                    hideProgress();
+                    Intent intent = new Intent(LoginActivity.this, DashBoardActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    intent.putExtra("userId", String.valueOf(userId));
+                    startActivity(intent);
+                    finish();
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
+        } catch (Exception exception) {
+            Log.e("Error ==> ", "" + exception);
+        }
+    }
+
+//    @OnClick(R.id.layoutScanCode)
+//    void onScanCodeClick() {
+//        try {
+//            Intent intent = new Intent(LoginActivity.this, ScanBarCodeActivity.class);
+//            startActivityForResult(intent, 2);
+//        } catch (Exception exception) {
+//            Log.e("Error ==> ", "" + exception);
+//        }
+//    }
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//
+//        if (requestCode == 2) ;
+//        {
+//            String message = data.getStringExtra("BarCode Value");
+//            Toast.makeText(getApplicationContext(), "" + message, Toast.LENGTH_SHORT).show();
+//        }
+//    }
 
     public boolean validate(String strEmail, String password) {
         boolean valid = true;

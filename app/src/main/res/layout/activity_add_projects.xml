@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorWhite"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_50sdp"
+            android:background="@drawable/background_tint"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="@dimen/_2sdp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:paddingStart="@dimen/_10sdp"
+                android:paddingEnd="@dimen/_10sdp">
+
+                <ImageView
+                    android:id="@+id/buttonBackArrow"
+                    android:layout_width="@dimen/_25sdp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/icon_arrow_back"
+                    app:tint="@color/colorWhite" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/textViewHeader"
+                android:layout_width="@dimen/_230sdp"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/work_sans_semibold"
+                android:gravity="center"
+                android:paddingStart="@dimen/_10sdp"
+                android:paddingEnd="@dimen/_10sdp"
+                android:text="@string/add_projects"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/_16sdp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:paddingStart="@dimen/_10sdp"
+                android:paddingEnd="@dimen/_10sdp">
+
+                <ImageView
+                    android:id="@+id/buttonHome"
+                    android:layout_width="@dimen/_25sdp"
+                    android:layout_height="match_parent"
+                    app:tint="@color/colorWhite" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_8sdp"
+            android:background="@drawable/background_shadow" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:orientation="vertical">
+
+                <FrameLayout
+                    android:layout_width="@dimen/_100sdp"
+                    android:layout_height="@dimen/_100sdp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:background="@color/colorGray">
+
+                    <ImageView
+                        android:id="@+id/imageViewUploadClientsPicture"
+                        android:layout_width="@dimen/_95sdp"
+                        android:layout_height="@dimen/_95sdp"
+                        android:layout_gravity="center"
+                        android:background="@color/colorWhite" />
+
+                    <TextView
+                        android:id="@+id/textViewSelectImage"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:fontFamily="@font/work_sans_medium"
+                        android:text="@string/select_image"
+                        android:textColor="@color/colorBlack" />
+
+                </FrameLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/_37sdp"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginEnd="@dimen/_5sdp"
+                    android:fontFamily="@font/work_sans_medium"
+                    android:gravity="center"
+                    android:text="Project Name"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_12sdp" />
+
+                <EditText
+                    android:id="@+id/editTextAddProjectName"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_36sdp"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:layout_marginEnd="@dimen/_5sdp"
+                    android:background="@drawable/background_rounded_edit_text_gray"
+                    android:elevation="@dimen/_5sdp"
+                    android:fontFamily="@font/work_sans_medium"
+                    android:hint="Enter the project name"
+                    android:inputType="textCapWords|textCapSentences"
+                    android:padding="@dimen/_10sdp"
+                    android:singleLine="true"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_12sdp"
+                    tools:ignore="Autofill"
+                    tools:targetApi="lollipop" />
+
+                <TextView
+                    android:id="@+id/mTextViewErrorProjectName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginEnd="@dimen/_5sdp"
+                    android:fontFamily="@font/work_sans_medium"
+                    android:textColor="@color/colorRed"
+                    android:textSize="@dimen/_10sdp"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/_37sdp"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_marginEnd="@dimen/_5sdp"
+                    android:fontFamily="@font/work_sans_medium"
+                    android:gravity="center"
+                    android:text="Project Status"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_12sdp" />
+
+                <EditText
+                    android:id="@+id/editTextAddProjectStatus"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_36sdp"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:layout_marginEnd="@dimen/_5sdp"
+                    android:background="@drawable/background_rounded_edit_text_gray"
+                    android:elevation="@dimen/_5sdp"
+                    android:fontFamily="@font/work_sans_medium"
+                    android:hint="Enter the project status in %"
+                    android:inputType="textCapWords|textCapSentences"
+                    android:padding="@dimen/_10sdp"
+                    android:singleLine="true"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_12sdp"
+                    tools:ignore="Autofill"
+                    tools:targetApi="lollipop" />
+
+                <TextView
+                    android:id="@+id/mTextViewErrorProjectStatus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginEnd="@dimen/_5sdp"
+                    android:fontFamily="@font/work_sans_medium"
+                    android:textColor="@color/colorRed"
+                    android:textSize="@dimen/_10sdp"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/_37sdp"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_marginEnd="@dimen/_5sdp"
+                    android:fontFamily="@font/work_sans_medium"
+                    android:gravity="center"
+                    android:text="Project Details"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_12sdp" />
+
+                <EditText
+                    android:id="@+id/editTextAddProjectDetails"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_36sdp"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:layout_marginEnd="@dimen/_5sdp"
+                    android:background="@drawable/background_rounded_edit_text_gray"
+                    android:elevation="@dimen/_5sdp"
+                    android:fontFamily="@font/work_sans_medium"
+                    android:hint="Enter the project details"
+                    android:inputType="textCapWords|textCapSentences"
+                    android:padding="@dimen/_10sdp"
+                    android:singleLine="true"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_12sdp"
+                    tools:ignore="Autofill"
+                    tools:targetApi="lollipop" />
+
+                <TextView
+                    android:id="@+id/mTextViewErrorProjectDetails"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginEnd="@dimen/_5sdp"
+                    android:fontFamily="@font/work_sans_medium"
+                    android:textColor="@color/colorRed"
+                    android:textSize="@dimen/_10sdp"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/_37sdp"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_marginEnd="@dimen/_5sdp"
+                    android:fontFamily="@font/work_sans_medium"
+                    android:gravity="center"
+                    android:text="Project Address"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_12sdp" />
+
+                <EditText
+                    android:id="@+id/editTextClientAddProjectAddress"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_36sdp"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:layout_marginEnd="@dimen/_5sdp"
+                    android:background="@drawable/background_rounded_edit_text_gray"
+                    android:elevation="@dimen/_5sdp"
+                    android:fontFamily="@font/work_sans_medium"
+                    android:hint="Enter the project address"
+                    android:inputType="number"
+                    android:padding="@dimen/_10sdp"
+                    android:singleLine="true"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_12sdp"
+                    tools:ignore="Autofill"
+                    tools:targetApi="lollipop" />
+
+                <TextView
+                    android:id="@+id/mTextViewErrorClientProjectAddress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginEnd="@dimen/_5sdp"
+                    android:fontFamily="@font/work_sans_medium"
+                    android:textColor="@color/colorRed"
+                    android:textSize="@dimen/_10sdp"
+                    android:visibility="gone" />
+
+                <LinearLayout
+                    android:id="@+id/layoutNext"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:layout_marginTop="@dimen/_30sdp"
+                    android:layout_marginEnd="@dimen/_5sdp"
+                    android:layout_marginBottom="@dimen/_20sdp"
+                    android:background="@drawable/background_corner_radius_white"
+                    android:backgroundTint="@color/colorPrimary"
+                    android:gravity="center"
+                    android:padding="@dimen/_8sdp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/work_sans_semibold"
+                        android:text="@string/next"
+                        android:textAlignment="center"
+                        android:textAllCaps="false"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="@dimen/_16sdp" />
+                </LinearLayout>
+
+            </LinearLayout>
+        </ScrollView>
+
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/progressBar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorBlackLight"
+        android:clickable="true"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:visibility="gone">
+
+        <ProgressBar
+            android:layout_width="@dimen/_100sdp"
+            android:layout_height="@dimen/_100sdp"
+            android:layout_gravity="center"
+            android:indeterminateDrawable="@drawable/background_custom_progress_bar"
+            android:visibility="visible" />
+    </FrameLayout>
+
+</FrameLayout>

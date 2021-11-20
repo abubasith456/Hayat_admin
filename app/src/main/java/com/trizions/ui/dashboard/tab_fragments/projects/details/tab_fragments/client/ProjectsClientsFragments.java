@@ -21,6 +21,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.trizions.BaseFragment;
 import com.trizions.R;
 import com.trizions.ui.dashboard.tab_fragments.projects.ProjectsFragment;
@@ -30,6 +31,7 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class ProjectsClientsFragments extends BaseFragment {
 
@@ -56,14 +58,14 @@ public class ProjectsClientsFragments extends BaseFragment {
         String ProjectsClientsAddress;
         String ProjectsClientsRoll;
 
-        ProjectsClientsInfo(String ProjectsClientsName, String ProjectsClientsBusinessName, String ProjectsClientsMobileNumber, String ProjectsClientsEmail, String ProjectsClientsAddress,String ProjectsClientsRoll) {
+        ProjectsClientsInfo(String ProjectsClientsName, String ProjectsClientsBusinessName, String ProjectsClientsMobileNumber, String ProjectsClientsEmail, String ProjectsClientsAddress, String ProjectsClientsRoll) {
 
             this.ProjectsClientsName = ProjectsClientsName;
             this.ProjectsClientsBusinessName = ProjectsClientsBusinessName;
             this.ProjectsClientsMobileNumber = ProjectsClientsMobileNumber;
             this.ProjectsClientsEmail = ProjectsClientsEmail;
             this.ProjectsClientsAddress = ProjectsClientsAddress;
-            this.ProjectsClientsRoll=ProjectsClientsRoll;
+            this.ProjectsClientsRoll = ProjectsClientsRoll;
 
         }
     }
@@ -109,10 +111,12 @@ public class ProjectsClientsFragments extends BaseFragment {
         }
     }
 
+
+
     public void setUpRecyclerView() {
         try {
             ProjectsClientsArray.clear();
-            ProjectsClientsArray.add(new ProjectsClientsFragments.ProjectsClientsInfo("Rakesh Sharma", "Zoho Software Solutions", "+91 9673839256", "contact@zoho.com", "No. 3/65, 11th  cross street,Mannivakkam,Chennai","Manager"));
+            ProjectsClientsArray.add(new ProjectsClientsFragments.ProjectsClientsInfo("Rakesh Sharma", "Zoho Software Solutions", "+91 9673839256", "contact@zoho.com", "No. 3/65, 11th  cross street,Mannivakkam,Chennai", "Manager"));
             projectsClientsAdapter = new ProjectsClientsFragments.ProjectsClientsAdapter(ProjectsClientsArray, getActivity());
             LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
             recyclerViewClients.setLayoutManager(mLayoutManager);
@@ -167,7 +171,7 @@ public class ProjectsClientsFragments extends BaseFragment {
         @BindView(R.id.textViewProjectsClientAddress)
         TextView textViewAddress;
         @BindView(R.id.textViewProjectClientRoll)
-                TextView textViewRoll;
+        TextView textViewRoll;
 
         ProjectsClientsViewHolder(View itemView) {
             super(itemView);

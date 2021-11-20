@@ -31,9 +31,9 @@
                     android:layout_height="@dimen/_25sdp"
                     android:layout_gravity="center"
                     android:gravity="start"
-                    app:tint="@color/colorWhite"
                     android:src="@drawable/icon_menu"
-                    android:tint="@color/colorPrimaryDark" />
+                    android:tint="@color/colorPrimaryDark"
+                    app:tint="@color/colorWhite" />
             </LinearLayout>
 
             <TextView
@@ -51,8 +51,8 @@
                 android:id="@+id/linear_layout_right"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal"
                 android:gravity="center_vertical|end"
+                android:orientation="horizontal"
                 android:paddingStart="@dimen/_5sdp"
                 android:paddingEnd="@dimen/_5sdp">
 
@@ -60,43 +60,46 @@
                     android:id="@+id/chatButton"
                     android:layout_width="@dimen/_35sdp"
                     android:layout_height="match_parent"
+                    android:fontFamily="@font/work_sans_medium"
                     android:paddingStart="@dimen/_5sdp"
                     android:paddingEnd="@dimen/_5sdp"
-                    android:fontFamily="@font/work_sans_medium"
                     android:src="@drawable/icon_chat"
                     android:textAllCaps="true"
                     android:textColor="@color/colorWhite"
                     android:textSize="@dimen/_14sdp"
-                    tools:ignore="ContentDescription"
-                    app:tint="@color/colorWhite" />
+                    android:visibility="gone"
+                    app:tint="@color/colorWhite"
+                    tools:ignore="ContentDescription" />
 
                 <ImageView
                     android:id="@+id/filterButton"
                     android:layout_width="@dimen/_35sdp"
                     android:layout_height="match_parent"
+                    android:fontFamily="@font/work_sans_medium"
                     android:paddingStart="@dimen/_5sdp"
                     android:paddingEnd="@dimen/_5sdp"
-                    android:fontFamily="@font/work_sans_medium"
                     android:src="@drawable/icon_filter"
                     android:textAllCaps="true"
                     android:textColor="@color/colorWhite"
                     android:textSize="@dimen/_14sdp"
-                    tools:ignore="ContentDescription"
-                    app:tint="@color/colorWhite" />
+                    android:visibility="gone"
+                    app:tint="@color/colorWhite"
+                    tools:ignore="ContentDescription" />
 
                 <ImageView
                     android:id="@+id/locationButton"
                     android:layout_width="@dimen/_31sdp"
                     android:layout_height="match_parent"
+                    android:fontFamily="@font/work_sans_medium"
                     android:paddingStart="@dimen/_5sdp"
                     android:paddingEnd="@dimen/_5sdp"
-                    android:fontFamily="@font/work_sans_medium"
                     android:src="@drawable/icon_location"
                     android:textAllCaps="true"
                     android:textColor="@color/colorWhite"
                     android:textSize="@dimen/_14sdp"
-                    tools:ignore="ContentDescription"
-                    app:tint="@color/colorWhite" />
+                    android:visibility="gone"
+                    app:tint="@color/colorWhite"
+                    tools:ignore="ContentDescription" />
             </LinearLayout>
 
         </LinearLayout>
@@ -106,7 +109,13 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:background="@color/colorWhite" />
+            android:background="@color/colorWhite" >
+
+            <FrameLayout
+                android:id="@+id/layout_fragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </androidx.viewpager.widget.ViewPager>
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottom_navigation"
@@ -148,10 +157,10 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:baselineAligned="false"
             android:orientation="horizontal"
             android:weightSum="1"
-            tools:ignore="UselessParent"
-            android:baselineAligned="false">
+            tools:ignore="UselessParent">
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -171,12 +180,14 @@
                     android:paddingEnd="@dimen/_15sdp"
                     android:text="@string/notifications"
                     android:textColor="@color/colorPrimary"
-                    android:textSize="@dimen/_16sdp" />
+                    android:textSize="@dimen/_16sdp"
+                    android:visibility="gone" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_1sdp"
-                    android:background="@color/colorBlack" />
+                    android:background="@color/colorBlack"
+                    android:visibility="gone" />
 
                 <TextView
                     android:id="@+id/textViewChat"
@@ -188,12 +199,32 @@
                     android:paddingEnd="@dimen/_15sdp"
                     android:text="@string/chat"
                     android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/_16sdp"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_1sdp"
+                    android:background="@color/colorBlack"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/textViewUserName"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_50sdp"
+                    android:fontFamily="@font/work_sans_semibold"
+                    android:gravity="start|center_vertical"
+                    android:paddingStart="@dimen/_15sdp"
+                    android:paddingEnd="@dimen/_15sdp"
+                    android:text="Hi..Trizion user"
+                    android:textColor="@color/colorPrimary"
                     android:textSize="@dimen/_16sdp" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_1sdp"
-                    android:background="@color/colorBlack" />
+                    android:background="@color/colorBlack"
+                   />
 
                 <TextView
                     android:id="@+id/textViewChangePassword"
@@ -251,10 +282,6 @@
         android:layout_marginTop="@dimen/_1sdp"
         android:layout_marginBottom="@dimen/_1sdp">
 
-        <FrameLayout
-            android:id="@+id/layout_fragment"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
     </FrameLayout>
 
 </FrameLayout>

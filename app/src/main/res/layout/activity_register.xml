@@ -2,7 +2,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -23,9 +23,9 @@
                 android:id="@+id/linearLayoutBack"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/_45sdp"
+                android:layout_weight="1"
                 android:paddingStart="@dimen/_6sdp"
-                android:paddingEnd="@dimen/_10sdp"
-                android:layout_weight="1">
+                android:paddingEnd="@dimen/_10sdp">
 
                 <ImageView
                     android:layout_width="@dimen/_20sdp"
@@ -52,10 +52,10 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
-                android:paddingEnd="@dimen/_10sdp"
                 android:layout_weight="1"
                 android:fontFamily="@font/work_sans_semibold"
                 android:gravity="end"
+                android:paddingEnd="@dimen/_10sdp"
                 android:textAllCaps="true"
                 android:textColor="@color/colorBlack"
                 android:textSize="@dimen/_13sdp" />
@@ -65,8 +65,8 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="@dimen/_8sdp"
-            android:visibility="gone"
-            android:background="@drawable/background_shadow" />
+            android:background="@drawable/background_shadow"
+            android:visibility="gone" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -91,7 +91,7 @@
                 android:text="@string/app_name"
                 android:textAllCaps="true"
                 android:textColor="@color/colorBlack"
-                android:textSize="@dimen/_30sdp"  />
+                android:textSize="@dimen/_30sdp" />
 
         </LinearLayout>
 
@@ -104,9 +104,9 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:gravity="center_vertical"
                 android:layout_gravity="center_vertical"
+                android:gravity="center_vertical"
+                android:orientation="vertical"
                 android:paddingStart="@dimen/_14sdp"
                 android:paddingTop="@dimen/_10sdp"
                 android:paddingEnd="@dimen/_14sdp">
@@ -115,13 +115,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="@string/sign_up_title_small"
-                    android:textColor="@color/colorWhite"
-                    android:textSize="@dimen/_16sdp"
-                    android:textAllCaps="false"
                     android:layout_marginTop="@dimen/_8sdp"
                     android:fontFamily="@font/work_sans_semibold"
-                    />
+                    android:text="@string/sign_up_title_small"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="@dimen/_16sdp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -132,178 +131,179 @@
                         android:id="@+id/tv_user_name"
                         android:layout_width="wrap_content"
                         android:layout_height="@dimen/_22sdp"
+                        android:layout_marginStart="@dimen/_5sdp"
                         android:layout_marginTop="@dimen/_5sdp"
                         android:layout_marginEnd="@dimen/_5sdp"
-                        android:layout_marginStart="@dimen/_5sdp"
-                        android:textSize="@dimen/_12sdp"
                         android:fontFamily="@font/work_sans_medium"
                         android:gravity="center"
+                        android:text="@string/user_name"
                         android:textColor="@color/colorWhite"
-                        android:text="@string/user_name"/>
+                        android:textSize="@dimen/_12sdp" />
 
                     <EditText
                         android:id="@+id/editTextSignUpUserName"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_36sdp"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="@dimen/_5sdp"
+                        android:layout_marginEnd="@dimen/_5sdp"
+                        android:background="@drawable/background_rounded_edit_text_gray"
+                        android:elevation="@dimen/_5sdp"
+                        android:fontFamily="@font/work_sans_medium"
+                        android:hint="@string/enter_user_name"
+                        android:inputType="textPersonName"
                         android:padding="@dimen/_10sdp"
                         android:singleLine="true"
-                        android:elevation="@dimen/_5sdp"
-                        android:layout_marginEnd="@dimen/_5sdp"
-                        android:layout_marginStart="@dimen/_5sdp"
-                        android:inputType="textPersonName"
-                        tools:targetApi="lollipop"
                         android:textColor="@color/colorBlack"
-                        android:hint="@string/enter_user_name"
                         android:textSize="@dimen/_12sdp"
-                        android:fontFamily="@font/work_sans_medium"
-                        android:layout_gravity="center"
-                        android:background="@drawable/background_rounded_edit_text_gray"
-                        tools:ignore="Autofill" />
+                        tools:ignore="Autofill"
+                        tools:targetApi="lollipop" />
 
                     <TextView
                         android:id="@+id/mTextViewUserNameError"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/_10sdp"
-                        android:layout_marginEnd="@dimen/_5sdp"
                         android:layout_gravity="end"
-                        android:textColor="@color/colorYellowGold"
-                        android:fontFamily="@font/work_sans_medium"
-                        android:visibility="gone"
-                        android:textSize="@dimen/_10sdp" />
-
-                    <TextView
-                        android:id="@+id/tv_mobile_number"
-                        android:layout_width="wrap_content"
-                        android:layout_height="@dimen/_22sdp"
-                        android:layout_marginTop="@dimen/_5sdp"
-                        android:layout_marginEnd="@dimen/_5sdp"
-                        android:layout_marginStart="@dimen/_5sdp"
-                        android:textSize="@dimen/_12sdp"
-                        android:fontFamily="@font/work_sans_medium"
-                        android:gravity="center"
-                        android:textColor="@color/colorWhite"
-                        android:text="@string/mobile_number"/>
-
-                    <EditText
-                        android:id="@+id/editTextSignUpMobileNumber"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/_36sdp"
-                        android:padding="@dimen/_10sdp"
-                        android:singleLine="true"
-                        android:elevation="@dimen/_5sdp"
-                        android:layout_marginEnd="@dimen/_5sdp"
-                        android:layout_marginStart="@dimen/_5sdp"
-                        android:inputType="phone"
-                        tools:targetApi="lollipop"
-                        android:textColor="@color/colorBlack"
-                        android:hint="@string/enter_mobile_number"
-                        android:textSize="@dimen/_12sdp"
-                        android:fontFamily="@font/work_sans_medium"
-                        android:layout_gravity="center"
-                        android:background="@drawable/background_rounded_edit_text_gray"
-                        tools:ignore="Autofill" />
-
-                    <TextView
-                        android:id="@+id/mTextViewMobileNumberError"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/_10sdp"
                         android:layout_marginEnd="@dimen/_5sdp"
                         android:fontFamily="@font/work_sans_medium"
-                        android:layout_gravity="end"
                         android:textColor="@color/colorYellowGold"
-                        android:visibility="gone"
-                        android:textSize="@dimen/_10sdp" />
+                        android:textSize="@dimen/_10sdp"
+                        android:visibility="gone" />
 
                     <TextView
                         android:id="@+id/tv_email_address"
                         android:layout_width="wrap_content"
                         android:layout_height="@dimen/_22sdp"
+                        android:layout_marginStart="@dimen/_5sdp"
                         android:layout_marginTop="@dimen/_5sdp"
                         android:layout_marginEnd="@dimen/_5sdp"
-                        android:layout_marginStart="@dimen/_5sdp"
-                        android:textSize="@dimen/_12sdp"
                         android:fontFamily="@font/work_sans_medium"
                         android:gravity="center"
+                        android:text="@string/email_address"
                         android:textColor="@color/colorWhite"
-                        android:text="@string/email_address"/>
+                        android:textSize="@dimen/_12sdp" />
 
                     <EditText
                         android:id="@+id/editTextSignUpEmail"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_36sdp"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="@dimen/_5sdp"
+                        android:layout_marginEnd="@dimen/_5sdp"
+                        android:background="@drawable/background_rounded_edit_text_gray"
+                        android:elevation="@dimen/_5sdp"
+                        android:fontFamily="@font/work_sans_medium"
+                        android:hint="@string/enter_email_address"
+                        android:inputType="textEmailAddress"
                         android:padding="@dimen/_10sdp"
                         android:singleLine="true"
-                        android:elevation="@dimen/_5sdp"
-                        android:layout_marginEnd="@dimen/_5sdp"
-                        android:layout_marginStart="@dimen/_5sdp"
-                        android:inputType="textEmailAddress"
-                        tools:targetApi="lollipop"
                         android:textColor="@color/colorBlack"
-                        android:hint="@string/enter_email_address"
                         android:textSize="@dimen/_12sdp"
-                        android:fontFamily="@font/work_sans_medium"
-                        android:layout_gravity="center"
-                        android:background="@drawable/background_rounded_edit_text_gray"
-                        tools:ignore="Autofill" />
+                        tools:ignore="Autofill"
+                        tools:targetApi="lollipop" />
 
                     <TextView
                         android:id="@+id/mTextViewEmailError"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="end"
                         android:layout_marginStart="@dimen/_10sdp"
                         android:layout_marginEnd="@dimen/_5sdp"
                         android:fontFamily="@font/work_sans_medium"
-                        android:layout_gravity="end"
                         android:textColor="@color/colorYellowGold"
-                        android:visibility="gone"
-                        android:textSize="@dimen/_10sdp" />
+                        android:textSize="@dimen/_10sdp"
+                        android:visibility="gone" />
+
+                    <TextView
+                        android:id="@+id/tv_mobile_number"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/_22sdp"
+                        android:layout_marginStart="@dimen/_5sdp"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:layout_marginEnd="@dimen/_5sdp"
+                        android:fontFamily="@font/work_sans_medium"
+                        android:gravity="center"
+                        android:text="@string/mobile_number"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="@dimen/_12sdp" />
+
+                    <EditText
+                        android:id="@+id/editTextSignUpMobileNumber"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_36sdp"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="@dimen/_5sdp"
+                        android:layout_marginEnd="@dimen/_5sdp"
+                        android:background="@drawable/background_rounded_edit_text_gray"
+                        android:elevation="@dimen/_5sdp"
+                        android:fontFamily="@font/work_sans_medium"
+                        android:hint="@string/enter_mobile_number"
+                        android:inputType="phone"
+                        android:padding="@dimen/_10sdp"
+                        android:singleLine="true"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="@dimen/_12sdp"
+                        tools:ignore="Autofill"
+                        tools:targetApi="lollipop" />
+
+                    <TextView
+                        android:id="@+id/mTextViewMobileNumberError"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:layout_marginStart="@dimen/_10sdp"
+                        android:layout_marginEnd="@dimen/_5sdp"
+                        android:fontFamily="@font/work_sans_medium"
+                        android:textColor="@color/colorYellowGold"
+                        android:textSize="@dimen/_10sdp"
+                        android:visibility="gone" />
+
 
                     <TextView
                         android:id="@+id/tv_password"
                         android:layout_width="wrap_content"
                         android:layout_height="@dimen/_22sdp"
+                        android:layout_marginStart="@dimen/_5sdp"
                         android:layout_marginTop="@dimen/_5sdp"
                         android:layout_marginEnd="@dimen/_5sdp"
-                        android:layout_marginStart="@dimen/_5sdp"
-                        android:textSize="@dimen/_12sdp"
                         android:fontFamily="@font/work_sans_medium"
                         android:gravity="center"
+                        android:text="@string/password"
                         android:textColor="@color/colorWhite"
-                        android:text="@string/password"/>
+                        android:textSize="@dimen/_12sdp" />
 
                     <EditText
                         android:id="@+id/editTextSignUpPassword"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_36sdp"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="@dimen/_5sdp"
+                        android:layout_marginEnd="@dimen/_5sdp"
+                        android:background="@drawable/background_rounded_edit_text_gray"
+                        android:elevation="@dimen/_5sdp"
+                        android:fontFamily="@font/work_sans_medium"
+                        android:hint="@string/enter_password"
+                        android:imeOptions="actionDone"
+                        android:inputType="textPassword"
                         android:padding="@dimen/_10sdp"
                         android:singleLine="true"
-                        android:elevation="@dimen/_5sdp"
-                        android:layout_marginEnd="@dimen/_5sdp"
-                        android:layout_marginStart="@dimen/_5sdp"
-                        android:inputType="textPassword"
-                        android:imeOptions="actionDone"
-                        tools:targetApi="lollipop"
                         android:textColor="@color/colorBlack"
-                        android:hint="@string/enter_password"
                         android:textSize="@dimen/_12sdp"
-                        android:fontFamily="@font/work_sans_medium"
-                        android:layout_gravity="center"
-                        android:background="@drawable/background_rounded_edit_text_gray"
-                        tools:ignore="Autofill" />
+                        tools:ignore="Autofill"
+                        tools:targetApi="lollipop" />
 
                     <TextView
                         android:id="@+id/mTextViewPasswordError"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="end"
                         android:layout_marginStart="@dimen/_10sdp"
                         android:layout_marginEnd="@dimen/_5sdp"
                         android:fontFamily="@font/work_sans_medium"
-                        android:layout_gravity="end"
                         android:textColor="@color/colorYellowGold"
-                        android:visibility="gone"
-                        android:textSize="@dimen/_10sdp" />
+                        android:textSize="@dimen/_10sdp"
+                        android:visibility="gone" />
 
                     <LinearLayout
                         android:id="@+id/layoutSignUp"
@@ -339,9 +339,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clickable="true"
+        android:focusable="true"
         android:focusableInTouchMode="true"
-        android:visibility="gone"
-        android:focusable="true">
+        android:visibility="gone">
 
         <ProgressBar
             android:layout_width="@dimen/_100sdp"

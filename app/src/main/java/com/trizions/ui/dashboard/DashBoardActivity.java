@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -23,7 +24,16 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.trizions.BaseActivity;
 import com.trizions.R;
 import com.trizions.dialog.CustomDialogWithTwoButtons;
@@ -70,6 +80,9 @@ public class DashBoardActivity extends BaseActivity implements AboutUsFragment.O
     @BindView(R.id.progress_bar)
     FrameLayout progressBar;
 
+    @BindView(R.id.textViewUserName)
+    TextView textViewUserName;
+
     SharedPreferences pref;
     SharedPreferences.Editor editor;
     AboutUsFragment aboutUsFragment;
@@ -78,12 +91,16 @@ public class DashBoardActivity extends BaseActivity implements AboutUsFragment.O
     ClientsFragment clientsFragment;
     ContactUsFragment contactUsFragment;
     MenuItem prevMenuItem = null;
+    String userId;
+    FirebaseAuth firebaseAuth;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
-
+//        userId = getIntent().getStringExtra("userId");
+        firebaseAuth = FirebaseAuth.getInstance();
+        userId = firebaseAuth.getCurrentUser().getUid();
         try {
             bottomNavigation.setOnNavigationItemSelectedListener(navigationItemSelectedListener);
             setupViewPager(viewPager);
@@ -101,6 +118,40 @@ public class DashBoardActivity extends BaseActivity implements AboutUsFragment.O
                             new String[]{ACCESS_FINE_LOCATION, CALL_PHONE}, 1);
                 }
             }
+            loadUserInfo();
+        } catch (Exception exception) {
+            Log.e("Error ==> ", "" + exception);
+        }
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        loadUserInfo();
+    }
+
+    private void loadUserInfo() {
+        try {
+            FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
+            DocumentReference documentReference = firebaseFirestore.collection("Users").document(userId);
+            documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    if (task.isSuccessful()) {
+                        if (task.getResult().exists()) {
+                            String nameResult = task.getResult().getString("userName");
+                            String mobileNumberResult = task.getResult().getString("userMobileNumber");
+                            String emailAddressResult = task.getResult().getString("userEmailAddress");
+                            textViewUserName.setText("Hi... " + nameResult);
+                        }
+                    }
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
         } catch (Exception exception) {
             Log.e("Error ==> ", "" + exception);
         }
@@ -371,6 +422,8 @@ public class DashBoardActivity extends BaseActivity implements AboutUsFragment.O
         sideMenu.setVisibility(View.GONE);
 //        editor.putString("mobile_number", "").apply();
 //        editor.putString("password", "").apply();
+        FirebaseAuth.getInstance().signOut();
+        GoogleSignIn.getClient(getApplicationContext(), GoogleSignInOptions.DEFAULT_SIGN_IN).signOut();
         Intent intent = new Intent(DashBoardActivity.this, LoginActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);

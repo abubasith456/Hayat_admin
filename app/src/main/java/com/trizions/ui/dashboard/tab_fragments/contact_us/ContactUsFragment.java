@@ -25,6 +25,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
@@ -41,14 +42,22 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.trizions.BaseFragment;
 import com.trizions.R;
+import com.trizions.model.company_contact.CompanyContactRequest;
+import com.trizions.model.company_contact.CompanyContactResponse;
+import com.trizions.rest_client.BCRequests;
 import com.trizions.utils.Const;
+
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
+
 import butterknife.BindView;
 import butterknife.OnClick;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ContactUsFragment extends BaseFragment implements GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener, OnMapReadyCallback {
@@ -83,6 +92,13 @@ public class ContactUsFragment extends BaseFragment implements GoogleApiClient.C
     String searchText = "";
     boolean isMapReady = false;
     private boolean isExpanded = false;
+    String userId;
+    String page;
+    String perPage;
+    String companyName, contactNumber, email, businessType, area, city, state, country, postalCode, latitude, longitude, companyDetails;
+    Uri companyImageUrl;
+    CompanyContactResponse companyContactResponse;
+
     public ContactUsFragment() {
 
     }
@@ -92,7 +108,7 @@ public class ContactUsFragment extends BaseFragment implements GoogleApiClient.C
         super.onAttach(context);
         try {
             mCallback = (OnContactUsListener) context;
-        } catch (Exception exception){
+        } catch (Exception exception) {
             Log.e("Error ==> ", "" + exception);
         }
     }
@@ -104,7 +120,7 @@ public class ContactUsFragment extends BaseFragment implements GoogleApiClient.C
 
     @Override
     protected View createView(final LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_contact_us, container, false);
         mMapView = (MapView) rootView.findViewById(R.id.mapView);
         mMapView.onCreate(savedInstanceState);
@@ -124,12 +140,12 @@ public class ContactUsFragment extends BaseFragment implements GoogleApiClient.C
 
             try {
                 mapWrapperLayout.init(googleMap, getPixelsFromDp(getActivity(), 40 + 20));
-                this.infoWindow = (ViewGroup)getLayoutInflater().inflate(R.layout.custom_marker_infowindow, null);
-                this.infoTitle = (TextView)infoWindow.findViewById(R.id.nameTxt);
-                this.infoPhoneNumber = (TextView)infoWindow.findViewById(R.id.mobileTxt);
-                this.infoAddress = (TextView)infoWindow.findViewById(R.id.addressTxt);
-                this.infoButton1 = (Button)infoWindow.findViewById(R.id.btnOne);
-                this.infoButtonListener = new OnInfoWindowElemTouchListener(infoButton1, getResources().getDrawable(R.drawable.background_corner_radius_pink), getResources().getDrawable(R.drawable.background_corner_radius_pink)){
+                this.infoWindow = (ViewGroup) getLayoutInflater().inflate(R.layout.custom_marker_infowindow, null);
+                this.infoTitle = (TextView) infoWindow.findViewById(R.id.nameTxt);
+                this.infoPhoneNumber = (TextView) infoWindow.findViewById(R.id.mobileTxt);
+                this.infoAddress = (TextView) infoWindow.findViewById(R.id.addressTxt);
+                this.infoButton1 = (Button) infoWindow.findViewById(R.id.btnOne);
+                this.infoButtonListener = new OnInfoWindowElemTouchListener(infoButton1, getResources().getDrawable(R.drawable.background_corner_radius_pink), getResources().getDrawable(R.drawable.background_corner_radius_pink)) {
                     @Override
                     protected void onClickConfirmed(View v, Marker marker) {
                         Intent intent = new Intent(Intent.ACTION_VIEW,
@@ -164,7 +180,7 @@ public class ContactUsFragment extends BaseFragment implements GoogleApiClient.C
                         return infoWindow;
                     }
                 });
-            } catch (Exception exception){
+            } catch (Exception exception) {
                 Log.e("Error ==> ", "" + exception);
             }
         });
@@ -176,24 +192,81 @@ public class ContactUsFragment extends BaseFragment implements GoogleApiClient.C
         super.onViewCreated(view, savedInstanceState);
 
         try {
-        } catch (Exception exception){
+            getCompanyContact();
+        } catch (Exception exception) {
             Log.e("Error ==> ", "" + exception);
         }
+    }
+
+    private void getCompanyContact() {
+        try {
+            userId = "1";
+            page = "1";
+            perPage = "10";
+            CompanyContactRequest companyContactRequest = new CompanyContactRequest();
+            companyContactRequest.setUserId(userId);
+            companyContactRequest.setPage(page);
+            companyContactRequest.setPerPage(perPage);
+            Call<CompanyContactResponse> companyContactResponseCall = BCRequests.getInstance().getBCRestService().companyContact(companyContactRequest);
+            companyContactResponseCall.enqueue(new Callback<CompanyContactResponse>() {
+                @Override
+                public void onResponse(Call<CompanyContactResponse> call, Response<CompanyContactResponse> response) {
+                    try {
+                        if (response.isSuccessful()) {
+                            companyContactResponse = response.body();
+                            if (response != null && companyContactResponse.getClients() != null) {
+                                String status = companyContactResponse.getStatus();
+                                String message = companyContactResponse.getMessage();
+                                if (status.equals("success")) {
+                                    Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+                                    companyName = companyContactResponse.getClients().get(0).getCompanyName();
+                                    contactNumber = companyContactResponse.getClients().get(0).getContactNumber();
+                                    email = companyContactResponse.getClients().get(0).getEmail();
+                                    businessType = companyContactResponse.getClients().get(0).getBusinessType();
+                                    area = companyContactResponse.getClients().get(0).getArea();
+                                    city = companyContactResponse.getClients().get(0).getCity();
+                                    state = companyContactResponse.getClients().get(0).getState();
+                                    country = companyContactResponse.getClients().get(0).getCountry();
+                                    postalCode = companyContactResponse.getClients().get(0).getPostalCode();
+                                    latitude = companyContactResponse.getClients().get(0).getLatitude();
+                                    longitude = companyContactResponse.getClients().get(0).getLongitude();
+                                    companyImageUrl = (Uri) companyContactResponse.getClients().get(0).getCompanyImageUrl();
+                                    companyDetails = companyContactResponse.getClients().get(0).getCompanyDetails();
+                                } else {
+                                    Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        }
+                    } catch (Exception exception) {
+                        Log.e("Error ==> ", "" + exception);
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<CompanyContactResponse> call, Throwable t) {
+
+                }
+            });
+
+        } catch (Exception exception) {
+            Log.e("Error ==> ", "" + exception);
+        }
+
     }
 
     @Override
     public void onResume() {
         super.onResume();
         try {
-
-        } catch (Exception exception){
+            getCompanyContact();
+        } catch (Exception exception) {
             Log.e("Error ==> ", "" + exception);
         }
     }
 
     public static int getPixelsFromDp(Context context, float dp) {
         final float scale = context.getResources().getDisplayMetrics().density;
-        return (int)(dp * scale + 0.5f);
+        return (int) (dp * scale + 0.5f);
     }
 
     @OnClick(R.id.textViewCall)
@@ -224,12 +297,11 @@ public class ContactUsFragment extends BaseFragment implements GoogleApiClient.C
     @OnClick(R.id.mapExpandCollapseButton)
     public void onMapExpandCollapseButtonAction() {
         try {
-            if(isExpanded) {
+            if (isExpanded) {
                 isExpanded = false;
                 contactUsLayout.setVisibility(View.VISIBLE);
                 mapExpandCollapseButton.setBackground(getActivity().getDrawable(R.drawable.icon_arrow_up));
-            }
-            else {
+            } else {
                 isExpanded = true;
                 contactUsLayout.setVisibility(View.GONE);
                 mapExpandCollapseButton.setBackground(getActivity().getDrawable(R.drawable.icon_arrow_down));
@@ -286,7 +358,7 @@ public class ContactUsFragment extends BaseFragment implements GoogleApiClient.C
                     Const.selectedCity = Const.currentCountry + "," + Const.currentState + "," + Const.currentCity;
 
                 }
-            } catch (Exception exception){
+            } catch (Exception exception) {
                 Log.e("Error ==> ", "" + exception);
             }
 
@@ -328,7 +400,7 @@ public class ContactUsFragment extends BaseFragment implements GoogleApiClient.C
     public void showProgress() {
         try {
             progressBar.setVisibility(View.VISIBLE);
-        } catch (Exception exception){
+        } catch (Exception exception) {
             Log.e("Error ==> ", "" + exception);
         }
     }
@@ -336,7 +408,7 @@ public class ContactUsFragment extends BaseFragment implements GoogleApiClient.C
     public void hideProgress() {
         try {
             progressBar.setVisibility(View.GONE);
-        } catch (Exception exception){
+        } catch (Exception exception) {
             Log.e("Error ==> ", "" + exception);
         }
     }

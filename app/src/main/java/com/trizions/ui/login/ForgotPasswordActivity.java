@@ -13,8 +13,14 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.trizions.BaseActivity;
 import com.trizions.R;
 import com.trizions.dialog.CustomDialog;
@@ -31,7 +37,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-
 public class ForgotPasswordActivity extends BaseActivity {
 
     @BindView(R.id.linearLayoutBack)
@@ -46,16 +51,18 @@ public class ForgotPasswordActivity extends BaseActivity {
     FrameLayout progressBar;
 
     ForgotPasswordResponse forgotPasswordResponse;
+    FirebaseAuth firebaseAuth;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forgot_password);
+        firebaseAuth = FirebaseAuth.getInstance();
 
-        try{
+        try {
             editTextEmailAddress.addTextChangedListener(new TextChange(editTextEmailAddress));
             editTextEmailAddress.setOnEditorActionListener(editorListener);
-        } catch (Exception exception){
+        } catch (Exception exception) {
             Log.e("Error ==> ", "" + exception);
         }
     }
@@ -75,30 +82,51 @@ public class ForgotPasswordActivity extends BaseActivity {
     };
 
     @OnClick(R.id.linearLayoutBack)
-    void onBackClick(){
+    void onBackClick() {
         try {
             Utils.hideSoftKeyboard(ForgotPasswordActivity.this);
             invalidateErrorMessages();
             finish();
-        } catch (Exception exception){
+        } catch (Exception exception) {
             Log.e("Error ==> ", "" + exception);
         }
     }
 
     @OnClick(R.id.layoutForgotPassword)
-    void onForgotPasswordClick(){
+    void onForgotPasswordClick() {
         try {
             if (validate(editTextEmailAddress.getText().toString().trim())) {
-                if(isNetworkConnectionAvailable()){
-                    forgotPassword();
-                }  else {
+                if (isNetworkConnectionAvailable()) {
+                    firebaseForgotPassword();
+                } else {
                     showCustomDialog("", getResources().getString(R.string.error_network), getResources().getString(R.string.ok), getResources().getString(R.string.confirm), null);
                 }
             }
-        } catch (Exception exception){
+        } catch (Exception exception) {
             Log.e("Error ==> ", "" + exception);
         }
     }
+
+    private void firebaseForgotPassword() {
+        try {
+            showProgress();
+            firebaseAuth.sendPasswordResetEmail(editTextEmailAddress.getText().toString())
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()) {
+                                hideProgress();
+                                showCustomDialog("", "Mail sent to your Email", getResources().getString(R.string.ok), getResources().getString(R.string.success), onDismissListener);
+                            } else {
+                                showCustomDialog("", task.getException().getMessage(), getResources().getString(R.string.ok), getResources().getString(R.string.warning), null);
+                            }
+                        }
+                    });
+        } catch (Exception exception) {
+            Log.e("Error ==> ", "" + exception);
+        }
+    }
+
 
     private void forgotPassword() {
         ForgotPasswordRequest forgotPasswordRequest = new ForgotPasswordRequest();
@@ -109,12 +137,12 @@ public class ForgotPasswordActivity extends BaseActivity {
             @Override
             public void onResponse(Call<ForgotPasswordResponse> call, Response<ForgotPasswordResponse> response) {
                 forgotPasswordResponse = response.body();
-                if (forgotPasswordResponse !=null){
+                if (forgotPasswordResponse != null) {
                     String status = forgotPasswordResponse.getStatus();
                     String message = forgotPasswordResponse.getMessage();
-                    if(status.equals("success")){
+                    if (status.equals("success")) {
                         showCustomDialog("", message, getResources().getString(R.string.ok), getResources().getString(R.string.success), onDismissListener);
-                    }else{
+                    } else {
                         showCustomDialog("", message, getResources().getString(R.string.ok), getResources().getString(R.string.warning), null);
                     }
                 }
@@ -122,10 +150,11 @@ public class ForgotPasswordActivity extends BaseActivity {
 
             @Override
             public void onFailure(Call<ForgotPasswordResponse> call, Throwable throwable) {
-                showCustomDialog("",throwable.getMessage() , getResources().getString(R.string.ok), getResources().getString(R.string.warning), null);
+                showCustomDialog("", throwable.getMessage(), getResources().getString(R.string.ok), getResources().getString(R.string.warning), null);
             }
         });
     }
+
     CustomDialog.OnDismissListener onDismissListener = () -> {
         startActivity(new Intent(ForgotPasswordActivity.this, LoginActivity.class));
         finish();
@@ -140,7 +169,7 @@ public class ForgotPasswordActivity extends BaseActivity {
                 mTextViewEmailAddressError.setText(getResources().getString(R.string.error_mobile_number));
                 valid = false;
             }
-        } catch (Exception exception){
+        } catch (Exception exception) {
             Log.e("Error ==> ", "" + exception);
         }
         return valid;
@@ -152,13 +181,14 @@ public class ForgotPasswordActivity extends BaseActivity {
             mTextViewEmailAddressError.setVisibility(View.GONE);
             editTextEmailAddress.setText("");
             editTextEmailAddress.setBackground(getResources().getDrawable(R.drawable.background_rounded_edit_text_gray));
-        } catch (Exception exception){
+        } catch (Exception exception) {
             Log.e("Error ==> ", "" + exception);
         }
     }
 
     private class TextChange implements TextWatcher {
         View view;
+
         private TextChange(View view) {
             this.view = view;
         }
@@ -172,13 +202,13 @@ public class ForgotPasswordActivity extends BaseActivity {
         public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
             try {
                 String s = charSequence.toString();
-                if(view.getId() == R.id.editTextEmailAddress){
-                    if(s.length() > 0) {
+                if (view.getId() == R.id.editTextEmailAddress) {
+                    if (s.length() > 0) {
                         editTextEmailAddress.setBackground(getResources().getDrawable(R.drawable.background_rounded_edit_text_gray));
                         mTextViewEmailAddressError.setVisibility(View.GONE);
                     }
                 }
-            } catch (Exception exception){
+            } catch (Exception exception) {
                 Log.e("Error ==> ", "" + exception);
             }
         }
@@ -192,7 +222,7 @@ public class ForgotPasswordActivity extends BaseActivity {
     public void showProgress() {
         try {
             progressBar.setVisibility(View.VISIBLE);
-        } catch (Exception exception){
+        } catch (Exception exception) {
             Log.e("Error ==> ", "" + exception);
         }
     }
@@ -200,7 +230,7 @@ public class ForgotPasswordActivity extends BaseActivity {
     public void hideProgress() {
         try {
             progressBar.setVisibility(View.GONE);
-        } catch (Exception exception){
+        } catch (Exception exception) {
             Log.e("Error ==> ", "" + exception);
         }
     }

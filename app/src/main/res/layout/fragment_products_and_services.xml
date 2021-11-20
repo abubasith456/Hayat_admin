@@ -32,12 +32,20 @@
                 android:textColor="@color/colorPrimary"
                 android:textSize="@dimen/_14sdp" />
 
-            <androidx.recyclerview.widget.RecyclerView
+                <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerViewClients"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 tools:listitem="@layout/row_item_view_product_and_services"
                 />
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/floatingButtonAddProducts"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end|bottom"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:src="@drawable/icon_add"/>
         </FrameLayout>
 
     </LinearLayout>

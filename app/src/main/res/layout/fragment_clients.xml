@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools">
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/colorWhite"
         android:orientation="vertical">
+
         <View
             android:layout_width="match_parent"
             android:layout_height="@dimen/_8sdp"
@@ -20,23 +21,33 @@
             android:layout_height="match_parent"
             android:layout_marginTop="@dimen/_5sdp">
 
+
             <TextView
                 android:id="@+id/textViewNoResult"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:gravity="center"
-                android:visibility="gone"
                 android:fontFamily="@font/work_sans_semibold"
+                android:gravity="center"
                 android:text="@string/result_not_found"
                 android:textColor="@color/colorPrimary"
-                android:textSize="@dimen/_14sdp" />
+                android:textSize="@dimen/_14sdp"
+                android:visibility="gone" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerViewClients"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                tools:listitem="@layout/row_item_view_clients"
-                />
+                tools:listitem="@layout/row_item_view_clients" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/floatingButtonAddClients"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end|bottom"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:src="@drawable/icon_add" />
+
         </FrameLayout>
 
     </LinearLayout>
@@ -46,9 +57,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clickable="true"
+        android:focusable="true"
         android:focusableInTouchMode="true"
-        android:visibility="gone"
-        android:focusable="true">
+        android:visibility="gone">
 
         <ProgressBar
             android:layout_width="@dimen/_100sdp"

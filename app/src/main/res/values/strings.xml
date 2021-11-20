@@ -35,6 +35,14 @@
     <string name="next">Next</string>
     <string name="forgot_password_title">Forgot Password</string>
     <string name="retrieve_account">Retrieve Account</string>
+    <string name="login_with_mobile_number">Login with mobile number</string>
+    <string name="send">Send</string>
+    <string name="verify">Verify</string>
+    <string name="verify_otp">Verify OTP</string>
+    <string name="otp">OTP</string>
+    <string name="enter_otp">Enter your otp</string>
+    <string name="error_otp">his information is required. Please enter your OTP.</string>
+    <string name="invalid_otp">Please enter the valid OTP</string>
 
     <!-- Dashboard -->
 
@@ -169,5 +177,45 @@
     <string name="error_old_password">This information is required. Please enter your old password.</string>
     <string name="error_new_password">This information is required. Please enter your new password.</string>
 
+    <!--    Add products-->
+    <string name="error_product_name">Please enter the product name!</string>
+    <string name="error_product_details">Please enter the product details</string>
+    <string name="product_name">Product name</string>
+    <string name="enter_the_product_name">Enter the product name</string>
+    <string name="product_details">Product Details</string>
+    <string name="enter_the_product_details">Enter the product Details</string>
+    <string name="add_product">Add product</string>
+    <string name="add_products_and_services">Add products and services</string>
+    <string name="edit_products_and_services">Edit products and services</string>
+    <string name="edit_product">Edit product</string>
+
+
+    <!--Add client details-->
+    <string name="error_client_name">Please enter the client name!</string>
+    <string name="error_client_role">Please enter the client role!</string>
+    <string name="error_client_bussiness">Please enter the business name!</string>
+    <string name="error_client_mobile">Please enter the client mobile number!</string>
+    <string name="error_client_email">Please enter the client Email!</string>
+    <string name="error_client_address">Please enter the client address!</string>
+    <string name="add_clients">Add clients</string>
+    <string name="select_image">Select image</string>
+    <string name="client_name">Client Name</string>
+    <string name="enter_the_client_name">Enter the client name</string>
+    <string name="client_role">Client Role</string>
+    <string name="enter_the_client_role">Enter the client role</string>
+    <string name="client_business_name">Client business Name</string>
+    <string name="enter_the_client_business_name">Enter the client business name</string>
+    <string name="client_mobile_number">Client Mobile number</string>
+    <string name="enter_the_client_mobilenumber">Enter the client MobileNumber</string>
+    <string name="client_email">Client Email</string>
+    <string name="client_address">Client Address</string>
+    <string name="enter_the_client_address">Enter the client address</string>
+    <string name="add_client">Add Client</string>
+    <string name="edit_clients">Edit Clients</string>
+    <string name="enter_the_client_email">Enter the client email</string>
+    <string name="delete">Delete</string>
+    <string name="client_details">Client Details</string>
+    <string name="remove_picture">Remove picture</string>
+    <string name="add_projects">Add Projects</string>
 
 </resources>

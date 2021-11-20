@@ -75,23 +75,21 @@ public class ProjectsTrackActivity<supportActionBar> extends BaseActivity {
 
                 }
             });
-        } catch (Exception exception){
+        } catch (Exception exception) {
             Log.e("Error ==> ", "" + exception);
         }
 
     }
 
-
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new ProjectsDetailsFragment(), "Details");
-        adapter.addFragment(new ProjectsReportsFragment(projectStatusValue),"Report");
-        adapter.addFragment(new ProjectsClientsFragments(),"Client");
-        adapter.addFragment(new BoqFragment(),"BOQ");
-        adapter.addFragment(new ProjectsDocumentsFragment(),"Documents");
+        adapter.addFragment(new ProjectsReportsFragment(projectStatusValue), "Report");
+        adapter.addFragment(new ProjectsClientsFragments(), "Client");
+        adapter.addFragment(new BoqFragment(), "BOQ");
+        adapter.addFragment(new ProjectsDocumentsFragment(), "Documents");
         viewPager.setAdapter(adapter);
         tabLayoutDetails.setupWithViewPager(viewPager);
-
     }
 
     static class ViewPagerAdapter extends FragmentPagerAdapter {
@@ -126,9 +124,9 @@ public class ProjectsTrackActivity<supportActionBar> extends BaseActivity {
     private void openPhotoPreView(String photoPreviewUrl, Activity activity) {
         try {
             Intent objIntent = new Intent(activity, PhotoPreViewActivity.class);
-            objIntent.putExtra("PhotoPreviewKey",photoPreviewUrl);
+            objIntent.putExtra("PhotoPreviewKey", photoPreviewUrl);
             activity.startActivity(objIntent);
-        } catch (Exception exception){
+        } catch (Exception exception) {
             Log.e("Error ==> ", "" + exception);
         }
     }
@@ -136,7 +134,7 @@ public class ProjectsTrackActivity<supportActionBar> extends BaseActivity {
     public void showProgress() {
         try {
             progressbarDetails.setVisibility(View.VISIBLE);
-        } catch (Exception exception){
+        } catch (Exception exception) {
             Log.e("Error ==> ", "" + exception);
         }
     }
@@ -144,7 +142,7 @@ public class ProjectsTrackActivity<supportActionBar> extends BaseActivity {
     public void hideProgress() {
         try {
             progressbarDetails.setVisibility(View.GONE);
-        } catch (Exception exception){
+        } catch (Exception exception) {
             Log.e("Error ==> ", "" + exception);
         }
     }

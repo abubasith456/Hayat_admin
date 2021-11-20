@@ -20,6 +20,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.trizions.BaseFragment;
 import com.trizions.R;
 import com.trizions.ui.dashboard.tab_fragments.products_and_services.ProductsAndServicesFragment;
@@ -30,6 +31,7 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class CurrentProjectsFragment extends BaseFragment {
 
@@ -38,6 +40,9 @@ public class CurrentProjectsFragment extends BaseFragment {
 
     @BindView(R.id.textViewNoResult)
     TextView textViewNoResult;
+
+    @BindView(R.id.floatingButtonAddCurrentProjects)
+    FloatingActionButton floatingButtonAddCurrentProjects;
 
     @BindView(R.id.progress_bar)
     FrameLayout progressBar;
@@ -100,6 +105,15 @@ public class CurrentProjectsFragment extends BaseFragment {
         super.onResume();
         try {
             setUpRecyclerView();
+        } catch (Exception exception) {
+            Log.e("Error ==> ", "" + exception);
+        }
+    }
+
+    @OnClick(R.id.floatingButtonAddCurrentProjects)
+    void onFloatingButtonAddCurrentProjectsClick() {
+        try {
+
         } catch (Exception exception) {
             Log.e("Error ==> ", "" + exception);
         }
@@ -188,11 +202,11 @@ public class CurrentProjectsFragment extends BaseFragment {
                 detailsLinearLayout = detailsLinearLayout.findViewById(R.id.detailsLinearLayout);
                 detailsLinearLayout.setOnClickListener(view -> {
                     String text = textViewProjectName.getText().toString();
-                    String  projectStatusValue = response.ProjectStatus;
-                    projectStatusValue = projectStatusValue.replace("% completed","");
+                    String projectStatusValue = response.ProjectStatus;
+                    projectStatusValue = projectStatusValue.replace("% completed", "");
                     Intent intent = new Intent(getActivity(), ProjectsTrackActivity.class);
-                    intent.putExtra("ProjectTitle",text);
-                    intent.putExtra("PieChartValue",projectStatusValue);
+                    intent.putExtra("ProjectTitle", text);
+                    intent.putExtra("PieChartValue", projectStatusValue);
                     startActivity(intent);
                 });
 
