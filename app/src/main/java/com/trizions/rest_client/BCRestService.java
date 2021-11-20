@@ -5,6 +5,7 @@ import com.trizions.model.login.LoginResponse;
 import com.trizions.model.login.change_password.ChangePasswordRequest;
 import com.trizions.model.login.change_password.ChangePasswordResponse;
 import com.trizions.model.login.forgot_password.ForgotPasswordResponse;
+import com.trizions.model.login.forgot_password.ForgotPasswordRequest;
 import com.trizions.model.login.register.RegisterRequest;
 import com.trizions.model.login.register.RegisterResponse;
 
@@ -22,15 +23,15 @@ public interface BCRestService {
     );
 
     // Register API Call
-    @POST("auth/cuser")
+    @POST("user_register")
     Call<RegisterResponse> register(
             @Body RegisterRequest registerRequest
     );
 
     // ForgotPasswordActivity API Call
-    @POST("profile/forgot_password")
+    @POST("user_forgot_password")
     Call<ForgotPasswordResponse> retrieve(
-            @Body RequestBody requestBody
+            @Body ForgotPasswordRequest requestBody
     );
 
     //ChangePasswordActivity API call
