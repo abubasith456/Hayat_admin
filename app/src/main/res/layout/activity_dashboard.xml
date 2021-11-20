@@ -196,6 +196,23 @@
                     android:background="@color/colorBlack" />
 
                 <TextView
+                    android:id="@+id/textViewChangePassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_50sdp"
+                    android:fontFamily="@font/work_sans_semibold"
+                    android:gravity="start|center_vertical"
+                    android:paddingStart="@dimen/_15sdp"
+                    android:paddingEnd="@dimen/_15sdp"
+                    android:text="@string/change_password"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/_16sdp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_1sdp"
+                    android:background="@color/colorBlack" />
+
+                <TextView
                     android:id="@+id/textViewLogout"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_50sdp"

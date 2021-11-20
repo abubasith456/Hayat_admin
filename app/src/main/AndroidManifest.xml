@@ -9,8 +9,10 @@
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
+
     <uses-feature android:name="android.hardware.camera2.full" />
-	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
@@ -25,6 +27,9 @@
         android:theme="@style/Theme.Trizions"
         android:usesCleartextTraffic="true"
         tools:ignore="AllowBackup">
+        <activity
+            android:name=".ui.dashboard.ChangePasswordActivity"
+            android:exported="true" />
         <activity android:name=".ui.splash.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -77,11 +82,11 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustPan" />
-        <activity android:name=".ui.dashboard.tab_fragments.projects.details.tab_fragments.boq.MaterialSpecificationActivity"
+        <activity
+            android:name=".ui.dashboard.tab_fragments.projects.details.tab_fragments.boq.MaterialSpecificationActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustPan" />
-
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

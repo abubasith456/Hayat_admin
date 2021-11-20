@@ -84,24 +84,24 @@ public class DashBoardActivity extends BaseActivity implements AboutUsFragment.O
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
 
-        try{
+        try {
             bottomNavigation.setOnNavigationItemSelectedListener(navigationItemSelectedListener);
             setupViewPager(viewPager);
 
             if (ContextCompat.checkSelfPermission(this,
-                    ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
+                    ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 if (ActivityCompat.shouldShowRequestPermissionRationale(this,
-                        ACCESS_FINE_LOCATION)){
+                        ACCESS_FINE_LOCATION)) {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q)
                         ActivityCompat.requestPermissions(this, new String[]{/*ACCESS_BACKGROUND_LOCATION,*/ ACCESS_FINE_LOCATION, CALL_PHONE}, 1);
                     else
                         ActivityCompat.requestPermissions(this, new String[]{ACCESS_FINE_LOCATION, CALL_PHONE}, 1);
-                }else{
+                } else {
                     ActivityCompat.requestPermissions(this,
                             new String[]{ACCESS_FINE_LOCATION, CALL_PHONE}, 1);
                 }
             }
-        } catch (Exception exception){
+        } catch (Exception exception) {
             Log.e("Error ==> ", "" + exception);
         }
     }
@@ -124,7 +124,7 @@ public class DashBoardActivity extends BaseActivity implements AboutUsFragment.O
 
     BottomNavigationView.OnNavigationItemSelectedListener navigationItemSelectedListener =
             item -> {
-                try{
+                try {
                     switch (item.getItemId()) {
                         case R.id.navigation_about_us:
                             viewPager.setCurrentItem(0);
@@ -142,7 +142,7 @@ public class DashBoardActivity extends BaseActivity implements AboutUsFragment.O
                             viewPager.setCurrentItem(4);
                             return true;
                     }
-                } catch (Exception exception){
+                } catch (Exception exception) {
                     Log.e("Error ==> ", "" + exception);
                 }
                 return false;
@@ -185,7 +185,7 @@ public class DashBoardActivity extends BaseActivity implements AboutUsFragment.O
 
                 }
             });
-        } catch (Exception exception){
+        } catch (Exception exception) {
             Log.e("Error ==> ", "" + exception);
         }
     }
@@ -194,7 +194,7 @@ public class DashBoardActivity extends BaseActivity implements AboutUsFragment.O
     public void onShowAllCategories(String message) {
         try {
 
-        } catch (Exception exception){
+        } catch (Exception exception) {
             Log.e("Error ==> ", "" + exception);
         }
     }
@@ -203,7 +203,7 @@ public class DashBoardActivity extends BaseActivity implements AboutUsFragment.O
     public void onShowResults(String subCategoryName) {
         try {
 
-        } catch (Exception exception){
+        } catch (Exception exception) {
             Log.e("Error ==> ", "" + exception);
         }
     }
@@ -212,7 +212,7 @@ public class DashBoardActivity extends BaseActivity implements AboutUsFragment.O
     public void onShowDetailsView(String id) {
         try {
 
-        } catch (Exception exception){
+        } catch (Exception exception) {
             Log.e("Error ==> ", "" + exception);
         }
     }
@@ -246,7 +246,7 @@ public class DashBoardActivity extends BaseActivity implements AboutUsFragment.O
                         break;
                 }
                 return mFragmentList.get(position);
-            } catch (Exception exception){
+            } catch (Exception exception) {
                 Log.e("Error ==> ", "" + exception);
                 return null;
             }
@@ -257,7 +257,7 @@ public class DashBoardActivity extends BaseActivity implements AboutUsFragment.O
             try {
                 return mFragmentList.size();
 
-            } catch (Exception exception){
+            } catch (Exception exception) {
                 Log.e("Error ==> ", "" + exception);
                 return 0;
             }
@@ -267,7 +267,7 @@ public class DashBoardActivity extends BaseActivity implements AboutUsFragment.O
             try {
                 mFragmentList.add(fragment);
                 mFragmentTitleList.add(title);
-            } catch (Exception exception){
+            } catch (Exception exception) {
                 Log.e("Error ==> ", "" + exception);
             }
         }
@@ -276,7 +276,7 @@ public class DashBoardActivity extends BaseActivity implements AboutUsFragment.O
         public CharSequence getPageTitle(int position) {
             try {
                 return mFragmentTitleList.get(position);
-            } catch (Exception exception){
+            } catch (Exception exception) {
                 Log.e("Error ==> ", "" + exception);
                 return "";
             }
@@ -284,75 +284,85 @@ public class DashBoardActivity extends BaseActivity implements AboutUsFragment.O
     }
 
     @OnClick(R.id.chatButton)
-    void chatButtonClick(){
+    void chatButtonClick() {
         try {
             startActivity(new Intent(DashBoardActivity.this, MessageChatActivity.class));
-        } catch (Exception exception){
+        } catch (Exception exception) {
             Log.e("Error ==> ", "" + exception);
         }
     }
 
     @OnClick(R.id.filterButton)
-    void filterButtonClick(){
+    void filterButtonClick() {
         try {
 
-        } catch (Exception exception){
+        } catch (Exception exception) {
             Log.e("Error ==> ", "" + exception);
         }
     }
 
     @OnClick(R.id.locationButton)
-    void locationButtonClick(){
+    void locationButtonClick() {
         try {
 
-        } catch (Exception exception){
+        } catch (Exception exception) {
             Log.e("Error ==> ", "" + exception);
         }
     }
 
     @OnClick(R.id.linear_layout_back)
-    void hamburgerMenuClick(){
+    void hamburgerMenuClick() {
         try {
             sideMenu.setVisibility(View.VISIBLE);
-        } catch (Exception exception){
+        } catch (Exception exception) {
             Log.e("Error ==> ", "" + exception);
         }
     }
 
     @OnClick(R.id.sideMenuClose)
-    void setSideMenuClose(){
+    void setSideMenuClose() {
         try {
             sideMenu.setVisibility(View.GONE);
-        } catch (Exception exception){
+        } catch (Exception exception) {
             Log.e("Error ==> ", "" + exception);
         }
     }
 
     @OnClick(R.id.textViewNotification)
-    void setMenuOne(){
+    void setMenuOne() {
         try {
             sideMenu.setVisibility(View.GONE);
             startActivity(new Intent(this, NotificationActivity.class));
-        } catch (Exception exception){
+        } catch (Exception exception) {
             Log.e("Error ==> ", "" + exception);
         }
     }
 
     @OnClick(R.id.textViewChat)
-    void setMenuTwo(){
+    void setMenuTwo() {
         try {
             sideMenu.setVisibility(View.GONE);
             startActivity(new Intent(this, MessageChatActivity.class));
-        } catch (Exception exception){
+        } catch (Exception exception) {
+            Log.e("Error ==> ", "" + exception);
+        }
+    }
+
+    @OnClick(R.id.textViewChangePassword)
+    void onChangePasswordClick() {
+        try {
+            sideMenu.setVisibility(View.GONE);
+            startActivity(new Intent(this, ChangePasswordActivity.class));
+        } catch (Exception exception) {
             Log.e("Error ==> ", "" + exception);
         }
     }
 
     @OnClick(R.id.textViewLogout)
-    void setMenuThree(){
+    void setMenuThree() {
         try {
             showCustomDialogWithTwoButtons("", "Do you want to Logout?", getResources().getString(R.string.yes), getResources().getString(R.string.confirm), onDismissListener);
-        } catch (Exception exception){
+        } catch (Exception exception) {
             Log.e("Error ==> ", "" + exception);
         }
     }
@@ -372,7 +382,7 @@ public class DashBoardActivity extends BaseActivity implements AboutUsFragment.O
     void onLocationClick() {
         try {
 
-        } catch (Exception exception){
+        } catch (Exception exception) {
             Log.e("Error ==> ", "" + exception);
         }
     }
@@ -381,7 +391,7 @@ public class DashBoardActivity extends BaseActivity implements AboutUsFragment.O
     void onFilterClick() {
         try {
 
-        } catch (Exception exception){
+        } catch (Exception exception) {
             Log.e("Error ==> ", "" + exception);
         }
     }
@@ -395,7 +405,7 @@ public class DashBoardActivity extends BaseActivity implements AboutUsFragment.O
                 fragmentTransaction.addToBackStack(null);
             }
             fragmentTransaction.commitAllowingStateLoss();
-        } catch (Exception exception){
+        } catch (Exception exception) {
             Log.e("Error ==> ", "" + exception);
         }
     }
@@ -407,7 +417,7 @@ public class DashBoardActivity extends BaseActivity implements AboutUsFragment.O
 //            fragmentTransaction.remove(Objects.requireNonNull(manager.findFragmentById(R.id.layout_fragment))).commit();
 
             for (Fragment fragment : getSupportFragmentManager().getFragments()) {
-                if(fragment != null) {
+                if (fragment != null) {
                     if (fragment.getClass().getSimpleName().equalsIgnoreCase("AllCategoriesFragment")
                             || fragment.getClass().getSimpleName().equalsIgnoreCase("SubCategoriesFragment")
                             || fragment.getClass().getSimpleName().equalsIgnoreCase("CategorySearchFragment")) {
@@ -415,7 +425,7 @@ public class DashBoardActivity extends BaseActivity implements AboutUsFragment.O
                     }
                 }
             }
-        } catch (Exception exception){
+        } catch (Exception exception) {
             Log.e("Error ==> ", "" + exception);
         }
     }
@@ -423,7 +433,7 @@ public class DashBoardActivity extends BaseActivity implements AboutUsFragment.O
     public void showProgress() {
         try {
             progressBar.setVisibility(View.VISIBLE);
-        } catch (Exception exception){
+        } catch (Exception exception) {
             Log.e("Error ==> ", "" + exception);
         }
     }
@@ -431,7 +441,7 @@ public class DashBoardActivity extends BaseActivity implements AboutUsFragment.O
     public void hideProgress() {
         try {
             progressBar.setVisibility(View.GONE);
-        } catch (Exception exception){
+        } catch (Exception exception) {
             Log.e("Error ==> ", "" + exception);
         }
     }

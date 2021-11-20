@@ -5,27 +5,27 @@ import com.google.gson.annotations.SerializedName;
 
 public class LoginRequest {
 
-    @SerializedName("mno")
+    @SerializedName("mobile_number")
     @Expose
-    private String mno;
-    @SerializedName("pass")
+    private String mobileNumber;
+    @SerializedName("password")
     @Expose
-    private String pass;
+    private String password;
 
-    public String getMno() {
-        return mno;
+    public String getMobileNumber() {
+        return mobileNumber;
     }
 
-    public void setMno(String mno) {
-        this.mno = mno;
+    public void setMobileNumber(String mobileNumber) {
+        this.mobileNumber = mobileNumber;
     }
 
-    public String getPass() {
-        return pass;
+    public String getPassword() {
+        return password;
     }
 
-    public void setPass(String pass) {
-        this.pass = pass;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
 }

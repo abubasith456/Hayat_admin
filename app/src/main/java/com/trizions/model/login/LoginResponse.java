@@ -7,97 +7,217 @@ import java.util.List;
 
 public class LoginResponse {
 
-    @SerializedName("data")
-    @Expose
-    private Data data;
-    @SerializedName("msg")
-    @Expose
-    private String msg;
     @SerializedName("status")
     @Expose
-    private Integer status;
-    @SerializedName("error")
+    private String status;
+    @SerializedName("message")
     @Expose
-    private String error;
+    private String message;
+    @SerializedName("userInformations")
+    @Expose
+    private List<UserInformation> userInformations = null;
 
-    public Data getData() {
-        return data;
-    }
-
-    public void setData(Data data) {
-        this.data = data;
-    }
-
-    public String getMsg() {
-        return msg;
-    }
-
-    public void setMsg(String msg) {
-        this.msg = msg;
-    }
-
-    public Integer getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(Integer status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 
-    public String getError() {
-        return error;
+    public String getMessage() {
+        return message;
     }
 
-    public void setError(String error) {
-        this.error = error;
+    public void setMessage(String message) {
+        this.message = message;
     }
 
+    public List<UserInformation> getUserInformations() {
+        return userInformations;
+    }
 
-    public class Data {
+    public void setUserInformations(List<UserInformation> userInformations) {
+        this.userInformations = userInformations;
+    }
 
-        @SerializedName("token")
+    public class UserInformation {
+
+        @SerializedName("id")
         @Expose
-        private String token;
-        @SerializedName("uname")
+        private Integer id;
+        @SerializedName("user_name")
         @Expose
-        private String uname;
-        @SerializedName("user_id")
+        private String userName;
+        @SerializedName("email")
         @Expose
-        private Integer userId;
-        @SerializedName("roles")
+        private String email;
+        @SerializedName("mobile_number")
         @Expose
-        private List<Object> roles = null;
+        private String mobileNumber;
+        @SerializedName("first_name")
+        @Expose
+        private String firstName;
+        @SerializedName("last_name")
+        @Expose
+        private String lastName;
+        @SerializedName("dob")
+        @Expose
+        private String dob;
+        @SerializedName("address")
+        @Expose
+        private String address;
+        @SerializedName("area")
+        @Expose
+        private String area;
+        @SerializedName("city")
+        @Expose
+        private String city;
+        @SerializedName("state")
+        @Expose
+        private String state;
+        @SerializedName("country")
+        @Expose
+        private String country;
+        @SerializedName("latitude")
+        @Expose
+        private Object latitude;
+        @SerializedName("longitude")
+        @Expose
+        private Object longitude;
+        @SerializedName("user_image_url")
+        @Expose
+        private Object userImageUrl;
+        @SerializedName("updated_time")
+        @Expose
+        private String updatedTime;
 
-        public String getToken() {
-            return token;
+        public Integer getId() {
+            return id;
         }
 
-        public void setToken(String token) {
-            this.token = token;
+        public void setId(Integer id) {
+            this.id = id;
         }
 
-        public String getUname() {
-            return uname;
+        public String getUserName() {
+            return userName;
         }
 
-        public void setUname(String uname) {
-            this.uname = uname;
+        public void setUserName(String userName) {
+            this.userName = userName;
         }
 
-        public Integer getUserId() {
-            return userId;
+        public String getEmail() {
+            return email;
         }
 
-        public void setUserId(Integer userId) {
-            this.userId = userId;
+        public void setEmail(String email) {
+            this.email = email;
         }
 
-        public List<Object> getRoles() {
-            return roles;
+        public String getMobileNumber() {
+            return mobileNumber;
         }
 
-        public void setRoles(List<Object> roles) {
-            this.roles = roles;
+        public void setMobileNumber(String mobileNumber) {
+            this.mobileNumber = mobileNumber;
+        }
+
+        public String getFirstName() {
+            return firstName;
+        }
+
+        public void setFirstName(String firstName) {
+            this.firstName = firstName;
+        }
+
+        public String getLastName() {
+            return lastName;
+        }
+
+        public void setLastName(String lastName) {
+            this.lastName = lastName;
+        }
+
+        public String getDob() {
+            return dob;
+        }
+
+        public void setDob(String dob) {
+            this.dob = dob;
+        }
+
+        public String getAddress() {
+            return address;
+        }
+
+        public void setAddress(String address) {
+            this.address = address;
+        }
+
+        public String getArea() {
+            return area;
+        }
+
+        public void setArea(String area) {
+            this.area = area;
+        }
+
+        public String getCity() {
+            return city;
+        }
+
+        public void setCity(String city) {
+            this.city = city;
+        }
+
+        public String getState() {
+            return state;
+        }
+
+        public void setState(String state) {
+            this.state = state;
+        }
+
+        public String getCountry() {
+            return country;
+        }
+
+        public void setCountry(String country) {
+            this.country = country;
+        }
+
+        public Object getLatitude() {
+            return latitude;
+        }
+
+        public void setLatitude(Object latitude) {
+            this.latitude = latitude;
+        }
+
+        public Object getLongitude() {
+            return longitude;
+        }
+
+        public void setLongitude(Object longitude) {
+            this.longitude = longitude;
+        }
+
+        public Object getUserImageUrl() {
+            return userImageUrl;
+        }
+
+        public void setUserImageUrl(Object userImageUrl) {
+            this.userImageUrl = userImageUrl;
+        }
+
+        public String getUpdatedTime() {
+            return updatedTime;
+        }
+
+        public void setUpdatedTime(String updatedTime) {
+            this.updatedTime = updatedTime;
         }
 
     }

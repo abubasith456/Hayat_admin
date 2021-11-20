@@ -19,11 +19,17 @@ import androidx.annotation.Nullable;
 import com.trizions.BaseActivity;
 import com.trizions.R;
 import com.trizions.dialog.CustomDialog;
+import com.trizions.model.login.LoginRequest;
+import com.trizions.model.login.LoginResponse;
+import com.trizions.rest_client.BCRequests;
 import com.trizions.ui.dashboard.DashBoardActivity;
 import com.trizions.utils.Utils;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class LoginActivity extends BaseActivity {
 
@@ -46,17 +52,19 @@ public class LoginActivity extends BaseActivity {
     @BindView(R.id.progressBar)
     FrameLayout progressBar;
 
+    LoginResponse loginResponse;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        try{
+        try {
             editTextMobileNumberInput.addTextChangedListener(new LoginActivity.TextChange(editTextMobileNumberInput));
             editTextPasswordInput.addTextChangedListener(new LoginActivity.TextChange(editTextPasswordInput));
             editTextMobileNumberInput.setOnEditorActionListener(editorListener);
             editTextPasswordInput.setOnEditorActionListener(editorListener);
-        } catch (Exception exception){
+        } catch (Exception exception) {
             Log.e("Error ==> ", "" + exception);
         }
     }
@@ -76,19 +84,57 @@ public class LoginActivity extends BaseActivity {
     };
 
     @OnClick(R.id.layoutSignIn)
-    void onSignInClick(){
+    void onSignInClick() {
         try {
             if (validate(editTextMobileNumberInput.getText().toString().trim(), editTextPasswordInput.getText().toString())) {
                 Utils.hideSoftKeyboard(LoginActivity.this);
-                if(Utils.isNetworkConnectionAvailable(this)){
-                    showCustomDialog("", "Logged in successfully", getResources().getString(R.string.ok), getResources().getString(R.string.success), onDismissListener);
+                if (Utils.isNetworkConnectionAvailable(this)) {
+                    showProgress();
+                    signInUser();
                 } else {
                     showCustomDialog("", getResources().getString(R.string.error_network), getResources().getString(R.string.ok), getResources().getString(R.string.confirm), null);
                 }
             }
-        } catch (Exception exception){
+        } catch (Exception exception) {
             Log.e("Error ==> ", "" + exception);
         }
+    }
+
+    private void signInUser() {
+        LoginRequest loginRequest = new LoginRequest();
+        loginRequest.setMobileNumber(editTextMobileNumberInput.getText().toString());
+        loginRequest.setPassword(editTextPasswordInput.getText().toString());
+
+        Call<LoginResponse> loginResponseCall = BCRequests.getInstance().getBCRestService().login(loginRequest);
+        loginResponseCall.enqueue(new Callback<LoginResponse>() {
+            @Override
+            public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
+                try {
+                    if (response.isSuccessful()) {
+                        hideProgress();
+                        loginResponse = response.body();
+                        if (response != null && loginResponse != null) {
+                            String status = loginResponse.getStatus();
+                            String message = loginResponse.getMessage();
+                            if (status.equals("success")) {
+                                showCustomDialog("", message, getResources().getString(R.string.ok), getResources().getString(R.string.success), onDismissListener);
+                            } else {
+                                showCustomDialog("", message, getResources().getString(R.string.ok), getResources().getString(R.string.warning), null);
+                            }
+                        }
+                    }
+                } catch (Exception exception) {
+                    Log.e("Error ==> ", "" + exception);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<LoginResponse> call, Throwable t) {
+                hideProgress();
+                showCustomDialog("", t.getMessage(), getResources().getString(R.string.ok), getResources().getString(R.string.warning), null);
+            }
+        });
+
     }
 
     CustomDialog.OnDismissListener onDismissListener = () -> {
@@ -100,45 +146,45 @@ public class LoginActivity extends BaseActivity {
     };
 
     @OnClick(R.id.layoutSignUp)
-    void onSignUpClick(){
+    void onSignUpClick() {
         try {
             Utils.hideSoftKeyboard(LoginActivity.this);
             invalidateErrorMessages();
             startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
-        } catch (Exception exception){
+        } catch (Exception exception) {
             Log.e("Error ==> ", "" + exception);
         }
     }
 
     @OnClick(R.id.layoutForgotPassword)
-    void onForgotPasswordClick(){
+    void onForgotPasswordClick() {
         try {
             Utils.hideSoftKeyboard(LoginActivity.this);
             invalidateErrorMessages();
             startActivity(new Intent(LoginActivity.this, ForgotPasswordActivity.class));
-        } catch (Exception exception){
+        } catch (Exception exception) {
             Log.e("Error ==> ", "" + exception);
         }
     }
 
     @OnClick(R.id.layoutScanCode)
-    void onScanCodeClick(){
-        try{
-            Intent intent =new Intent(LoginActivity.this, ScanBarCodeActivity.class);
-            startActivityForResult(intent,2);
-        } catch (Exception exception){
-            Log.e("Error ==> ","" + exception);
+    void onScanCodeClick() {
+        try {
+            Intent intent = new Intent(LoginActivity.this, ScanBarCodeActivity.class);
+            startActivityForResult(intent, 2);
+        } catch (Exception exception) {
+            Log.e("Error ==> ", "" + exception);
         }
     }
 
     @Override
-    protected void onActivityResult(int requestCode,int resultCode,Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(requestCode == 2);
+        if (requestCode == 2) ;
         {
             String message = data.getStringExtra("BarCode Value");
-            Toast.makeText(getApplicationContext(),""+ message,Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "" + message, Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -157,7 +203,7 @@ public class LoginActivity extends BaseActivity {
                 mTextViewErrorPassword.setText(getResources().getString(R.string.error_password));
                 valid = false;
             }
-        } catch (Exception exception){
+        } catch (Exception exception) {
             Log.e("Error ==> ", "" + exception);
         }
         return valid;
@@ -173,13 +219,14 @@ public class LoginActivity extends BaseActivity {
             editTextPasswordInput.setText("");
             editTextMobileNumberInput.setBackground(getResources().getDrawable(R.drawable.background_rounded_edit_text_gray));
             editTextPasswordInput.setBackground(getResources().getDrawable(R.drawable.background_rounded_edit_text_gray));
-        } catch (Exception exception){
+        } catch (Exception exception) {
             Log.e("Error ==> ", "" + exception);
         }
     }
 
     private class TextChange implements TextWatcher {
         View view;
+
         private TextChange(View view) {
             this.view = view;
         }
@@ -193,18 +240,18 @@ public class LoginActivity extends BaseActivity {
         public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
             try {
                 String s = charSequence.toString();
-                if(view.getId() == R.id.editTextMobileNumberInput){
-                    if(s.length() > 0) {
+                if (view.getId() == R.id.editTextMobileNumberInput) {
+                    if (s.length() > 0) {
                         editTextMobileNumberInput.setBackground(getResources().getDrawable(R.drawable.background_rounded_edit_text_gray));
                         mTextViewErrorMobileNUmber.setVisibility(View.GONE);
                     }
-                } else if (view.getId() == R.id.editTextPasswordInput){
-                    if(s.length() > 0) {
+                } else if (view.getId() == R.id.editTextPasswordInput) {
+                    if (s.length() > 0) {
                         editTextPasswordInput.setBackground(getResources().getDrawable(R.drawable.background_rounded_edit_text_gray));
                         mTextViewErrorPassword.setVisibility(View.GONE);
                     }
                 }
-            } catch (Exception exception){
+            } catch (Exception exception) {
                 Log.e("Error ==> ", "" + exception);
             }
         }
@@ -218,7 +265,7 @@ public class LoginActivity extends BaseActivity {
     public void showProgress() {
         try {
             progressBar.setVisibility(View.VISIBLE);
-        } catch (Exception exception){
+        } catch (Exception exception) {
             Log.e("Error ==> ", "" + exception);
         }
     }
@@ -226,7 +273,7 @@ public class LoginActivity extends BaseActivity {
     public void hideProgress() {
         try {
             progressBar.setVisibility(View.GONE);
-        } catch (Exception exception){
+        } catch (Exception exception) {
             Log.e("Error ==> ", "" + exception);
         }
     }

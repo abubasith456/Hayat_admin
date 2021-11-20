@@ -22,6 +22,7 @@
     <string name="does_not_have_account">Don\'t have an account\ ?&#160;</string>
     <string name="sign_up">Sign-up</string>
     <string name="error_mobile_number">This information is required. Please enter your mobile number.</string>
+    <string name="invalid_number">The mobile number you\'ve entered is invalid. Please check the number</string>
     <string name="error_email">This information is required. Please enter your email.</string>
     <string name="invalid_email">The email address you\'ve entered is invalid. Please try again</string>
     <string name="error_password">This information is required. Please enter your password.</string>
@@ -136,6 +137,7 @@
     <!-- Chat & Notifications -->
     <string name="result_not_found">Results not found</string>
     <string name="chat">Chat</string>
+    <string name="change_password">Change password</string>
     <string name="notifications">Notifications</string>
     <string name="action_leave">Leave</string>
     <string name="action_send">Send</string>
@@ -158,5 +160,14 @@
     <string name="fcm_message">FCM Message</string>
     <string name="type_your_message">Type your message…</string>
     <string name="logout">Logout</string>
+
+    <!-- Change password -->
+    <string name="old_password">Old password</string>
+    <string name="new_password">New password</string>
+    <string name="enter_old_password">Enter the old password</string>
+    <string name="enter_new_password">Enter the new password</string>
+    <string name="error_old_password">This information is required. Please enter your old password.</string>
+    <string name="error_new_password">This information is required. Please enter your new password.</string>
+
 
 </resources>
