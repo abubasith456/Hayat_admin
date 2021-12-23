@@ -43,7 +43,6 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 public class AddClientsActivity extends BaseActivity {
-
     @BindView(R.id.imageViewUploadClientsPicture)
     ImageView imageViewUploadClientsPicture;
     @BindView(R.id.textViewSelectImage)

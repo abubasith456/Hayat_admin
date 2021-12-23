@@ -79,20 +79,15 @@ dependencies {
     implementation 'com.google.mlkit:barcode-scanning:17.0.0'
     //Gallery View
     implementation 'com.github.sheetalkumar105:androidimagevideogallery:1.05'
-
     //Firebase
-    // Import the BoM for the Firebase platform
     implementation platform('com.google.firebase:firebase-bom:29.0.2')
     implementation 'com.google.firebase:firebase-auth:21.0.1'
     implementation 'com.google.firebase:firebase-firestore:24.0.0'
     implementation 'com.google.android.gms:play-services-auth:20.0.0'
     implementation 'com.google.firebase:firebase-storage:20.0.0'
-    // Declare the dependency for the Realtime Database library
-    // When using the BoM, you don't specify versions in Firebase library dependencies
     implementation 'com.google.firebase:firebase-database'
     //image downloader picasso
     implementation 'com.squareup.picasso:picasso:2.71828'
-
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'

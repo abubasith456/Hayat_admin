@@ -29,6 +29,9 @@
         android:usesCleartextTraffic="true"
         tools:ignore="AllowBackup">
         <activity
+            android:name=".ui.dashboard.tab_fragments.projects.AddProjectClientInfoActivity"
+            android:exported="true" />
+        <activity
             android:name=".ui.dashboard.tab_fragments.projects.AddProjectsActivity"
             android:exported="true" />
         <activity
