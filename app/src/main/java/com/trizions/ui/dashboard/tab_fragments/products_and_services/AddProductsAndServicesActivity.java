@@ -260,28 +260,6 @@ public class AddProductsAndServicesActivity extends BaseActivity {
         }).show();
     }
 
-    private boolean checkCameraPermission() {
-        boolean resultCamera = ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) ==
-                (PackageManager.PERMISSION_GRANTED);
-        boolean resultExternal = ContextCompat.checkSelfPermission(this, Manifest.permission.MANAGE_EXTERNAL_STORAGE) ==
-                (PackageManager.PERMISSION_GRANTED);
-        return resultCamera && resultExternal;
-    }
-
-    private void requestCameraPermission() {
-        ActivityCompat.requestPermissions(this, cameraPermissions, STORAGE_REQUEST_CODE);
-    }
-
-    private boolean checkStoragePermission() {
-        boolean result = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) ==
-                (PackageManager.PERMISSION_GRANTED);
-        return result;
-    }
-
-    private void requestStoragePermission() {
-        ActivityCompat.requestPermissions(this, storagePermissions, STORAGE_REQUEST_CODE);
-    }
-
     private void pickFromCamera() {
         //using media to pic high quality image
         ContentValues contentValues = new ContentValues();
@@ -299,7 +277,26 @@ public class AddProductsAndServicesActivity extends BaseActivity {
         startActivityForResult(picGalleryIntent, IMAGE_PICK_GALLERY_CODE);
     }
 
-    //handle permission results
+    private boolean checkCameraPermission() {
+        boolean resultCamera = ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) ==
+                (PackageManager.PERMISSION_GRANTED);
+        return resultCamera;
+    }
+
+    private boolean checkStoragePermission() {
+        boolean result = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) ==
+                (PackageManager.PERMISSION_GRANTED);
+        return result;
+    }
+
+    private void requestCameraPermission() {
+        ActivityCompat.requestPermissions(this, cameraPermissions, CAMERA_REQUEST_CODE);
+    }
+
+    private void requestStoragePermission() {
+        ActivityCompat.requestPermissions(this, storagePermissions, STORAGE_REQUEST_CODE);
+    }
+
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
 
@@ -307,19 +304,19 @@ public class AddProductsAndServicesActivity extends BaseActivity {
             case CAMERA_REQUEST_CODE: {
                 if (grantResults.length > 0) {
                     boolean cameraAccepted = grantResults[0] == PackageManager.PERMISSION_GRANTED;
-                    boolean storageAccepted = grantResults[1] == PackageManager.PERMISSION_GRANTED;
-                    if (cameraAccepted && storageAccepted) {
+                    if (cameraAccepted) {
                         pickFromCamera();
                     } else {
                         Toast.makeText(getApplicationContext(), "Camera and storage permission required..", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
+            break;
             case STORAGE_REQUEST_CODE: {
                 if (grantResults.length > 0) {
                     boolean storageAccepted = grantResults[0] == PackageManager.PERMISSION_GRANTED;
                     if (storageAccepted) {
-//                        pickFromGallery();
+                        pickFromGallery();
                     } else {
                         Toast.makeText(getApplicationContext(), "Camera and storage permission required..", Toast.LENGTH_SHORT).show();
                     }
@@ -329,7 +326,6 @@ public class AddProductsAndServicesActivity extends BaseActivity {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
-    //Result
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

@@ -2,6 +2,8 @@ package com.trizions.ui.dashboard.tab_fragments.projects;
 
 import static android.view.View.GONE;
 
+import android.content.DialogInterface;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -11,10 +13,16 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AlertDialog;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.StorageReference;
 import com.trizions.BaseActivity;
 import com.trizions.R;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 public class AddProjectsActivity extends BaseActivity {
 
@@ -43,11 +51,70 @@ public class AddProjectsActivity extends BaseActivity {
     @BindView(R.id.progressBar)
     FrameLayout progressBar;
 
+
+    private static final int CAMERA_REQUEST_CODE = 200;
+    private static final int STORAGE_REQUEST_CODE = 300;
+
+    private static final int IMAGE_PICK_GALLERY_CODE = 400;
+    private static final int IMAGE_PICK_CAMERA_CODE = 500;
+
+    private String[] cameraPermissions;
+    private String[] storagePermissions;
+    private Uri imageUri;
+    String filePathAndName;
+    private FirebaseAuth firebaseAuth;
+    private FirebaseFirestore firebaseFirestore;
+    String userId;
+    private StorageReference filepath;
+    Uri downloadImageUri;
+    String timeStamp;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_projects);
     }
+
+    @OnClick(R.id.imageViewUploadProjectImage)
+    void onImageViewUploadProjectImage() {
+        try {
+//            showImagePickerDialog();
+        } catch (Exception exception) {
+            Log.e("Error ==> ", "" + exception);
+        }
+    }
+
+    @OnClick(R.id.layoutNext)
+    void onLayoutNextClick(){
+        try {
+
+        }catch (Exception exception) {
+            Log.e("Error ==> ", "" + exception);
+        }
+    }
+
+//    private void showImagePickerDialog() {
+//        String[] options = {"Camera", "Gallery"};
+//        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+//        builder.setTitle("Pick Image").setItems(options, new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialog, int which) {
+//                if (which == 0) {
+//                    if (checkCameraPermission()) {
+//                        pickFromCamera();
+//                    } else {
+//                        requestCameraPermission();
+//                    }
+//                } else {
+//                    if (checkStoragePermission()) {
+//                        pickFromGallery();
+//                    } else {
+//                        requestStoragePermission();
+//                    }
+//                }
+//            }
+//        }).show();
+//    }
 
     private boolean validate(String name,String status,String details,String address){
         boolean valid = true;

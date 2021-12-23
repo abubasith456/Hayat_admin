@@ -80,13 +80,10 @@ public class EditClientsActivity extends BaseActivity {
     @BindView(R.id.progressBar)
     FrameLayout progressBar;
 
-    //image permissions
     private static final int CAMERA_REQUEST_CODE = 200;
     private static final int STORAGE_REQUEST_CODE = 300;
-    //image pick
     private static final int IMAGE_PICK_GALLERY_CODE = 400;
     private static final int IMAGE_PICK_CAMERA_CODE = 500;
-    //permission array
     private String[] cameraPermissions;
     private String[] storagePermissions;
     private Uri imageUri;
@@ -115,7 +112,7 @@ public class EditClientsActivity extends BaseActivity {
         clientMobileNumber = getIntent().getStringExtra("clientMobileNumber");
         clientEmail = getIntent().getStringExtra("clientEmail");
         clientAddress = getIntent().getStringExtra("clientAddress");
-        cameraPermissions = new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE};
+        cameraPermissions = new String[]{Manifest.permission.CAMERA};
         storagePermissions = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE};
         setInfo();
     }
@@ -128,7 +125,7 @@ public class EditClientsActivity extends BaseActivity {
             editTextClientEditMobileNumber.setText(clientMobileNumber);
             editTextEditClientEmail.setText(clientEmail);
             editTextEditClientAddress.setText(clientAddress);
-            if (clientImage == null){
+            if (clientImage == null) {
                 imageViewEditUploadClientsPicture.setImageResource(R.drawable.tab_icon_about_us);
             }
             try {
@@ -162,7 +159,7 @@ public class EditClientsActivity extends BaseActivity {
     }
 
     @OnClick(R.id.textViewRemovePicture)
-    void onTextViewRemovePictureClick(){
+    void onTextViewRemovePictureClick() {
         try {
             imageViewEditUploadClientsPicture.setImageDrawable(null);
         } catch (Exception exception) {
@@ -278,9 +275,9 @@ public class EditClientsActivity extends BaseActivity {
 
     private void uploadDataWithoutImage() {
         try {
-            if (imageViewEditUploadClientsPicture.getDrawable() == null){
+            if (imageViewEditUploadClientsPicture.getDrawable() == null) {
                 deleteFirebaseStorageImage();
-                clientImage="";
+                clientImage = "";
             }
             HashMap<String, Object> addFieldInfo = new HashMap<>();
             addFieldInfo.put("clientImage", "" + clientImage);//No image
@@ -332,21 +329,6 @@ public class EditClientsActivity extends BaseActivity {
         }
     }
 
-
-    private boolean checkCameraPermission() {
-        boolean resultCamera = ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) ==
-                (PackageManager.PERMISSION_GRANTED);
-        boolean resultExternal = ContextCompat.checkSelfPermission(this, Manifest.permission.MANAGE_EXTERNAL_STORAGE) ==
-                (PackageManager.PERMISSION_GRANTED);
-        return resultCamera && resultExternal;
-    }
-
-    private boolean checkStoragePermission() {
-        boolean result = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) ==
-                (PackageManager.PERMISSION_GRANTED);
-        return result;
-    }
-
     private void pickFromCamera() {
         //using media to pic high quality image
         ContentValues contentValues = new ContentValues();
@@ -358,14 +340,26 @@ public class EditClientsActivity extends BaseActivity {
         startActivityForResult(pickCameraIntent, IMAGE_PICK_CAMERA_CODE);
     }
 
-    private void requestCameraPermission() {
-        ActivityCompat.requestPermissions(this, cameraPermissions, CAMERA_REQUEST_CODE);
-    }
-
     private void pickFromGallery() {
         Intent picGalleryIntent = new Intent(Intent.ACTION_PICK);
         picGalleryIntent.setType("image/*");
         startActivityForResult(picGalleryIntent, IMAGE_PICK_GALLERY_CODE);
+    }
+
+    private boolean checkCameraPermission() {
+        boolean resultCamera = ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) ==
+                (PackageManager.PERMISSION_GRANTED);
+        return resultCamera;
+    }
+
+    private boolean checkStoragePermission() {
+        boolean resultStorage = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) ==
+                (PackageManager.PERMISSION_GRANTED);
+        return resultStorage;
+    }
+
+    private void requestCameraPermission() {
+        ActivityCompat.requestPermissions(this, cameraPermissions, CAMERA_REQUEST_CODE);
     }
 
     private void requestStoragePermission() {
@@ -379,11 +373,21 @@ public class EditClientsActivity extends BaseActivity {
             case CAMERA_REQUEST_CODE: {
                 if (grantResults.length > 0) {
                     boolean cameraAccepted = grantResults[0] == PackageManager.PERMISSION_GRANTED;
-                    boolean storageAccepted = grantResults[1] == PackageManager.PERMISSION_GRANTED;
-                    if (cameraAccepted && storageAccepted) {
+                    if (cameraAccepted) {
                         pickFromCamera();
                     } else {
-                        Toast.makeText(getApplicationContext(), "Camera and storage permission required..", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "Camera permission required..", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+            break;
+            case STORAGE_REQUEST_CODE: {
+                if (grantResults.length > 0) {
+                    boolean storageAccepted = grantResults[0] == PackageManager.PERMISSION_GRANTED;
+                    if (storageAccepted) {
+                        pickFromGallery();
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Storage permission required..", Toast.LENGTH_SHORT).show();
                     }
                 }
             }

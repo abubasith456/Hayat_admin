@@ -254,9 +254,9 @@ public class EditProductsAndServicesActivity extends BaseActivity {
 
     private void uploadDataWithoutImage() {
         try {
-            if (imageViewUploadProductPicture.getDrawable() == null){
+            if (imageViewUploadProductPicture.getDrawable() == null) {
                 deleteFirebaseStorageImage();
-                productImage="";
+                productImage = "";
             }
             HashMap<String, Object> addFieldInfo = new HashMap<>();
             addFieldInfo.put("productId", "" + productId);
@@ -305,28 +305,6 @@ public class EditProductsAndServicesActivity extends BaseActivity {
         }
     }
 
-    private boolean checkCameraPermission() {
-        boolean resultCamera = ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) ==
-                (PackageManager.PERMISSION_GRANTED);
-        boolean resultExternal = ContextCompat.checkSelfPermission(this, Manifest.permission.MANAGE_EXTERNAL_STORAGE) ==
-                (PackageManager.PERMISSION_GRANTED);
-        return resultCamera && resultExternal;
-    }
-
-    private void requestCameraPermission() {
-        ActivityCompat.requestPermissions(this, cameraPermissions, CAMERA_REQUEST_CODE);
-    }
-
-    private boolean checkStoragePermission() {
-        boolean result = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) ==
-                (PackageManager.PERMISSION_GRANTED);
-        return result;
-    }
-
-    private void requestStoragePermission() {
-        ActivityCompat.requestPermissions(this, storagePermissions, STORAGE_REQUEST_CODE);
-    }
-
     private void pickFromCamera() {
         //using media to pic high quality image
         ContentValues contentValues = new ContentValues();
@@ -344,7 +322,26 @@ public class EditProductsAndServicesActivity extends BaseActivity {
         startActivityForResult(picGalleryIntent, IMAGE_PICK_GALLERY_CODE);
     }
 
-    //handle permission results
+    private boolean checkCameraPermission() {
+        boolean resultCamera = ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) ==
+                (PackageManager.PERMISSION_GRANTED);
+        return resultCamera;
+    }
+
+    private boolean checkStoragePermission() {
+        boolean result = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) ==
+                (PackageManager.PERMISSION_GRANTED);
+        return result;
+    }
+
+    private void requestCameraPermission() {
+        ActivityCompat.requestPermissions(this, cameraPermissions, CAMERA_REQUEST_CODE);
+    }
+
+    private void requestStoragePermission() {
+        ActivityCompat.requestPermissions(this, storagePermissions, STORAGE_REQUEST_CODE);
+    }
+
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
 
@@ -355,17 +352,18 @@ public class EditProductsAndServicesActivity extends BaseActivity {
                     if (cameraAccepted) {
                         pickFromCamera();
                     } else {
-                        Toast.makeText(getApplicationContext(), "Camera and storage permission required..", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "Camera permission required..", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
+            break;
             case STORAGE_REQUEST_CODE: {
                 if (grantResults.length > 0) {
                     boolean storageAccepted = grantResults[0] == PackageManager.PERMISSION_GRANTED;
                     if (storageAccepted) {
                         pickFromGallery();
                     } else {
-                        Toast.makeText(getApplicationContext(), "Camera and storage permission required..", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "Storage permission required..", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
