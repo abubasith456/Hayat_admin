@@ -371,7 +371,6 @@ public class EditProductsAndServicesActivity extends BaseActivity {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
-    //Result
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -388,7 +387,6 @@ public class EditProductsAndServicesActivity extends BaseActivity {
             }
         }
     }
-
 
     private boolean validate(String productName, String productDetails) {
         boolean valid = true;
