@@ -106,7 +106,6 @@ public class LoginWithMobileNumberActivity extends BaseActivity {
         } catch (Exception exception) {
             Log.e("Error ==> ", "" + exception);
         }
-
     }
 
     private boolean validate(String stringMobileNumber) {

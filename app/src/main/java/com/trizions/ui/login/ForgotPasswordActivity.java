@@ -118,6 +118,7 @@ public class ForgotPasswordActivity extends BaseActivity {
                                 hideProgress();
                                 showCustomDialog("", "Mail sent to your Email", getResources().getString(R.string.ok), getResources().getString(R.string.success), onDismissListener);
                             } else {
+                                hideProgress();
                                 showCustomDialog("", task.getException().getMessage(), getResources().getString(R.string.ok), getResources().getString(R.string.warning), null);
                             }
                         }
@@ -126,7 +127,6 @@ public class ForgotPasswordActivity extends BaseActivity {
             Log.e("Error ==> ", "" + exception);
         }
     }
-
 
     private void forgotPassword() {
         ForgotPasswordRequest forgotPasswordRequest = new ForgotPasswordRequest();

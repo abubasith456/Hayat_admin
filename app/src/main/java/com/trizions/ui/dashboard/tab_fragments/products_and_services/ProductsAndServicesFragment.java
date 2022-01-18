@@ -110,7 +110,6 @@ public class ProductsAndServicesFragment extends BaseFragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         try {
 
         } catch (Exception exception) {

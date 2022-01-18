@@ -1,5 +1,6 @@
 package com.trizions.ui.login;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -32,25 +33,17 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.trizions.BaseActivity;
 import com.trizions.R;
 import com.trizions.dialog.CustomDialog;
-import com.trizions.model.login.LoginRequest;
 import com.trizions.model.login.LoginResponse;
-import com.trizions.rest_client.BCRequests;
 import com.trizions.ui.dashboard.DashBoardActivity;
 import com.trizions.utils.Utils;
-
 import java.util.HashMap;
-
 import butterknife.BindView;
 import butterknife.OnClick;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class LoginActivity extends BaseActivity {
 
@@ -92,7 +85,7 @@ public class LoginActivity extends BaseActivity {
         firebaseFirestore = FirebaseFirestore.getInstance();
         GoogleSignInOptions googleSignInOptions = new GoogleSignInOptions
                 .Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestIdToken("84296925501-nda3ikd71td3u43emetspeqjbte77her.apps.googleusercontent.com")
                 .requestEmail()
                 .build();
         googleSignInClient = GoogleSignIn.getClient(this, googleSignInOptions);
@@ -339,6 +332,7 @@ public class LoginActivity extends BaseActivity {
 //        }
 //    }
 
+    @SuppressLint("UseCompatLoadingForDrawables")
     public boolean validate(String strEmail, String password) {
         boolean valid = true;
         try {
