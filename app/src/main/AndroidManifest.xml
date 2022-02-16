@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.trizions">
+    package="com.grocery">
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
@@ -25,21 +25,21 @@
         android:requestLegacyExternalStorage="true"
         android:roundIcon="@drawable/logo"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Trizions"
+        android:theme="@style/Theme.Grocery"
         android:usesCleartextTraffic="true"
         tools:ignore="AllowBackup">
-        <activity
-            android:name=".ui.dashboard.tab_fragments.projects.AddProjectClientInfoActivity"
-            android:exported="true" />
-        <activity
-            android:name=".ui.dashboard.tab_fragments.projects.AddProjectsActivity"
-            android:exported="true" />
-        <activity
-            android:name=".ui.dashboard.tab_fragments.clients.EditClientsActivity"
-            android:exported="true" />
-        <activity
-            android:name=".ui.dashboard.tab_fragments.clients.AddClientsActivity"
-            android:exported="true" />
+        <!--        <activity-->
+        <!--            android:name=".ui.dashboard.tab_fragments.projects.AddProjectClientInfoActivity"-->
+        <!--            android:exported="true" />-->
+        <!--        <activity-->
+        <!--            android:name=".ui.dashboard.tab_fragments.projects.AddProjectsActivity"-->
+        <!--            android:exported="true" />-->
+        <!--        <activity-->
+        <!--            android:name=".ui.dashboard.tab_fragments.clients.EditClientsActivity"-->
+        <!--            android:exported="true" />-->
+        <!--        <activity-->
+        <!--            android:name=".ui.dashboard.tab_fragments.clients.AddClientsActivity"-->
+        <!--            android:exported="true" />-->
         <activity
             android:name=".ui.dashboard.tab_fragments.products_and_services.EditProductsAndServicesActivity"
             android:exported="true" />
@@ -55,7 +55,9 @@
         <activity
             android:name=".ui.dashboard.ChangePasswordActivity"
             android:exported="true" />
-        <activity android:name=".ui.splash.SplashActivity">
+        <activity
+            android:name=".ui.splash.SplashActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -102,16 +104,16 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustPan" />
-        <activity
-            android:name=".ui.dashboard.tab_fragments.projects.details.ProjectsTrackActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="adjustPan" />
-        <activity
-            android:name=".ui.dashboard.tab_fragments.projects.details.tab_fragments.boq.MaterialSpecificationActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="adjustPan" />
+        <!--        <activity-->
+        <!--            android:name=".ui.dashboard.tab_fragments.projects.details.ProjectsTrackActivity"-->
+        <!--            android:screenOrientation="portrait"-->
+        <!--            android:theme="@style/AppTheme.NoActionBar"-->
+        <!--            android:windowSoftInputMode="adjustPan" />-->
+        <!--        <activity-->
+        <!--            android:name=".ui.dashboard.tab_fragments.projects.details.tab_fragments.boq.MaterialSpecificationActivity"-->
+        <!--            android:screenOrientation="portrait"-->
+        <!--            android:theme="@style/AppTheme.NoActionBar"-->
+        <!--            android:windowSoftInputMode="adjustPan" />-->
         <activity
             android:name=".utils.PhotoPreViewActivity"
             android:screenOrientation="portrait"

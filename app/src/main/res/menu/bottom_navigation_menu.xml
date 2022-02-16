@@ -10,15 +10,15 @@
       android:icon="@drawable/tab_icon_product_and_service"
       android:title="@string/tab_title_products_and_services" />
 
-  <item
-      android:id="@+id/navigation_projects"
-      android:icon="@drawable/tab_icon_projects"
-      android:title="@string/tab_title_projects" />
+<!--  <item-->
+<!--      android:id="@+id/navigation_projects"-->
+<!--      android:icon="@drawable/tab_icon_projects"-->
+<!--      android:title="@string/tab_title_projects" />-->
 
-  <item
-      android:id="@+id/navigation_clients"
-      android:icon="@drawable/tab_icon_clients"
-      android:title="@string/tab_title_clients" />
+<!--  <item-->
+<!--      android:id="@+id/navigation_clients"-->
+<!--      android:icon="@drawable/tab_icon_clients"-->
+<!--      android:title="@string/tab_title_clients" />-->
 
   <item
       android:id="@+id/navigation_contact_us"

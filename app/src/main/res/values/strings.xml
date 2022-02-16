@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Trizions</string>
+    <string name="app_name">Grocery</string>
     <string name="invest_influence_impact_text">Invest Influence Impact</string>
 
     <!-- Login Flow -->
@@ -63,10 +63,10 @@
     <string name="about_us_services_text">* IoT Hardware Design\n* IoT Firmware Integration\n* Mobile Apps for IoT Devices\n* Custom IoT Product Development\n</string>
 
     <!-- Contact Us -->
-    <string name="contact_us_company_name_text">Trizions Management Consultancy (OPC) Private Limited</string>
-    <string name="contact_us_text">No. 159/1a1a1, TSR Avenue, Sundar Nagar,\nMannivakkam,\nChennai,\nIndia - 600048</string>
-    <string name="call_us">+91 9980919307</string>
-    <string name="email_us">hr_admin_010@trizions.com</string>
+    <string name="contact_us_company_name_text">Hayat store</string>
+    <string name="contact_us_text">No. 1/107 Dulpakkir Nagar,\nEnangudi,\nNagapattinam,\nIndia - 609701</string>
+    <string name="call_us">+91 9585909514</string>
+    <string name="email_us">abubasith86@gmail.com</string>
     <string name="get_direction">Get Direction</string>
 
     <!-- Project Details -->
