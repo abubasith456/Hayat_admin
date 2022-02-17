@@ -4,8 +4,7 @@
         <layer-list>
             <item >
                 <shape>
-                    <gradient android:angle="270" android:endColor="@color/colorAccent" android:startColor="@color/colorPrimaryDark" />
-                    <stroke android:width="2dp" android:color="@color/colorPrimaryDark" />
+                    <gradient android:angle="270" android:endColor="@color/colorPrimary" android:startColor="@color/colorPrimary" />
 
                     <size
                         android:width="400sp"

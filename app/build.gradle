@@ -1,16 +1,18 @@
 plugins {
     id 'com.android.application'
     id 'com.google.gms.google-services'
+    id 'com.google.firebase.appdistribution'
+    id 'com.google.firebase.firebase-perf'
 }
 
 android {
-    compileSdkVersion 31
+    compileSdkVersion 32
     buildToolsVersion '30.0.3'
 
     defaultConfig {
         applicationId "com.trizions"
         minSdkVersion 23
-        targetSdkVersion 31
+        targetSdkVersion 32
         versionCode 1
         versionName "1.0"
 
@@ -40,10 +42,13 @@ dependencies {
     // Multiple Screen Dimensions
     implementation 'com.intuit.sdp:sdp-android:1.0.6'
     // Retrofit
-    implementation 'com.squareup.retrofit2:retrofit:2.6.2'
-    implementation 'com.squareup.retrofit2:converter-gson:2.6.2'
+    implementation 'com.squareup.retrofit2:retrofit:2.7.2'
+    implementation 'com.squareup.retrofit2:converter-gson:2.7.2'
     // Butterknife
     implementation "com.jakewharton:butterknife:10.2.1"
+    implementation 'com.google.firebase:firebase-inappmessaging-display:20.1.1'
+    implementation 'com.google.firebase:firebase-perf:20.0.5'
+    implementation 'com.google.android.gms:play-services-ads:20.5.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.1'
     // Android X Cardview
     implementation 'androidx.cardview:cardview:1.0.0'
@@ -62,11 +67,11 @@ dependencies {
         exclude group: 'org.json', module: 'json'
     }
     // Google Map
-    implementation 'com.google.android.gms:play-services-maps:17.0.1'
+    implementation 'com.google.android.gms:play-services-maps:18.0.2'
     // Locations
-    implementation 'com.google.android.gms:play-services-location:18.0.0'
+    implementation 'com.google.android.gms:play-services-location:19.0.1'
     // Add the dependency for the Firebase Cloud Messaging library
-    implementation 'com.google.firebase:firebase-messaging:22.0.0'
+    implementation 'com.google.firebase:firebase-messaging:23.0.0'
     // Seekbar
     implementation 'com.github.warkiz.widget:indicatorseekbar:2.1.2'
     //Chart
@@ -74,15 +79,15 @@ dependencies {
     // CameraX core library using the camera2 implementation
     implementation "androidx.camera:camera-camera2:1.0.2"
     implementation "androidx.camera:camera-lifecycle:1.0.2"
-    implementation "androidx.camera:camera-view:1.0.0-alpha29"
+    implementation "androidx.camera:camera-view:1.1.0-beta01"
     // Google ML kit
-    implementation 'com.google.mlkit:barcode-scanning:17.0.0'
+    implementation 'com.google.mlkit:barcode-scanning:17.0.2'
     //Gallery View
     implementation 'com.github.sheetalkumar105:androidimagevideogallery:1.05'
     //Firebase
     implementation platform('com.google.firebase:firebase-bom:29.0.2')
     implementation 'com.google.firebase:firebase-auth:21.0.1'
-    implementation 'com.google.firebase:firebase-firestore:24.0.0'
+    implementation 'com.google.firebase:firebase-firestore:24.0.1'
     implementation 'com.google.android.gms:play-services-auth:20.0.0'
     implementation 'com.google.firebase:firebase-storage:20.0.0'
     implementation 'com.google.firebase:firebase-database'

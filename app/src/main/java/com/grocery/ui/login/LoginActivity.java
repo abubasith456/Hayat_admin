@@ -137,6 +137,7 @@ public class LoginActivity extends BaseActivity {
                 if (Utils.isNetworkConnectionAvailable(this)) {
                     showProgress();
                     firebaseLogin();
+
                 } else {
                     showCustomDialog("", getResources().getString(R.string.error_network), getResources().getString(R.string.ok), getResources().getString(R.string.confirm), null);
                 }
