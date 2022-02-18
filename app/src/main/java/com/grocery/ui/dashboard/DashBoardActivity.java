@@ -172,14 +172,11 @@ public class DashBoardActivity extends BaseActivity implements AboutUsFragment.O
             item -> {
                 try {
                     switch (item.getItemId()) {
-                        case R.id.navigation_about_us:
+                        case R.id.navigation_products_and_services:
                             viewPager.setCurrentItem(0);
                             return true;
-                        case R.id.navigation_products_and_services:
-                            viewPager.setCurrentItem(1);
-                            return true;
                         case R.id.navigation_contact_us:
-                            viewPager.setCurrentItem(2);
+                            viewPager.setCurrentItem(1);
                             return true;
                     }
                 } catch (Exception exception) {
@@ -191,10 +188,8 @@ public class DashBoardActivity extends BaseActivity implements AboutUsFragment.O
     private void setupViewPager(ViewPager viewPager) {
         try {
             ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-            aboutUsFragment = new AboutUsFragment();
             productsAndServicesFragment = new ProductsAndServicesFragment();
             contactUsFragment = new ContactUsFragment();
-            adapter.addFragment(aboutUsFragment, "");
             adapter.addFragment(productsAndServicesFragment, "");
             adapter.addFragment(contactUsFragment, "");
             viewPager.setAdapter(adapter);
