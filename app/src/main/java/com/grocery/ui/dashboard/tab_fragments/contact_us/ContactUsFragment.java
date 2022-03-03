@@ -5,6 +5,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.drawable.Drawable;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -36,10 +42,12 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.protobuf.DescriptorProtos;
 import com.grocery.BaseFragment;
 import com.grocery.R;
 import com.grocery.model.company_contact.CompanyContactRequest;
@@ -92,10 +100,12 @@ public class ContactUsFragment extends BaseFragment implements GoogleApiClient.C
     String searchText = "";
     boolean isMapReady = false;
     private boolean isExpanded = false;
+    String latitude;
+    String longitude;
     String userId;
     String page;
     String perPage;
-    String companyName, contactNumber, email, businessType, area, city, state, country, postalCode, latitude, longitude, companyDetails;
+    String companyName, contactNumber, email, businessType, area, city, state, country, postalCode, companyDetails;
     Uri companyImageUrl;
     CompanyContactResponse companyContactResponse;
 
@@ -149,7 +159,7 @@ public class ContactUsFragment extends BaseFragment implements GoogleApiClient.C
                     @Override
                     protected void onClickConfirmed(View v, Marker marker) {
                         Intent intent = new Intent(Intent.ACTION_VIEW,
-                                Uri.parse("http://maps.google.com/maps?saddr=" + mLastLocation.getLatitude() + "," + mLastLocation.getLongitude() + "&daddr=" + marker.getPosition().latitude + "," + marker.getPosition().longitude));
+                                Uri.parse("http://maps.google.com/maps?saddr=" + mLastLocation.getLatitude() + "," + mLastLocation.getLongitude()+ "&daddr=" + latitude + "," + longitude));
                         startActivity(intent);
                     }
                 };
@@ -196,62 +206,6 @@ public class ContactUsFragment extends BaseFragment implements GoogleApiClient.C
         } catch (Exception exception) {
             Log.e("Error ==> ", "" + exception);
         }
-    }
-
-    private void getCompanyContact() {
-        try {
-            userId = "1";
-            page = "1";
-            perPage = "10";
-            CompanyContactRequest companyContactRequest = new CompanyContactRequest();
-            companyContactRequest.setUserId(userId);
-            companyContactRequest.setPage(page);
-            companyContactRequest.setPerPage(perPage);
-            Call<CompanyContactResponse> companyContactResponseCall = BCRequests.getInstance().getBCRestService().companyContact(companyContactRequest);
-            companyContactResponseCall.enqueue(new Callback<CompanyContactResponse>() {
-                @Override
-                public void onResponse(Call<CompanyContactResponse> call, Response<CompanyContactResponse> response) {
-                    try {
-                        if (response.isSuccessful()) {
-                            companyContactResponse = response.body();
-                            if (response != null && companyContactResponse.getClients() != null) {
-                                String status = companyContactResponse.getStatus();
-                                String message = companyContactResponse.getMessage();
-                                if (status.equals("success")) {
-                                    Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
-                                    companyName = companyContactResponse.getClients().get(0).getCompanyName();
-                                    contactNumber = companyContactResponse.getClients().get(0).getContactNumber();
-                                    email = companyContactResponse.getClients().get(0).getEmail();
-                                    businessType = companyContactResponse.getClients().get(0).getBusinessType();
-                                    area = companyContactResponse.getClients().get(0).getArea();
-                                    city = companyContactResponse.getClients().get(0).getCity();
-                                    state = companyContactResponse.getClients().get(0).getState();
-                                    country = companyContactResponse.getClients().get(0).getCountry();
-                                    postalCode = companyContactResponse.getClients().get(0).getPostalCode();
-                                    latitude = companyContactResponse.getClients().get(0).getLatitude();
-                                    longitude = companyContactResponse.getClients().get(0).getLongitude();
-                                    companyImageUrl = (Uri) companyContactResponse.getClients().get(0).getCompanyImageUrl();
-                                    companyDetails = companyContactResponse.getClients().get(0).getCompanyDetails();
-                                } else {
-                                    Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
-                                }
-                            }
-                        }
-                    } catch (Exception exception) {
-                        Log.e("Error ==> ", "" + exception);
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<CompanyContactResponse> call, Throwable t) {
-
-                }
-            });
-
-        } catch (Exception exception) {
-            Log.e("Error ==> ", "" + exception);
-        }
-
     }
 
     @Override
@@ -324,19 +278,22 @@ public class ContactUsFragment extends BaseFragment implements GoogleApiClient.C
         public void onLocationChanged(Location location) {
             mLastLocation = location;
             googleMap.clear();
-            LatLng officeLatLng = new LatLng(Double.parseDouble("10.886209962715947"), Double.parseDouble("79.6798827600631"));
-            MarkerOptions officeMarkerOptions = new MarkerOptions();
-            officeMarkerOptions.position(officeLatLng);
-            officeMarkerOptions.title("Hayat store" + ":"
+            latitude = "10.886209962715947";
+            longitude = "79.6798827600631";
+            LatLng storeLatLang = new LatLng(Double.parseDouble(latitude), Double.parseDouble(longitude));
+            MarkerOptions markerOptions = new MarkerOptions();
+            markerOptions.position(storeLatLang);
+            markerOptions.title("Hayat store" + ":"
                     + "+91 9585909514" + ":"
                     + "");
-            officeMarkerOptions.snippet("No. 1/107 Dulpakkir Nagar, Enangudi, Nagapattinam, India - 609701");
-            officeMarkerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
-            googleMap.addMarker(officeMarkerOptions);
-
+            markerOptions.snippet("No. 1/107 Dulpakkir Nagar, Enangudi, Nagapattinam, India - 609701");
+            markerOptions.icon(BitmapFromVector(getActivity(), R.drawable.icon_shopping));
+//                    BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
+            googleMap.addMarker(markerOptions);
             //move map camera
-            googleMap.moveCamera(CameraUpdateFactory.newLatLng(officeLatLng));
             googleMap.animateCamera(CameraUpdateFactory.zoomTo(9));
+            googleMap.moveCamera(CameraUpdateFactory.zoomTo(10));
+            googleMap.moveCamera(CameraUpdateFactory.newLatLng(storeLatLang));
 
             LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
 
@@ -395,6 +352,84 @@ public class ContactUsFragment extends BaseFragment implements GoogleApiClient.C
     @Override
     public void onMapReady(GoogleMap googleMap) {
         isMapReady = true;
+    }
+
+    private BitmapDescriptor BitmapFromVector(Context context, int vectorResId) {
+        // below line is use to generate a drawable.
+        Drawable vectorDrawable = ContextCompat.getDrawable(context, vectorResId);
+
+        // below line is use to set bounds to our vector drawable.
+        vectorDrawable.setBounds(0, 0, vectorDrawable.getIntrinsicWidth(), vectorDrawable.getIntrinsicHeight());
+
+        // below line is use to create a bitmap for our
+        // drawable which we have added.
+        Bitmap bitmap = Bitmap.createBitmap(vectorDrawable.getIntrinsicWidth(), vectorDrawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+
+        // below line is use to add bitmap in our canvas.
+        Canvas canvas = new Canvas(bitmap);
+
+        // below line is use to draw our
+        // vector drawable in canvas.
+        vectorDrawable.draw(canvas);
+
+        // after generating our bitmap we are returning our bitmap.
+        return BitmapDescriptorFactory.fromBitmap(bitmap);
+    }
+
+    private void getCompanyContact() {
+        try {
+            userId = "1";
+            page = "1";
+            perPage = "10";
+            CompanyContactRequest companyContactRequest = new CompanyContactRequest();
+            companyContactRequest.setUserId(userId);
+            companyContactRequest.setPage(page);
+            companyContactRequest.setPerPage(perPage);
+            Call<CompanyContactResponse> companyContactResponseCall = BCRequests.getInstance().getBCRestService().companyContact(companyContactRequest);
+            companyContactResponseCall.enqueue(new Callback<CompanyContactResponse>() {
+                @Override
+                public void onResponse(Call<CompanyContactResponse> call, Response<CompanyContactResponse> response) {
+                    try {
+                        if (response.isSuccessful()) {
+                            companyContactResponse = response.body();
+                            if (response != null && companyContactResponse.getClients() != null) {
+                                String status = companyContactResponse.getStatus();
+                                String message = companyContactResponse.getMessage();
+                                if (status.equals("success")) {
+                                    Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+                                    companyName = companyContactResponse.getClients().get(0).getCompanyName();
+                                    contactNumber = companyContactResponse.getClients().get(0).getContactNumber();
+                                    email = companyContactResponse.getClients().get(0).getEmail();
+                                    businessType = companyContactResponse.getClients().get(0).getBusinessType();
+                                    area = companyContactResponse.getClients().get(0).getArea();
+                                    city = companyContactResponse.getClients().get(0).getCity();
+                                    state = companyContactResponse.getClients().get(0).getState();
+                                    country = companyContactResponse.getClients().get(0).getCountry();
+                                    postalCode = companyContactResponse.getClients().get(0).getPostalCode();
+                                    latitude = companyContactResponse.getClients().get(0).getLatitude();
+                                    longitude = companyContactResponse.getClients().get(0).getLongitude();
+                                    companyImageUrl = (Uri) companyContactResponse.getClients().get(0).getCompanyImageUrl();
+                                    companyDetails = companyContactResponse.getClients().get(0).getCompanyDetails();
+                                } else {
+                                    Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        }
+                    } catch (Exception exception) {
+                        Log.e("Error ==> ", "" + exception);
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<CompanyContactResponse> call, Throwable t) {
+
+                }
+            });
+
+        } catch (Exception exception) {
+            Log.e("Error ==> ", "" + exception);
+        }
+
     }
 
     public void showProgress() {
