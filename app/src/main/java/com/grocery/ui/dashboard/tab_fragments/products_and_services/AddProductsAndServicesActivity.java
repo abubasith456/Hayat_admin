@@ -129,7 +129,7 @@ public class AddProductsAndServicesActivity extends BaseActivity {
                 } else {
                     //with Image
                     //store image to firebase storage with name and path
-                    filePathAndName = "Products/" + "" + timeStamp;
+                    filePathAndName = "Vegetables/" + "" + timeStamp;
                     filepath = FirebaseStorage.getInstance().getReference(filePathAndName).child(imageUri.getEncodedPath());
                     getPathFromFirebaseStorage();
                 }
@@ -174,7 +174,7 @@ public class AddProductsAndServicesActivity extends BaseActivity {
             addFieldInfo.put("productDetails", "" + editTextProductNameDetails.getText().toString());
             addFieldInfo.put("userId", "" + userId);
             String productName = editTextProductName.getText().toString();
-            DocumentReference databaseReference = firebaseFirestore.collection("Products").document(timeStamp);
+            DocumentReference databaseReference = firebaseFirestore.collection("Vegetables").document(timeStamp);
             databaseReference.set(addFieldInfo).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(@NonNull Void unused) {

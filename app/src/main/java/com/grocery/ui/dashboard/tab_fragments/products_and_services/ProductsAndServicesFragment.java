@@ -67,12 +67,9 @@ public class ProductsAndServicesFragment extends BaseFragment {
     OnProductsAndServicesListener mCallback;
     SharedPreferences pref;
     String searchText = "";
-    //    ProductsAdapter productsAdapter;
+    ProductsAdapter productsAdapter;
     ArrayList<Products> productsArrayList;
     FirebaseFirestore firebaseFirestore;
-    private ItemAdapter itemAdapter;
-    private List<Integer> itemImage;
-    private List<String> itemName;
 
     class ProductInfo {
         String productName;
@@ -106,20 +103,7 @@ public class ProductsAndServicesFragment extends BaseFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         firebaseFirestore = FirebaseFirestore.getInstance();
-        itemName = new ArrayList<>();
-        itemImage = new ArrayList<>();
 
-        itemName.add("Vegetables");
-        itemName.add("Grocery");
-        itemName.add("Fancy Items");
-        itemName.add("Biscuits");
-
-        itemImage.add(R.drawable.icon_home);
-        itemImage.add(R.drawable.icon_add);
-        itemImage.add(R.drawable.icon_call);
-        itemImage.add(R.drawable.icon_confirm);
-
-        itemAdapter = new ItemAdapter(getActivity(), itemName, itemImage);
 
     }
 
@@ -133,11 +117,7 @@ public class ProductsAndServicesFragment extends BaseFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         try {
-            GridLayoutManager gridLayoutManager=new GridLayoutManager(getActivity(),2,GridLayoutManager.VERTICAL,false);
-            recyclerViewClients.setLayoutManager(gridLayoutManager);
-            recyclerViewClients.setAdapter(itemAdapter);
-            recyclerViewClients.setHasFixedSize(true);
-            recyclerViewClients.notify();
+
         } catch (Exception exception) {
             Log.e("Error ==> ", "" + exception);
         }
@@ -166,7 +146,32 @@ public class ProductsAndServicesFragment extends BaseFragment {
     public void setUpRecyclerView() {
         try {
             productsArrayList = new ArrayList<>();
+            firebaseFirestore.collection("Vegetables").orderBy("productName", Query.Direction.ASCENDING)
+                    .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                    if (task.isSuccessful()) {
+                        for (DocumentSnapshot documentSnapshot : task.getResult()) {
+                            Products products = new Products(documentSnapshot.getString("productName"),
+                                    documentSnapshot.getString("productDetails"),
+                                    documentSnapshot.getString("productImage"),
+                                    documentSnapshot.getString("productId"));
+                            productsArrayList.add(products);
+                        }
+                        productsAdapter = new ProductsAdapter(productsArrayList, getActivity());
+                        LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
+                        recyclerViewClients.setLayoutManager(mLayoutManager);
+                        recyclerViewClients.setAdapter(productsAdapter);
+                        textViewNoResult.setVisibility(View.GONE);
+                        productsAdapter.notifyDataSetChanged();
+                    }
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
 
+                }
+            });
 
         } catch (Exception exception) {
             Log.e("Error ==> ", "" + exception);
@@ -203,97 +208,91 @@ public class ProductsAndServicesFragment extends BaseFragment {
 //    }
 
 
-//    public class ProductsAdapter extends RecyclerView.Adapter<ProductsViewHolder> {
-//        private ArrayList<Products> productsArray;
-//        private Activity mActivity;
-//
-//        private List<String> itemName;
-//        private List<Integer> itemImage;
-//
-//        //        public ProductsAdapter(ArrayList<Products> productsArray, Activity activity) {
-////            this.productsArray = productsArray;
-////            mActivity = activity;
-////        }
-//        public ProductsAdapter(Activity activity, List<String> itemName, List<Integer> itemImage) {
-//            this.mActivity = activity;
-//            this.itemName = itemName;
-//            this.itemImage = itemImage;
-//        }
-//
-//        public void setBookMarksList(ArrayList<Products> clientsArray) {
-//            this.productsArray = clientsArray;
-//            notifyDataSetChanged();
-//        }
-//
-//        @NonNull
-//        @Override
-//        public ProductsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-//            return new ProductsViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.list_view_items, parent, false));
-//        }
-//
-//        @Override
-//        public void onBindViewHolder(@NonNull ProductsViewHolder holder, int position) {
-//            holder.bind(productsArray.get(position), mActivity);
-//
-//        }
-//
-//        @Override
-//        public int getItemCount() {
-//            return productsArray.size();
-//        }
-//    }
-//
-//    public class ProductsViewHolder extends RecyclerView.ViewHolder {
-//        //
-//        @BindView(R.id.imageViewItems)
-//        ImageView imageViewItems;
-//        @BindView(R.id.textViewItemName)
-//        TextView textViewItemName;
-//        @BindView(R.id.linearLayoutItemClick)
-//        LinearLayout linearLayoutItemClick;
-////        @BindView(R.id.imageViewProductsImage)
-////        ImageView imageViewProductsImage;
-////        @BindView(R.id.linearLayoutProductsList)
-////        LinearLayout linearLayoutProductsList;
-//
-//        ProductsViewHolder(View itemView) {
-//            super(itemView);
-//            try {
-//                ButterKnife.bind(this, itemView);
-//            } catch (Exception exception) {
-//                Log.e("Error ==> ", "" + exception);
-//            }
-//        }
-//
-//        public void bind(final Products response, final Activity activity) {
-//            try {
-//                if (response != null) {
-////                    textViewProjectName.setText(response.getProductName());
-////                    textViewProjectDetails.setText(response.getProductDetails());
-////                    try {
-////                        String productImage = response.getProductImage();
-////                        Picasso.get().load(productImage).placeholder(R.drawable.logo).into(imageViewProductsImage);
-////                    } catch (Exception e) {
-////                        imageViewProductsImage.setImageResource(R.drawable.logo);
-////                    }
-////                    imageViewProductsImage.setOnClickListener(new View.OnClickListener() {
-////                        @Override
-////                        public void onClick(View view) {
-////                            openPhotoPreView(response.getProductImage(),getActivity());
-////                        }
-////                    });
-////                    linearLayoutProductsList.setOnClickListener(new View.OnClickListener() {
-////                        @Override
-////                        public void onClick(View view) {
-////                            detailsBottomScreen(response);
-////                        }
-////                    });
-//                }
-//            } catch (Exception exception) {
-//                Log.e("Error ==> ", "" + exception);
-//            }
-//        }
-//    }
+    public class ProductsAdapter extends RecyclerView.Adapter<ProductsViewHolder> {
+        private ArrayList<Products> productsArray;
+        private Activity mActivity;
+
+        public ProductsAdapter(ArrayList<Products> productsArray, Activity activity) {
+            this.productsArray = productsArray;
+            mActivity = activity;
+        }
+
+        public void setBookMarksList(ArrayList<Products> clientsArray) {
+            this.productsArray = clientsArray;
+            notifyDataSetChanged();
+        }
+
+        @NonNull
+        @Override
+        public ProductsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            return new ProductsViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.row_item_view_product_and_services, parent, false));
+        }
+
+        @Override
+        public void onBindViewHolder(@NonNull ProductsViewHolder holder, int position) {
+            holder.bind(productsArray.get(position), mActivity);
+
+        }
+
+        @Override
+        public int getItemCount() {
+            return productsArray.size();
+        }
+    }
+
+    public class ProductsViewHolder extends RecyclerView.ViewHolder {
+        //
+        @BindView(R.id.textViewProjectName)
+        TextView textViewProjectName;
+        @BindView(R.id.textViewProjectDetails)
+        TextView textViewProjectDetails;
+        @BindView(R.id.textViewItemName)
+        TextView textViewItemName;
+        @BindView(R.id.linearLayoutItemClick)
+        LinearLayout linearLayoutItemClick;
+        @BindView(R.id.imageViewProductsImage)
+        ImageView imageViewProductsImage;
+        @BindView(R.id.linearLayoutProductsList)
+        LinearLayout linearLayoutProductsList;
+
+        ProductsViewHolder(View itemView) {
+            super(itemView);
+            try {
+                ButterKnife.bind(this, itemView);
+            } catch (Exception exception) {
+                Log.e("Error ==> ", "" + exception);
+            }
+        }
+
+        public void bind(final Products response, final Activity activity) {
+            try {
+                if (response != null) {
+                    textViewProjectName.setText(response.getProductName());
+                    textViewProjectDetails.setText(response.getProductDetails());
+                    try {
+                        String productImage = response.getProductImage();
+                        Picasso.get().load(productImage).placeholder(R.drawable.logo).into(imageViewProductsImage);
+                    } catch (Exception e) {
+                        imageViewProductsImage.setImageResource(R.drawable.logo);
+                    }
+                    imageViewProductsImage.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            openPhotoPreView(response.getProductImage(), getActivity());
+                        }
+                    });
+                    linearLayoutProductsList.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            detailsBottomScreen(response);
+                        }
+                    });
+                }
+            } catch (Exception exception) {
+                Log.e("Error ==> ", "" + exception);
+            }
+        }
+    }
 
     public void detailsBottomScreen(Products response) {
         try {
