@@ -1,5 +1,6 @@
 package com.grocery.ui.dashboard;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -80,7 +81,7 @@ public class DashBoardActivity extends BaseActivity implements AboutUsFragment.O
     @BindView(R.id.textViewUserName)
     TextView textViewUserName;
 
-    SharedPreferences pref;
+    SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
     AboutUsFragment aboutUsFragment;
     ProductsAndServicesFragment productsAndServicesFragment;
@@ -96,6 +97,8 @@ public class DashBoardActivity extends BaseActivity implements AboutUsFragment.O
 //        userId = getIntent().getStringExtra("userId");
         firebaseAuth = FirebaseAuth.getInstance();
         userId = firebaseAuth.getCurrentUser().getUid();
+        sharedPreferences = getApplicationContext().getSharedPreferences("LoginStatus", Context.MODE_PRIVATE);
+        editor=sharedPreferences.edit();
         try {
             bottomNavigation.setOnNavigationItemSelectedListener(navigationItemSelectedListener);
             setupViewPager(viewPager);
@@ -128,7 +131,7 @@ public class DashBoardActivity extends BaseActivity implements AboutUsFragment.O
     private void loadUserInfo() {
         try {
             FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
-            DocumentReference documentReference = firebaseFirestore.collection("Users").document(userId);
+            DocumentReference documentReference = firebaseFirestore.collection("Users").document(firebaseAuth.getCurrentUser().getUid());
             documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                 @Override
                 public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -396,6 +399,9 @@ public class DashBoardActivity extends BaseActivity implements AboutUsFragment.O
         sideMenu.setVisibility(View.GONE);
 //        editor.putString("mobile_number", "").apply();
 //        editor.putString("password", "").apply();
+        editor.putString("userLogged?","");
+        editor.apply();
+
         FirebaseAuth.getInstance().signOut();
         GoogleSignIn.getClient(getApplicationContext(), GoogleSignInOptions.DEFAULT_SIGN_IN).signOut();
         Intent intent = new Intent(DashBoardActivity.this, LoginActivity.class);

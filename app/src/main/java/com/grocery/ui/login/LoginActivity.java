@@ -1,6 +1,8 @@
 package com.grocery.ui.login;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -76,6 +78,8 @@ public class LoginActivity extends BaseActivity {
     FirebaseAuth firebaseAuth;
     private FirebaseFirestore firebaseFirestore;
     private GoogleSignInClient googleSignInClient;
+    private SharedPreferences sharedPreferences;
+    private SharedPreferences.Editor editor;
     static final int RC_SIGN_IN = 100;
 
     @Override
@@ -84,6 +88,8 @@ public class LoginActivity extends BaseActivity {
         setContentView(R.layout.activity_login);
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseFirestore = FirebaseFirestore.getInstance();
+        sharedPreferences = getApplicationContext().getSharedPreferences("LoginStatus", Context.MODE_PRIVATE);
+        editor=sharedPreferences.edit();
         GoogleSignInOptions googleSignInOptions = new GoogleSignInOptions
                 .Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
@@ -105,11 +111,20 @@ public class LoginActivity extends BaseActivity {
     protected void onStart() {
         super.onStart();
         FirebaseUser currentUser = firebaseAuth.getCurrentUser();
-        if (currentUser != null) {
+//        if (currentUser != null) {
+//            invalidateErrorMessages();
+//            Intent intent = new Intent(LoginActivity.this, DashBoardActivity.class);
+//            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+//            intent.putExtra("userId", String.valueOf(userId));
+//            startActivity(intent);
+//            finish();
+//        }
+        String checkStatus=sharedPreferences.getString("userLogged?","");
+        if(checkStatus.equals("LoggedIn")){
             invalidateErrorMessages();
             Intent intent = new Intent(LoginActivity.this, DashBoardActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-            intent.putExtra("userId", String.valueOf(userId));
+            intent.putExtra("userId", currentUser.getUid());
             startActivity(intent);
             finish();
         }
@@ -157,6 +172,8 @@ public class LoginActivity extends BaseActivity {
                                 hideProgress();
                                 FirebaseUser user = firebaseAuth.getCurrentUser();
                                 showCustomDialog("", "Login successfully", getResources().getString(R.string.ok), getResources().getString(R.string.success), onDismissListener);
+                                editor.putString("userLogged?","LoggedIn");
+                                editor.apply();
                             } else {
                                 hideProgress();
                             }
@@ -217,7 +234,7 @@ public class LoginActivity extends BaseActivity {
     }
 
     @OnClick(R.id.imageViewSignupWithMobileNUmber)
-    void onSignupWithMobileNumberClick(){
+    void onSignupWithMobileNumberClick() {
         try {
             Utils.hideSoftKeyboard(LoginActivity.this);
             invalidateErrorMessages();
@@ -239,7 +256,7 @@ public class LoginActivity extends BaseActivity {
     private void signupWithMobileNumber() {
         try {
 
-        }catch (Exception exception) {
+        } catch (Exception exception) {
             Log.e("Error ==> ", "" + exception);
         }
     }

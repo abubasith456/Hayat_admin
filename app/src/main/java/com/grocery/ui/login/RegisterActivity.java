@@ -1,5 +1,7 @@
 package com.grocery.ui.login;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -68,6 +70,8 @@ public class RegisterActivity extends BaseActivity {
     RegisterResponse registerResponse;
     FirebaseAuth firebaseAuth;
     private FirebaseFirestore firebaseFirestore;
+    private SharedPreferences sharedPreferences;
+    private SharedPreferences.Editor editor;
     long timeStamp;
 
     boolean isUserNameAvail, isMobileNumberAvail, isEmailAvail, isPasswordAvail = false;
@@ -78,6 +82,8 @@ public class RegisterActivity extends BaseActivity {
         setContentView(R.layout.activity_register);
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseFirestore = FirebaseFirestore.getInstance();
+        sharedPreferences = getApplicationContext().getSharedPreferences("LoginStatus", Context.MODE_PRIVATE);
+        editor=sharedPreferences.edit();
         try {
             Utils.hideSoftKeyboard(RegisterActivity.this);
             editTextSignUpUserName.addTextChangedListener(new TextChange(editTextSignUpUserName));
@@ -149,6 +155,8 @@ public class RegisterActivity extends BaseActivity {
                             String userId = firebaseAuth.getCurrentUser().getUid();
                             storeUserInfo(userId, editTextSignUpUserName.getText().toString(), editTextSignUpEmail.getText().toString(), editTextSignUpMobileNumber.getText().toString());
                             showCustomDialog("", "Register successfully", getResources().getString(R.string.ok), getResources().getString(R.string.success), onDismissListener);
+                            editor.putString("userLogged?","LoggedIn");
+                            editor.apply();
                         } else {
 
                         }
