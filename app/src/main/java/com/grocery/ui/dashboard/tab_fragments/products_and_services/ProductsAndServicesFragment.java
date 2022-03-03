@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.GridLayout;
 import android.widget.ImageView;
@@ -57,6 +58,12 @@ public class ProductsAndServicesFragment extends BaseFragment {
 
     @BindView(R.id.textViewNoResult)
     TextView textViewNoResult;
+
+    @BindView(R.id.imageViewFilter)
+    ImageView imageViewFilter;
+
+    @BindView(R.id.editTextSearchItem)
+    EditText editTextSearchItem;
 
     @BindView(R.id.floatingButtonAddProducts)
     FloatingActionButton floatingButtonAddProducts;
@@ -128,6 +135,15 @@ public class ProductsAndServicesFragment extends BaseFragment {
         super.onResume();
         try {
             setUpRecyclerView();
+        } catch (Exception exception) {
+            Log.e("Error ==> ", "" + exception);
+        }
+    }
+
+    @OnClick(R.id.imageViewFilter)
+    void onFilterButtonClick() {
+        try {
+
         } catch (Exception exception) {
             Log.e("Error ==> ", "" + exception);
         }
