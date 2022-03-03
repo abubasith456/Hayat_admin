@@ -246,10 +246,6 @@ public class ProductsAndServicesFragment extends BaseFragment {
         TextView textViewProjectName;
         @BindView(R.id.textViewProjectDetails)
         TextView textViewProjectDetails;
-        @BindView(R.id.textViewItemName)
-        TextView textViewItemName;
-        @BindView(R.id.linearLayoutItemClick)
-        LinearLayout linearLayoutItemClick;
         @BindView(R.id.imageViewProductsImage)
         ImageView imageViewProductsImage;
         @BindView(R.id.linearLayoutProductsList)
