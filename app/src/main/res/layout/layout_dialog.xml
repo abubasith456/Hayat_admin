@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/textViewTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:fontFamily="@font/work_sans_bold"
+        android:text="Title"
+        android:textColor="@color/colorPrimary"
+        android:textSize="@dimen/_18sdp" />
+
+    <TextView
+        android:id="@+id/price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textViewTitle"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:fontFamily="@font/work_sans_semibold"
+        android:text="Price:"
+        android:textColor="@color/colorBlack"
+        android:textSize="@dimen/_15sdp" />
+
+    <TextView
+        android:id="@+id/textViewDetails"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/price"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:fontFamily="@font/work_sans_medium"
+        android:text="Per kg or pcs"
+        android:textColor="@color/colorBlack"
+        android:textSize="@dimen/_15sdp" />
+
+    <TextView
+        android:id="@+id/enterYours"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textViewDetails"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:fontFamily="@font/work_sans_semibold"
+        android:text="Enter your kg or pcs:"
+        android:textColor="@color/colorBlack"
+        android:textSize="@dimen/_15sdp" />
+
+    <EditText
+        android:id="@+id/editTextGetPrice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/enterYours"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:hint=" Ex: 1 = 1kg , 0.5 = 1/2 kg" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/buttonAddToCart"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/editTextGetPrice"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:elevation="@dimen/_10sdp"
+        android:text="add to cart" />
+
+</RelativeLayout>

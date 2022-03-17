@@ -31,7 +31,8 @@
             android:layout_marginEnd="@dimen/_10sdp"
             android:layout_marginBottom="@dimen/_10sdp"
             android:background="@drawable/icon_edit"
-            android:backgroundTint="@color/colorWhite" />
+            android:backgroundTint="@color/colorWhite"
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/textVewHeader"
@@ -93,7 +94,44 @@
             android:fontFamily="@font/work_sans_medium"
             android:text="@string/delete"
             android:textColor="@color/colorRed"
-            android:textSize="@dimen/_16sdp" />
+            android:textSize="@dimen/_16sdp"
+            android:visibility="gone" />
+
+
+        <TextView
+            android:id="@+id/enterYours"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_15sdp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_marginEnd="@dimen/_15sdp"
+            android:fontFamily="@font/work_sans_semibold"
+            android:text="Enter your kg or pcs:"
+            android:textColor="@color/colorBlack"
+            android:textSize="@dimen/_15sdp" />
+
+        <EditText
+            android:id="@+id/editTextGetPrice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_15sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginEnd="@dimen/_15sdp"
+            android:hint=" Ex: 1 = 1kg , 0.5 = 1/2 kg" />
+
+        <TextView
+            android:id="@+id/buttonAddToCart"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_15sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginEnd="@dimen/_15sdp"
+            android:background="@color/colorPrimary"
+            android:elevation="@dimen/_10sdp"
+            android:padding="@dimen/_15sdp"
+            android:text="Add to cart"
+            android:textAlignment="center"
+            android:textColor="@color/colorWhite" />
 
     </LinearLayout>
 

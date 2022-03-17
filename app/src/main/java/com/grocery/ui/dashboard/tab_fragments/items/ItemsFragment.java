@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Filter;
 import android.widget.Filterable;
@@ -34,6 +35,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -47,6 +49,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.grocery.Filter.ItemFilter;
+import com.grocery.cart.Cart;
 import com.grocery.model.Category;
 import com.squareup.picasso.Picasso;
 import com.grocery.BaseFragment;
@@ -206,7 +209,8 @@ public class ItemsFragment extends BaseFragment {
                                     documentSnapshot.getString("itemPrice"),
                                     documentSnapshot.getString("itemImage"),
                                     documentSnapshot.getString("itemId"),
-                                    documentSnapshot.getString("itemCategory"));
+                                    documentSnapshot.getString("itemCategory"),
+                                    documentSnapshot.getString("userId"));
                             productsArrayList.add(products);
                         }
                         productsAdapter = new ProductsAdapter(productsArrayList, getActivity());
@@ -241,7 +245,8 @@ public class ItemsFragment extends BaseFragment {
                                     documentSnapshot.getString("itemPrice"),
                                     documentSnapshot.getString("itemImage"),
                                     documentSnapshot.getString("itemId"),
-                                    documentSnapshot.getString("itemCategory"));
+                                    documentSnapshot.getString("itemCategory"),
+                                    documentSnapshot.getString("userId"));
                             productsArrayList.add(products);
                         }
                         productsAdapter = new ProductsAdapter(productsArrayList, getActivity());
@@ -292,7 +297,6 @@ public class ItemsFragment extends BaseFragment {
 //            }
 //        });
 //    }
-
 
     public class ProductsAdapter extends RecyclerView.Adapter<ProductsViewHolder> implements Filterable {
         public ArrayList<Products> productsArray, filterList;
@@ -364,9 +368,9 @@ public class ItemsFragment extends BaseFragment {
                     String category = response.getProductCategory();
                     textViewProjectName.setText(response.getProductName());
                     if (category.equals("Biscuits")) {
-                        textViewProjectDetails.setText("Per Pcs: " + response.getProductDetails());
+                        textViewProjectDetails.setText("Per Pcs: " + response.getProductDetails() + "Rs");
                     } else {
-                        textViewProjectDetails.setText("Per Kg: " + response.getProductDetails());
+                        textViewProjectDetails.setText("Per Kg: " + response.getProductDetails() + "Rs");
                     }
                     try {
                         String productImage = response.getProductImage();
@@ -403,6 +407,8 @@ public class ItemsFragment extends BaseFragment {
             ImageView imageViewProductImage = view.findViewById(R.id.imageViewProductImage);
             TextView textViewProductName = view.findViewById(R.id.textViewProductName);
             TextView textViewIProductDetails = view.findViewById(R.id.textViewIProductDetails);
+            EditText editTextPrice = view.findViewById(R.id.editTextGetPrice);
+            TextView cartButton = view.findViewById(R.id.buttonAddToCart);
             TextView textViewDelete = view.findViewById(R.id.textViewDelete);
 
             textViewProductName.setText(response.getProductName());
@@ -422,52 +428,67 @@ public class ItemsFragment extends BaseFragment {
                 }
             });
 
-            imageEdit.setOnClickListener(new View.OnClickListener() {
+            cartButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent editProductsIntent = new Intent(getActivity(), EditProductsAndServicesActivity.class);
-                    editProductsIntent.putExtra("productId", response.getProductId());
-                    editProductsIntent.putExtra("productName", response.getProductName());
-                    editProductsIntent.putExtra("productDetails", response.getProductDetails());
-                    editProductsIntent.putExtra("productImage", response.getProductImage());
-                    startActivity(editProductsIntent);
-                    bottomSheetDialog.dismiss();
+                    try {
+
+                        String price = editTextPrice.getText().toString();
+                        Cart cart = new Cart();
+                        cart.getCartItem(getContext(), response.getProductName(), response.getProductCategory(), price, response.getUserId(), response.getProductImage());
+
+                    } catch (Exception exception) {
+                        Log.e("Error ==> ", "" + exception);
+                    }
                 }
             });
-            textViewDelete.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                    builder.setTitle("Delete")
-                            .setCancelable(false)
-                            .setMessage("Are you sure you want to delete" + response.getProductName() + "?")
-                            .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    firebaseFirestore.collection("Products").document(response.getProductId()).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
-                                        @Override
-                                        public void onSuccess(@NonNull Void unused) {
-                                            bottomSheetDialog.dismiss();
-                                            deleteFirebaseStorageImage(response);
-                                            setUpRecyclerView();
-                                            Toast.makeText(getContext(), "Deleted", Toast.LENGTH_SHORT).show();
-                                        }
-                                    }).addOnFailureListener(new OnFailureListener() {
-                                        @Override
-                                        public void onFailure(@NonNull Exception e) {
-                                            Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
-                                        }
-                                    });
-                                }
-                            }).setNegativeButton("No", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                        }
-                    });
-                    builder.show();
-                }
-            });
+
+//            imageEdit.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    Intent editProductsIntent = new Intent(getActivity(), EditProductsAndServicesActivity.class);
+//                    editProductsIntent.putExtra("productId", response.getProductId());
+//                    editProductsIntent.putExtra("productName", response.getProductName());
+//                    editProductsIntent.putExtra("productDetails", response.getProductDetails());
+//                    editProductsIntent.putExtra("productImage", response.getProductImage());
+//                    startActivity(editProductsIntent);
+//                    bottomSheetDialog.dismiss();
+//                }
+//            });
+//            textViewDelete.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+//                    builder.setTitle("Delete")
+//                            .setCancelable(false)
+//                            .setMessage("Are you sure you want to delete" + response.getProductName() + "?")
+//                            .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+//                                @Override
+//                                public void onClick(DialogInterface dialog, int which) {
+//                                    firebaseFirestore.collection("Products").document(response.getProductId()).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+//                                        @Override
+//                                        public void onSuccess(@NonNull Void unused) {
+//                                            bottomSheetDialog.dismiss();
+//                                            deleteFirebaseStorageImage(response);
+//                                            setUpRecyclerView();
+//                                            Toast.makeText(getContext(), "Deleted", Toast.LENGTH_SHORT).show();
+//                                        }
+//                                    }).addOnFailureListener(new OnFailureListener() {
+//                                        @Override
+//                                        public void onFailure(@NonNull Exception e) {
+//                                            Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
+//                                        }
+//                                    });
+//                                }
+//                            }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+//                        @Override
+//                        public void onClick(DialogInterface dialog, int which) {
+//                            dialog.dismiss();
+//                        }
+//                    });
+//                    builder.show();
+//                }
+//            });
 
         } catch (Exception exception) {
             Log.e("Error ==> ", "" + exception);
