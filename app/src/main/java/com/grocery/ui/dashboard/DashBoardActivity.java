@@ -40,7 +40,7 @@ import com.grocery.dialog.CustomDialogWithTwoButtons;
 import com.grocery.ui.dashboard.tab_fragments.MessageChatActivity;
 import com.grocery.ui.dashboard.tab_fragments.about_us.AboutUsFragment;
 import com.grocery.ui.dashboard.tab_fragments.contact_us.ContactUsFragment;
-import com.grocery.ui.dashboard.tab_fragments.products_and_services.ProductsAndServicesFragment;
+import com.grocery.ui.dashboard.tab_fragments.items.ItemsFragment;
 import com.grocery.ui.login.LoginActivity;
 
 import java.util.ArrayList;
@@ -52,7 +52,7 @@ import butterknife.OnClick;
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 import static android.Manifest.permission.CALL_PHONE;
 
-public class DashBoardActivity extends BaseActivity implements AboutUsFragment.OnAboutUsListener, ProductsAndServicesFragment.OnProductsAndServicesListener, ContactUsFragment.OnContactUsListener {
+public class DashBoardActivity extends BaseActivity implements AboutUsFragment.OnAboutUsListener, ItemsFragment.OnProductsAndServicesListener, ContactUsFragment.OnContactUsListener {
 
     @BindView(R.id.linear_layout_back)
     LinearLayout linearLayoutBack;
@@ -84,7 +84,7 @@ public class DashBoardActivity extends BaseActivity implements AboutUsFragment.O
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
     AboutUsFragment aboutUsFragment;
-    ProductsAndServicesFragment productsAndServicesFragment;
+    ItemsFragment itemsFragment;
     ContactUsFragment contactUsFragment;
     MenuItem prevMenuItem = null;
     String userId;
@@ -191,9 +191,9 @@ public class DashBoardActivity extends BaseActivity implements AboutUsFragment.O
     private void setupViewPager(ViewPager viewPager) {
         try {
             ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-            productsAndServicesFragment = new ProductsAndServicesFragment();
+            itemsFragment = new ItemsFragment();
             contactUsFragment = new ContactUsFragment();
-            adapter.addFragment(productsAndServicesFragment, "");
+            adapter.addFragment(itemsFragment, "");
             adapter.addFragment(contactUsFragment, "");
             viewPager.setAdapter(adapter);
 
@@ -267,7 +267,7 @@ public class DashBoardActivity extends BaseActivity implements AboutUsFragment.O
                         aboutUsFragment = new AboutUsFragment();
                         break;
                     case 1:
-                        productsAndServicesFragment = new ProductsAndServicesFragment();
+                        itemsFragment = new ItemsFragment();
                         break;
                     case 2:
                         contactUsFragment = new ContactUsFragment();

@@ -41,10 +41,10 @@
         <!--            android:name=".ui.dashboard.tab_fragments.clients.AddClientsActivity"-->
         <!--            android:exported="true" />-->
         <activity
-            android:name=".ui.dashboard.tab_fragments.products_and_services.EditProductsAndServicesActivity"
+            android:name=".ui.dashboard.tab_fragments.items.EditProductsAndServicesActivity"
             android:exported="true" />
         <activity
-            android:name=".ui.dashboard.tab_fragments.products_and_services.AddProductsAndServicesActivity"
+            android:name=".ui.dashboard.tab_fragments.items.AddProductsAndServicesActivity"
             android:exported="true" />
         <activity
             android:name=".ui.login.VerifyOTPActivity"

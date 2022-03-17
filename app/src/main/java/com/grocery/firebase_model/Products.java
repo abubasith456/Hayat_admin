@@ -2,17 +2,26 @@ package com.grocery.firebase_model;
 
 public class Products {
 
-    String productName, productDetails, productImage, productId;
+    String productName, productDetails, productImage, productId, productCategory;
 
     public Products() {
 
     }
 
-    public Products(String productName, String productDetails, String productImage, String productId) {
+    public Products(String productName, String productDetails, String productImage, String productId, String productCategory) {
         this.productName = productName;
         this.productDetails = productDetails;
         this.productImage = productImage;
         this.productId = productId;
+        this.productCategory = productCategory;
+    }
+
+    public String getProductCategory() {
+        return productCategory;
+    }
+
+    public void setProductCategory(String productCategory) {
+        this.productCategory = productCategory;
     }
 
     public String getProductName() {

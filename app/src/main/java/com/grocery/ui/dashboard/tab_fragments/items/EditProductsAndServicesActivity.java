@@ -1,4 +1,4 @@
-package com.grocery.ui.dashboard.tab_fragments.products_and_services;
+package com.grocery.ui.dashboard.tab_fragments.items;
 
 import static android.view.View.GONE;
 
@@ -33,6 +33,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
 import com.grocery.BaseActivity;
 import com.grocery.R;
 import com.grocery.utils.Utils;
@@ -42,33 +43,27 @@ import java.util.HashMap;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class AddProductsAndServicesActivity extends BaseActivity {
+public class EditProductsAndServicesActivity extends BaseActivity {
 
     @BindView(R.id.imageViewUploadProductPicture)
     ImageView imageViewUploadProductPicture;
-
+    @BindView(R.id.textViewRemovePicture)
+    TextView textViewRemovePicture;
     @BindView(R.id.editTextProductName)
     EditText editTextProductName;
-
     @BindView(R.id.editTextProductNameDetails)
     EditText editTextProductNameDetails;
-
     @BindView(R.id.mTextViewErrorProductName)
     TextView mTextViewErrorProductName;
-
     @BindView(R.id.mTextViewErrorProductDetails)
     TextView mTextViewErrorProductDetails;
-
-    @BindView(R.id.layoutAdd)
+    @BindView(R.id.layoutEdit)
     LinearLayout layoutAdd;
-
     @BindView(R.id.textViewSelectImage)
     TextView textViewSelectImage;
-
     @BindView(R.id.progressBar)
     FrameLayout progressBar;
 
-    //image permissions
     private static final int CAMERA_REQUEST_CODE = 200;
     private static final int STORAGE_REQUEST_CODE = 300;
     //image pick
@@ -77,6 +72,7 @@ public class AddProductsAndServicesActivity extends BaseActivity {
     //permission array
     private String[] cameraPermissions;
     private String[] storagePermissions;
+
     private Uri imageUri;
     String filePathAndName;
     private FirebaseAuth firebaseAuth;
@@ -85,17 +81,38 @@ public class AddProductsAndServicesActivity extends BaseActivity {
     private StorageReference filepath;
     Uri downloadImageUri;
     String timeStamp;
+    String productId, productName, productImage, productDetails;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_products_and_services);
+        setContentView(R.layout.activity_edit_products_and_services);
+        productId = getIntent().getStringExtra("productId");
+        productName = getIntent().getStringExtra("productName");
+        productDetails = getIntent().getStringExtra("productDetails");
+        productImage = getIntent().getStringExtra("productImage");
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseFirestore = FirebaseFirestore.getInstance();
         userId = firebaseAuth.getCurrentUser().getUid();
         timeStamp = "" + System.currentTimeMillis();
-        cameraPermissions = new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE};
+        cameraPermissions = new String[]{Manifest.permission.CAMERA};
         storagePermissions = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE};
+        setInfo();
+    }
+
+    private void setInfo() {
+        try {
+            editTextProductName.setText(productName);
+            editTextProductNameDetails.setText(productDetails);
+            try {
+                Picasso.get().load(productImage).into(imageViewUploadProductPicture);
+                textViewSelectImage.setVisibility(GONE);
+            } catch (Exception e) {
+                textViewSelectImage.setVisibility(View.VISIBLE);
+            }
+        } catch (Exception exception) {
+            Log.e("Error ==> ", "" + exception);
+        }
     }
 
     @OnClick(R.id.buttonBackArrow)
@@ -107,6 +124,7 @@ public class AddProductsAndServicesActivity extends BaseActivity {
         }
     }
 
+
     @OnClick(R.id.imageViewUploadProductPicture)
     void onImageViewUploadProductPictureClick() {
         try {
@@ -117,7 +135,16 @@ public class AddProductsAndServicesActivity extends BaseActivity {
         }
     }
 
-    @OnClick(R.id.layoutAdd)
+    @OnClick(R.id.textViewRemovePicture)
+    void onTextViewRemovePictureClick() {
+        try {
+            imageViewUploadProductPicture.setImageDrawable(null);
+        } catch (Exception exception) {
+            Log.e("Error ==> ", "" + exception);
+        }
+    }
+
+    @OnClick(R.id.layoutEdit)
     void onLayoutAddClick() {
         try {
             if (validate(editTextProductName.getText().toString(), editTextProductNameDetails.getText().toString())) {
@@ -129,111 +156,13 @@ public class AddProductsAndServicesActivity extends BaseActivity {
                 } else {
                     //with Image
                     //store image to firebase storage with name and path
-                    filePathAndName = "Vegetables/" + "" + timeStamp;
+                    filePathAndName = "Products/" + "" + timeStamp;
                     filepath = FirebaseStorage.getInstance().getReference(filePathAndName).child(imageUri.getEncodedPath());
                     getPathFromFirebaseStorage();
                 }
             }
-
         } catch (Exception exception) {
             Log.e("Error ==> ", "" + exception);
-        }
-    }
-
-    private void getPathFromFirebaseStorage() {
-        try {
-            filepath.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    Task<Uri> uriTask = taskSnapshot.getStorage().getDownloadUrl();
-                    while (!uriTask.isSuccessful()) ;
-                    downloadImageUri = uriTask.getResult();
-                    if (uriTask.isSuccessful()) {
-                        //url uri received,upload to DB
-                        uploadDataWithImage();
-                    }
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    hideProgress();
-                    Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
-                }
-            });
-        } catch (Exception exception) {
-            Log.e("Error Add item==> ", "" + exception);
-        }
-    }
-
-    private void uploadDataWithImage() {
-        try {
-            HashMap<String, Object> addFieldInfo = new HashMap<>();
-            addFieldInfo.put("productId", "" + timeStamp);
-            addFieldInfo.put("productImage", "" + downloadImageUri);
-            addFieldInfo.put("productName", "" + editTextProductName.getText().toString());
-            addFieldInfo.put("productDetails", "" + editTextProductNameDetails.getText().toString());
-            addFieldInfo.put("userId", "" + userId);
-            String productName = editTextProductName.getText().toString();
-            DocumentReference databaseReference = firebaseFirestore.collection("Vegetables").document(timeStamp);
-            databaseReference.set(addFieldInfo).addOnSuccessListener(new OnSuccessListener<Void>() {
-                @Override
-                public void onSuccess(@NonNull Void unused) {
-                    hideProgress();
-                    Toast.makeText(getApplicationContext(), "Added", Toast.LENGTH_SHORT).show();
-                    clear();
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    hideProgress();
-                    Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
-                }
-            });
-        } catch (Exception exception) {
-            Log.e("Error Add item==> ", "" + exception);
-        }
-
-    }
-
-    private void uploadDataWithoutImage() {
-        try {
-            HashMap<String, Object> addFieldInfo = new HashMap<>();
-            addFieldInfo.put("productId", "" + timeStamp);
-            addFieldInfo.put("productImage", "");//No image
-            addFieldInfo.put("productName", "" + editTextProductName.getText().toString());
-            addFieldInfo.put("productDetails", "" + editTextProductNameDetails.getText().toString());
-            addFieldInfo.put("userId", "" + userId);
-            String productName = editTextProductName.getText().toString();
-            DocumentReference databaseReference = firebaseFirestore.collection("Vegetables").document(timeStamp);
-            databaseReference.set(addFieldInfo).addOnSuccessListener(new OnSuccessListener<Void>() {
-                @Override
-                public void onSuccess(@NonNull Void unused) {
-                    hideProgress();
-                    Toast.makeText(getApplicationContext(), "Added", Toast.LENGTH_SHORT).show();
-                    clear();
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    hideProgress();
-                    Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
-                }
-            });
-
-        } catch (Exception exception) {
-            Log.e("Error Add item==> ", "" + exception);
-        }
-    }
-
-    private void clear() {
-        try {
-            editTextProductName.setText("");
-            editTextProductNameDetails.setText("");
-            imageViewUploadProductPicture.setColorFilter(getResources().getColor(R.color.colorWhite));
-            imageUri = null;
-            textViewSelectImage.setVisibility(View.VISIBLE);
-        } catch (Exception exception) {
-            Log.e("Error Add item==> ", "" + exception);
         }
     }
 
@@ -258,6 +187,114 @@ public class AddProductsAndServicesActivity extends BaseActivity {
                 }
             }
         }).show();
+    }
+
+    private void getPathFromFirebaseStorage() {
+        try {
+            filepath.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    Task<Uri> uriTask = taskSnapshot.getStorage().getDownloadUrl();
+                    while (!uriTask.isSuccessful()) ;
+                    downloadImageUri = uriTask.getResult();
+                    if (uriTask.isSuccessful()) {
+                        uploadDataWithImage();
+                    }
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    hideProgress();
+                    Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
+        } catch (Exception exception) {
+            Log.e("Error Add item==> ", "" + exception);
+        }
+    }
+
+    private void uploadDataWithImage() {
+        try {
+            HashMap<String, Object> addFieldInfo = new HashMap<>();
+            addFieldInfo.put("productId", "" + productId);
+            addFieldInfo.put("productImage", "" + downloadImageUri);
+            addFieldInfo.put("productName", "" + editTextProductName.getText().toString());
+            addFieldInfo.put("productDetails", "" + editTextProductNameDetails.getText().toString());
+            addFieldInfo.put("userId", "" + userId);
+            DocumentReference databaseReference = firebaseFirestore.collection("Products").document(productId);
+            databaseReference.update(addFieldInfo).addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(@NonNull Void unused) {
+                    hideProgress();
+                    Toast.makeText(getApplicationContext(), "Edited", Toast.LENGTH_SHORT).show();
+                    if (productImage != downloadImageUri.toString()) {
+                        deleteFirebaseStorageImage();
+                    }
+                    finish();
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    hideProgress();
+                    Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
+        } catch (Exception exception) {
+            Log.e("Error Add item==> ", "" + exception);
+        }
+    }
+
+    private void uploadDataWithoutImage() {
+        try {
+            if (imageViewUploadProductPicture.getDrawable() == null) {
+                deleteFirebaseStorageImage();
+                productImage = "";
+            }
+            HashMap<String, Object> addFieldInfo = new HashMap<>();
+            addFieldInfo.put("productId", "" + productId);
+            addFieldInfo.put("productImage", "" + productImage);//No image
+            addFieldInfo.put("productName", "" + editTextProductName.getText().toString());
+            addFieldInfo.put("productDetails", "" + editTextProductNameDetails.getText().toString());
+            addFieldInfo.put("userId", "" + userId);
+            DocumentReference databaseReference = firebaseFirestore.collection("Products").document(productId);
+            databaseReference.update(addFieldInfo).addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(@NonNull Void unused) {
+                    hideProgress();
+                    Toast.makeText(getApplicationContext(), "Edited", Toast.LENGTH_SHORT).show();
+                    finish();
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    hideProgress();
+                    Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
+
+        } catch (Exception exception) {
+            Log.e("Error Add item==> ", "" + exception);
+        }
+    }
+
+    void deleteFirebaseStorageImage() {
+        try {
+            FirebaseStorage mFirebaseStorage = FirebaseStorage.getInstance();
+            StorageReference photoRef = mFirebaseStorage.getReferenceFromUrl(productImage);
+            photoRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void aVoid) {
+                    Toast.makeText(getApplicationContext(), "Photo deleted", Toast.LENGTH_SHORT).show();
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception exception) {
+                    Toast.makeText(getApplicationContext(), exception.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
+        } catch (Exception exception) {
+            Log.e("Error ==> ", "" + exception);
+        }
     }
 
     private void pickFromCamera() {
@@ -307,7 +344,7 @@ public class AddProductsAndServicesActivity extends BaseActivity {
                     if (cameraAccepted) {
                         pickFromCamera();
                     } else {
-                        Toast.makeText(getApplicationContext(), "Camera and storage permission required..", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "Camera permission required..", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
@@ -318,7 +355,7 @@ public class AddProductsAndServicesActivity extends BaseActivity {
                     if (storageAccepted) {
                         pickFromGallery();
                     } else {
-                        Toast.makeText(getApplicationContext(), "Camera and storage permission required..", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "Storage permission required..", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
@@ -385,5 +422,4 @@ public class AddProductsAndServicesActivity extends BaseActivity {
             Log.e("Error ==> ", "" + exception);
         }
     }
-
 }

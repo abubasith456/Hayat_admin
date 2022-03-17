@@ -1,19 +1,24 @@
-package com.grocery.ui.dashboard.tab_fragments.products_and_services;
+package com.grocery.ui.dashboard.tab_fragments.items;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.icu.util.ULocale;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.FrameLayout;
-import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -21,7 +26,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -31,13 +35,19 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.grocery.adapter.ItemAdapter;
+import com.grocery.Filter.ItemFilter;
+import com.grocery.model.Category;
 import com.squareup.picasso.Picasso;
 import com.grocery.BaseFragment;
 import com.grocery.R;
@@ -45,13 +55,12 @@ import com.grocery.firebase_model.Products;
 import com.grocery.utils.PhotoPreViewActivity;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class ProductsAndServicesFragment extends BaseFragment {
+public class ItemsFragment extends BaseFragment {
 
     @BindView(R.id.recyclerViewClients)
     RecyclerView recyclerViewClients;
@@ -78,21 +87,11 @@ public class ProductsAndServicesFragment extends BaseFragment {
     ArrayList<Products> productsArrayList;
     FirebaseFirestore firebaseFirestore;
 
-    class ProductInfo {
-        String productName;
-        String productDetails;
-
-        ProductInfo(String productName, String productDetails) {
-            this.productName = productName;
-            this.productDetails = productDetails;
-        }
-    }
-
-    public ProductsAndServicesFragment() {
+    public ItemsFragment() {
 
     }
 
-    public ProductsAndServicesFragment(String searchText) {
+    public ItemsFragment(String searchText) {
         this.searchText = searchText;
     }
 
@@ -124,7 +123,27 @@ public class ProductsAndServicesFragment extends BaseFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         try {
-
+//            editTextSearchItem.addTextChangedListener(new TextWatcher() {
+//                @Override
+//                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+//
+//
+//                }
+//
+//                @Override
+//                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+//                    try {
+//                        productsAdapter.getFilter().filter(charSequence);
+//                    } catch (Exception e) {
+//                        Log.e("SearchText===>", e.getMessage());
+//                    }
+//                }
+//
+//                @Override
+//                public void afterTextChanged(Editable editable) {
+//
+//                }
+//            });
         } catch (Exception exception) {
             Log.e("Error ==> ", "" + exception);
         }
@@ -143,7 +162,21 @@ public class ProductsAndServicesFragment extends BaseFragment {
     @OnClick(R.id.imageViewFilter)
     void onFilterButtonClick() {
         try {
-
+            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+            builder.setTitle("Select Category")
+                    .setItems(Category.selectCategory, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            String selectedCategory = Category.selectCategory[which];
+                            loadFilterItems(selectedCategory);
+//                            textViewCategoryName.setText(selectedCategory);
+//                        if (selectedCategory.equals("All")) {
+//                            loadAllItems();
+//                        } else {
+//
+//                        }
+                        }
+                    }).show();
         } catch (Exception exception) {
             Log.e("Error ==> ", "" + exception);
         }
@@ -159,19 +192,56 @@ public class ProductsAndServicesFragment extends BaseFragment {
         }
     }
 
+    private void loadFilterItems(String selectedCategory) {
+        try {
+            productsArrayList = new ArrayList<>();
+            firebaseFirestore.collection(selectedCategory).orderBy("itemName", Query.Direction.ASCENDING)
+                    .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                    if (task.isSuccessful()) {
+                        productsArrayList.clear();
+                        for (DocumentSnapshot documentSnapshot : task.getResult()) {
+                            Products products = new Products(documentSnapshot.getString("itemName"),
+                                    documentSnapshot.getString("itemPrice"),
+                                    documentSnapshot.getString("itemImage"),
+                                    documentSnapshot.getString("itemId"),
+                                    documentSnapshot.getString("itemCategory"));
+                            productsArrayList.add(products);
+                        }
+                        productsAdapter = new ProductsAdapter(productsArrayList, getActivity());
+                        LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
+                        recyclerViewClients.setLayoutManager(mLayoutManager);
+                        recyclerViewClients.setAdapter(productsAdapter);
+                        textViewNoResult.setVisibility(View.GONE);
+                        productsAdapter.notifyDataSetChanged();
+                    }
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+
+                }
+            });
+        } catch (Exception exception) {
+            Log.e("Error ==> ", "" + exception);
+        }
+    }
+
     public void setUpRecyclerView() {
         try {
             productsArrayList = new ArrayList<>();
-            firebaseFirestore.collection("Vegetables").orderBy("productName", Query.Direction.ASCENDING)
+            firebaseFirestore.collection("Biscuits").orderBy("itemName", Query.Direction.ASCENDING)
                     .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                 @Override
                 public void onComplete(@NonNull Task<QuerySnapshot> task) {
                     if (task.isSuccessful()) {
                         for (DocumentSnapshot documentSnapshot : task.getResult()) {
-                            Products products = new Products(documentSnapshot.getString("productName"),
-                                    documentSnapshot.getString("productDetails"),
-                                    documentSnapshot.getString("productImage"),
-                                    documentSnapshot.getString("productId"));
+                            Products products = new Products(documentSnapshot.getString("itemName"),
+                                    documentSnapshot.getString("itemPrice"),
+                                    documentSnapshot.getString("itemImage"),
+                                    documentSnapshot.getString("itemId"),
+                                    documentSnapshot.getString("itemCategory"));
                             productsArrayList.add(products);
                         }
                         productsAdapter = new ProductsAdapter(productsArrayList, getActivity());
@@ -224,9 +294,10 @@ public class ProductsAndServicesFragment extends BaseFragment {
 //    }
 
 
-    public class ProductsAdapter extends RecyclerView.Adapter<ProductsViewHolder> {
-        private ArrayList<Products> productsArray;
+    public class ProductsAdapter extends RecyclerView.Adapter<ProductsViewHolder> implements Filterable {
+        public ArrayList<Products> productsArray, filterList;
         private Activity mActivity;
+        public ItemFilter itemFilter;
 
         public ProductsAdapter(ArrayList<Products> productsArray, Activity activity) {
             this.productsArray = productsArray;
@@ -254,7 +325,17 @@ public class ProductsAndServicesFragment extends BaseFragment {
         public int getItemCount() {
             return productsArray.size();
         }
+
+        @Override
+        public Filter getFilter() {
+
+            if (itemFilter == null) {
+                itemFilter = new ItemFilter(this, filterList);
+            }
+            return itemFilter;
+        }
     }
+
 
     public class ProductsViewHolder extends RecyclerView.ViewHolder {
         //
@@ -276,11 +357,17 @@ public class ProductsAndServicesFragment extends BaseFragment {
             }
         }
 
+        @SuppressLint("SetTextI18n")
         public void bind(final Products response, final Activity activity) {
             try {
                 if (response != null) {
+                    String category = response.getProductCategory();
                     textViewProjectName.setText(response.getProductName());
-                    textViewProjectDetails.setText(response.getProductDetails());
+                    if (category.equals("Biscuits")) {
+                        textViewProjectDetails.setText("Per Pcs: " + response.getProductDetails());
+                    } else {
+                        textViewProjectDetails.setText("Per Kg: " + response.getProductDetails());
+                    }
                     try {
                         String productImage = response.getProductImage();
                         Picasso.get().load(productImage).placeholder(R.drawable.logo).into(imageViewProductsImage);

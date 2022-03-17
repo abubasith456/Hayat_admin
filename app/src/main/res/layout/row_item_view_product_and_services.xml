@@ -31,6 +31,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="start"
+                android:padding="@dimen/_5sdp"
                 android:layout_weight="1"
                 android:gravity="start|center_vertical"
                 android:orientation="vertical">
@@ -65,8 +66,8 @@
 
                     <ImageView
                         android:id="@+id/imageViewProductsImage"
-                        android:layout_width="@dimen/_80sdp"
-                        android:layout_height="@dimen/_80sdp" />
+                        android:layout_width="@dimen/_50sdp"
+                        android:layout_height="@dimen/_50sdp" />
 
                     <TextView
                         android:id="@+id/textViewProjectDetails"

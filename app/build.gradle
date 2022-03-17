@@ -1,8 +1,6 @@
 plugins {
     id 'com.android.application'
     id 'com.google.gms.google-services'
-    id 'com.google.firebase.appdistribution'
-    id 'com.google.firebase.firebase-perf'
 }
 
 android {
@@ -34,7 +32,7 @@ android {
 }
 
 dependencies {
-
+    implementation 'com.google.gms:google-services:4.3.0'
     implementation 'androidx.appcompat:appcompat:1.4.1'
     implementation 'com.google.android.material:material:1.4.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.0'
@@ -46,8 +44,19 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-gson:2.7.2'
     // Butterknife
     implementation "com.jakewharton:butterknife:10.2.1"
+
+
+    implementation platform('com.google.firebase:firebase-bom:29.0.2')
+    implementation 'com.google.firebase:firebase-auth:21.0.2'
+    implementation 'com.google.firebase:firebase-firestore:24.0.2'
+    implementation 'com.google.android.gms:play-services-auth:20.0.0'
+    implementation 'com.google.firebase:firebase-storage:20.0.0'
+    implementation 'com.google.firebase:firebase-database'
+// Add the dependency for the Firebase Cloud Messaging library
+    implementation 'com.google.firebase:firebase-messaging:23.0.0'
     implementation 'com.google.firebase:firebase-inappmessaging-display:20.1.1'
     implementation 'com.google.firebase:firebase-perf:20.0.5'
+
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.1'
     // Android X Cardview
     implementation 'androidx.cardview:cardview:1.0.0'
@@ -69,8 +78,7 @@ dependencies {
     implementation 'com.google.android.gms:play-services-maps:18.0.2'
     // Locations
     implementation 'com.google.android.gms:play-services-location:19.0.1'
-    // Add the dependency for the Firebase Cloud Messaging library
-    implementation 'com.google.firebase:firebase-messaging:23.0.0'
+
     // Seekbar
     implementation 'com.github.warkiz.widget:indicatorseekbar:2.1.2'
     //Chart
@@ -84,12 +92,8 @@ dependencies {
     //Gallery View
     implementation 'com.github.sheetalkumar105:androidimagevideogallery:1.05'
     //Firebase
-    implementation platform('com.google.firebase:firebase-bom:29.0.2')
-    implementation 'com.google.firebase:firebase-auth:21.0.1'
-    implementation 'com.google.firebase:firebase-firestore:24.0.1'
-    implementation 'com.google.android.gms:play-services-auth:20.0.0'
-    implementation 'com.google.firebase:firebase-storage:20.0.0'
-    implementation 'com.google.firebase:firebase-database'
+
+
     //image downloader picasso
     implementation 'com.squareup.picasso:picasso:2.71828'
 
