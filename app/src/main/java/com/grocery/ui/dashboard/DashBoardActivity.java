@@ -1,5 +1,9 @@
 package com.grocery.ui.dashboard;
 
+import static android.Manifest.permission.ACCESS_FINE_LOCATION;
+import static android.Manifest.permission.CALL_PHONE;
+
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -7,9 +11,11 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -22,6 +28,8 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -36,7 +44,11 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.grocery.BaseActivity;
 import com.grocery.R;
+import com.grocery.adapter.CartAdapter;
+import com.grocery.db.AppDatabase;
+import com.grocery.db.CartItems;
 import com.grocery.dialog.CustomDialogWithTwoButtons;
+import com.grocery.model.dbCart.CartModel;
 import com.grocery.ui.dashboard.tab_fragments.MessageChatActivity;
 import com.grocery.ui.dashboard.tab_fragments.about_us.AboutUsFragment;
 import com.grocery.ui.dashboard.tab_fragments.contact_us.ContactUsFragment;
@@ -48,9 +60,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-
-import static android.Manifest.permission.ACCESS_FINE_LOCATION;
-import static android.Manifest.permission.CALL_PHONE;
 
 public class DashBoardActivity extends BaseActivity implements AboutUsFragment.OnAboutUsListener, ItemsFragment.OnProductsAndServicesListener, ContactUsFragment.OnContactUsListener {
 
@@ -89,6 +98,8 @@ public class DashBoardActivity extends BaseActivity implements AboutUsFragment.O
     MenuItem prevMenuItem = null;
     String userId;
     FirebaseAuth firebaseAuth;
+    private List<CartModel> cartModelList;
+    private CartAdapter cartAdapter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -96,9 +107,9 @@ public class DashBoardActivity extends BaseActivity implements AboutUsFragment.O
         setContentView(R.layout.activity_dashboard);
 //        userId = getIntent().getStringExtra("userId");
         firebaseAuth = FirebaseAuth.getInstance();
-        userId = firebaseAuth.getCurrentUser().getUid();
+//        userId = firebaseAuth.getCurrentUser().getUid();
         sharedPreferences = getApplicationContext().getSharedPreferences("LoginStatus", Context.MODE_PRIVATE);
-        editor=sharedPreferences.edit();
+        editor = sharedPreferences.edit();
         try {
             bottomNavigation.setOnNavigationItemSelectedListener(navigationItemSelectedListener);
             setupViewPager(viewPager);
@@ -314,7 +325,49 @@ public class DashBoardActivity extends BaseActivity implements AboutUsFragment.O
     @OnClick(R.id.chatButton)
     void chatButtonClick() {
         try {
-            startActivity(new Intent(DashBoardActivity.this, MessageChatActivity.class));
+//            startActivity(new Intent(DashBoardActivity.this, MessageChatActivity.class));
+            onClickShowCartDialog();
+        } catch (Exception exception) {
+            Log.e("Error ==> ", "" + exception);
+        }
+    }
+
+    public int totalPrice = 0;
+    public TextView textViewTotalItem, textViewTotalPrice, textViewKgPcs;
+
+    private void onClickShowCartDialog() {
+        try {
+            cartModelList = new ArrayList<>();
+
+            View view = LayoutInflater.from(this).inflate(R.layout.dialog_cart, null);
+            textViewTotalItem = view.findViewById(R.id.textViewTotalItem);
+            textViewTotalPrice = view.findViewById(R.id.textViewTotalPrice);
+//            textViewKgPcs = view.findViewById(R.id.textViewKgPcs);
+            ImageButton imageButtonDelete = view.findViewById(R.id.imageButtonDelete);
+            RecyclerView recyclerViewCart = view.findViewById(R.id.recyclerViewCart);
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setView(view);
+
+            final AlertDialog dialog = builder.create();
+            dialog.show();
+            AppDatabase db = AppDatabase.getDbInstance(this);
+            List<CartItems> cartItems = db.userDao().getAllCart();
+            cartAdapter = new CartAdapter(cartItems, getApplicationContext());
+            recyclerViewCart.setHasFixedSize(true);
+            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+            recyclerViewCart.setLayoutManager(linearLayoutManager);
+            recyclerViewCart.setAdapter(cartAdapter);
+
+            int Price = 0;
+            for (int i = 0; i < cartItems.size(); i++) {
+                Price += Integer.parseInt(cartItems.get(i).itemPrice);
+                Log.e("Total price=>", String.valueOf(Price));
+                totalPrice = Price;
+            }
+            textViewTotalItem.setText(String.valueOf(cartItems.size()));
+            textViewTotalPrice.setText("Rs" + String.valueOf(totalPrice));
+
         } catch (Exception exception) {
             Log.e("Error ==> ", "" + exception);
         }
@@ -399,7 +452,7 @@ public class DashBoardActivity extends BaseActivity implements AboutUsFragment.O
         sideMenu.setVisibility(View.GONE);
 //        editor.putString("mobile_number", "").apply();
 //        editor.putString("password", "").apply();
-        editor.putString("userLogged?","");
+        editor.putString("userLogged?", "");
         editor.apply();
 
         FirebaseAuth.getInstance().signOut();
