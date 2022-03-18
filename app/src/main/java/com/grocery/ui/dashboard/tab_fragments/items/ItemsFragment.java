@@ -7,10 +7,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.icu.util.ULocale;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,27 +32,21 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
-import com.google.android.material.button.MaterialButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.grocery.Filter.ItemFilter;
-import com.grocery.cart.Cart;
-import com.grocery.model.Category;
-import com.squareup.picasso.Picasso;
 import com.grocery.BaseFragment;
+import com.grocery.Filter.ItemFilter;
 import com.grocery.R;
+import com.grocery.cart.Cart;
 import com.grocery.firebase_model.Products;
+import com.grocery.model.Category;
 import com.grocery.utils.PhotoPreViewActivity;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -408,8 +399,7 @@ public class ItemsFragment extends BaseFragment {
             TextView textViewProductName = view.findViewById(R.id.textViewProductName);
             TextView textViewIProductDetails = view.findViewById(R.id.textViewIProductDetails);
             EditText editTextPrice = view.findViewById(R.id.editTextGetPrice);
-            TextView cartButton = view.findViewById(R.id.buttonAddToCart);
-            TextView textViewDelete = view.findViewById(R.id.textViewDelete);
+            Button cartButton = view.findViewById(R.id.buttonAddToCart);
 
             textViewProductName.setText(response.getProductName());
             textViewIProductDetails.setText(response.getProductDetails());
@@ -433,9 +423,16 @@ public class ItemsFragment extends BaseFragment {
                 public void onClick(View view) {
                     try {
 
-                        String price = editTextPrice.getText().toString();
-                        Cart cart = new Cart();
-                        cart.getCartItem(getContext(), response.getProductName(), response.getProductCategory(), price, response.getUserId(), response.getProductImage());
+                        if (editTextPrice.getText().toString() != null && !editTextPrice.getText().toString().equals("")) {
+                            double price = Double.parseDouble(editTextPrice.getText().toString());
+                            double calculate = price * Integer.parseInt(response.getProductCategory());
+                            Log.e("calculate==>", String.valueOf(calculate));
+                            Cart cart = new Cart();
+                            cart.getCartItem(getContext(), response.getProductName(), String.valueOf(calculate), response.getProductDetails(), price, response.getUserId(), response.getProductImage());
+                        } else {
+                            Toast.makeText(getContext(), "Please enter the kg/pcs", Toast.LENGTH_SHORT).show();
+                        }
+
 
                     } catch (Exception exception) {
                         Log.e("Error ==> ", "" + exception);

@@ -1,11 +1,8 @@
 package com.grocery.db;
 
-import android.widget.ImageView;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
-
-import com.bumptech.glide.Glide;
 
 @Entity
 public class CartItems {
@@ -21,6 +18,9 @@ public class CartItems {
 
     @ColumnInfo(name = "itemCategory")
     public String itemCategory;
+
+    @ColumnInfo(name = "itemNos")
+    public double itemNos;
 
     @ColumnInfo(name = "userId")
     public String userId;

@@ -55,11 +55,12 @@
         android:layout_marginTop="@dimen/_10sdp"
         android:hint=" Ex: 1 = 1kg , 0.5 = 1/2 kg" />
 
-    <com.google.android.material.button.MaterialButton
+    <Button
         android:id="@+id/buttonAddToCart"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/editTextGetPrice"
+        android:backgroundTint="@color/colorPrimary"
         android:layout_marginTop="@dimen/_10sdp"
         android:elevation="@dimen/_10sdp"
         android:text="add to cart" />

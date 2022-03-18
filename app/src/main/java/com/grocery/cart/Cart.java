@@ -12,14 +12,16 @@ public class Cart {
     private Context context;
     private String itemName;
     private String itemPrice;
+    private double itemNos;
     private String userId;
     private String itemCategory;
 
-    public void getCartItem(Context context, String itemName, String itemCategory, String itemPrice, String userId, String imageUrl) {
+    public void getCartItem(Context context, String itemName, String itemCategory, String itemPrice, double itemNos, String userId, String imageUrl) {
         this.context = context;
         this.itemName = itemName;
         this.itemPrice = itemPrice;
         this.userId = userId;
+        this.itemNos = itemNos;
         this.itemCategory = itemCategory;
 
         try {
@@ -29,6 +31,7 @@ public class Cart {
             cartItems.itemName = itemName;
             cartItems.itemCategory = itemCategory;
             cartItems.itemPrice = itemPrice;
+            cartItems.itemNos = itemNos;
             cartItems.userId = userId;
             cartItems.image_url = imageUrl;
             db.userDao().insertCart(cartItems);

@@ -23,7 +23,6 @@ import androidx.annotation.Nullable;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -124,7 +123,7 @@ public class LoginActivity extends BaseActivity {
             invalidateErrorMessages();
             Intent intent = new Intent(LoginActivity.this, DashBoardActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-            intent.putExtra("userId", currentUser.getUid());
+//            intent.putExtra("userId", currentUser.getUid());
             startActivity(intent);
             finish();
         }

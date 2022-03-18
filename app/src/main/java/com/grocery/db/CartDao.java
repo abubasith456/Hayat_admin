@@ -15,7 +15,7 @@ public interface CartDao {
     List<CartItems> getAllCart();
 
     @Query("SELECT * FROM OrderedItems")
-    List<CartItems> getAllOrderedItems();
+    List<OrderedItems> getAllOrderedItems();
 
     @Insert
     void insertCart(CartItems... cartItems);

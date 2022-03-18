@@ -115,20 +115,22 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_15sdp"
+            android:inputType="numberDecimal"
             android:layout_marginTop="@dimen/_10sdp"
             android:layout_marginEnd="@dimen/_15sdp"
             android:hint=" Ex: 1 = 1kg , 0.5 = 1/2 kg" />
 
-        <TextView
+        <Button
             android:id="@+id/buttonAddToCart"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_15sdp"
             android:layout_marginTop="@dimen/_10sdp"
             android:layout_marginEnd="@dimen/_15sdp"
+            android:layout_marginBottom="@dimen/_10sdp"
             android:background="@color/colorPrimary"
             android:elevation="@dimen/_10sdp"
-            android:padding="@dimen/_15sdp"
+            android:padding="@dimen/_5sdp"
             android:text="Add to cart"
             android:textAlignment="center"
             android:textColor="@color/colorWhite" />
