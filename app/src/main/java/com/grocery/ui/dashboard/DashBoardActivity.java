@@ -3,6 +3,7 @@ package com.grocery.ui.dashboard;
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 import static android.Manifest.permission.CALL_PHONE;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -14,8 +15,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.FrameLayout;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -49,6 +50,7 @@ import com.grocery.db.AppDatabase;
 import com.grocery.db.CartItems;
 import com.grocery.dialog.CustomDialogWithTwoButtons;
 import com.grocery.model.dbCart.CartModel;
+import com.grocery.repository.FirebaseUpload;
 import com.grocery.ui.dashboard.tab_fragments.MessageChatActivity;
 import com.grocery.ui.dashboard.tab_fragments.about_us.AboutUsFragment;
 import com.grocery.ui.dashboard.tab_fragments.contact_us.ContactUsFragment;
@@ -332,46 +334,6 @@ public class DashBoardActivity extends BaseActivity implements AboutUsFragment.O
         }
     }
 
-    public int totalPrice = 0;
-    public TextView textViewTotalItem, textViewTotalPrice, textViewKgPcs;
-
-    private void onClickShowCartDialog() {
-        try {
-            cartModelList = new ArrayList<>();
-
-            View view = LayoutInflater.from(this).inflate(R.layout.dialog_cart, null);
-            textViewTotalItem = view.findViewById(R.id.textViewTotalItem);
-            textViewTotalPrice = view.findViewById(R.id.textViewTotalPrice);
-//            textViewKgPcs = view.findViewById(R.id.textViewKgPcs);
-            ImageButton imageButtonDelete = view.findViewById(R.id.imageButtonDelete);
-            RecyclerView recyclerViewCart = view.findViewById(R.id.recyclerViewCart);
-
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setView(view);
-
-            final AlertDialog dialog = builder.create();
-            dialog.show();
-            AppDatabase db = AppDatabase.getDbInstance(this);
-            List<CartItems> cartItems = db.userDao().getAllCart();
-            cartAdapter = new CartAdapter(cartItems, getApplicationContext());
-            recyclerViewCart.setHasFixedSize(true);
-            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-            recyclerViewCart.setLayoutManager(linearLayoutManager);
-            recyclerViewCart.setAdapter(cartAdapter);
-
-            int Price = 0;
-            for (int i = 0; i < cartItems.size(); i++) {
-                Price += Integer.parseInt(cartItems.get(i).itemPrice);
-                Log.e("Total price=>", String.valueOf(Price));
-                totalPrice = Price;
-            }
-            textViewTotalItem.setText(String.valueOf(cartItems.size()));
-            textViewTotalPrice.setText("Rs" + String.valueOf(totalPrice));
-
-        } catch (Exception exception) {
-            Log.e("Error ==> ", "" + exception);
-        }
-    }
 
     @OnClick(R.id.filterButton)
     void filterButtonClick() {
@@ -476,6 +438,53 @@ public class DashBoardActivity extends BaseActivity implements AboutUsFragment.O
     @OnClick(R.id.filterButton)
     void onFilterClick() {
         try {
+
+        } catch (Exception exception) {
+            Log.e("Error ==> ", "" + exception);
+        }
+    }
+
+    public int totalPrice = 0;
+    public TextView textViewTotalItem, textViewTotalPrice, textViewKgPcs;
+
+    @SuppressLint("SetTextI18n")
+    private void onClickShowCartDialog() {
+        try {
+            cartModelList = new ArrayList<>();
+            View view = LayoutInflater.from(this).inflate(R.layout.dialog_cart, null);
+            textViewTotalItem = view.findViewById(R.id.textViewTotalItem);
+            textViewTotalPrice = view.findViewById(R.id.textViewTotalPrice);
+//            textViewKgPcs = view.findViewById(R.id.textViewKgPcs);
+            Button buttonPlaceOrder = view.findViewById(R.id.buttonPlaceOrder);
+            RecyclerView recyclerViewCart = view.findViewById(R.id.recyclerViewCart);
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setView(view);
+
+            final AlertDialog dialog = builder.create();
+            dialog.show();
+            AppDatabase db = AppDatabase.getDbInstance(this);
+            List<CartItems> cartItems = db.userDao().getAllCart();
+            cartAdapter = new CartAdapter(cartItems, getApplicationContext());
+            recyclerViewCart.setHasFixedSize(true);
+            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+            recyclerViewCart.setLayoutManager(linearLayoutManager);
+            recyclerViewCart.setAdapter(cartAdapter);
+
+            int Price = 0;
+            for (int i = 0; i < cartItems.size(); i++) {
+                Price += Integer.parseInt(cartItems.get(i).itemPrice);
+                Log.e("Total price=>", String.valueOf(Price));
+                totalPrice = Price;
+            }
+            textViewTotalItem.setText(String.valueOf(cartItems.size()));
+            textViewTotalPrice.setText("Rs" + String.valueOf(totalPrice));
+            buttonPlaceOrder.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    FirebaseUpload firebaseUpload=new FirebaseUpload();
+                    firebaseUpload.uploadOrders(getApplicationContext(),cartItems);
+                }
+            });
 
         } catch (Exception exception) {
             Log.e("Error ==> ", "" + exception);
