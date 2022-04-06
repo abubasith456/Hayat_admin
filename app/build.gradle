@@ -79,7 +79,6 @@ dependencies {
     implementation 'com.google.android.gms:play-services-maps:18.0.2'
     // Locations
     implementation 'com.google.android.gms:play-services-location:19.0.1'
-
     // Seekbar
     implementation 'com.github.warkiz.widget:indicatorseekbar:2.1.2'
     //Chart
@@ -94,7 +93,6 @@ dependencies {
     implementation 'com.github.sheetalkumar105:androidimagevideogallery:1.05'
     //Firebase
 
-
     //image downloader picasso
     implementation 'com.squareup.picasso:picasso:2.71828'
 
@@ -102,6 +100,9 @@ dependencies {
     def room_version = "2.4.1"
     implementation "androidx.room:room-runtime:$room_version"
     annotationProcessor "androidx.room:room-compiler:$room_version"
+
+    //Process bar
+    implementation 'com.github.mecoFarid:squeezeloader:1.0.3'
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'

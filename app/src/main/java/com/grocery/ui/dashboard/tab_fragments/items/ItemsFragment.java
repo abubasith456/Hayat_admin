@@ -32,7 +32,6 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
@@ -68,8 +67,8 @@ public class ItemsFragment extends BaseFragment {
     @BindView(R.id.editTextSearchItem)
     EditText editTextSearchItem;
 
-    @BindView(R.id.floatingButtonAddProducts)
-    FloatingActionButton floatingButtonAddProducts;
+//    @BindView(R.id.floatingButtonAddProducts)
+//    FloatingActionButton floatingButtonAddProducts;
 
     @BindView(R.id.progress_bar)
     FrameLayout progressBar;
@@ -176,15 +175,15 @@ public class ItemsFragment extends BaseFragment {
         }
     }
 
-    @OnClick(R.id.floatingButtonAddProducts)
-    void onFloatingButtonAddProductsClick() {
-        try {
-            Intent addProductsIntent = new Intent(getContext(), AddProductsAndServicesActivity.class);
-            startActivity(addProductsIntent);
-        } catch (Exception exception) {
-            Log.e("Error ==> ", "" + exception);
-        }
-    }
+//    @OnClick(R.id.floatingButtonAddProducts)
+//    void onFloatingButtonAddProductsClick() {
+//        try {
+//            Intent addProductsIntent = new Intent(getContext(), AddProductsAndServicesActivity.class);
+//            startActivity(addProductsIntent);
+//        } catch (Exception exception) {
+//            Log.e("Error ==> ", "" + exception);
+//        }
+//    }
 
     private void loadFilterItems(String selectedCategory) {
         try {

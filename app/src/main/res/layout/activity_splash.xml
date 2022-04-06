@@ -1,34 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:gravity="center"
-    android:background="@drawable/gradient_background_drawable">
+    android:background="@color/colorWhite"
+    android:orientation="vertical">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/colorWhite"
-        android:layout_gravity="center"
-        android:fontFamily="@font/work_sans_bold"
-        android:text="@string/app_name"
-        android:textAllCaps="true"
-        android:textSize="@dimen/_40sdp"  />
+    <!--    <TextView-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:textColor="@color/colorWhite"-->
+    <!--        android:layout_gravity="center"-->
+    <!--        android:fontFamily="@font/work_sans_bold"-->
+    <!--        android:text="@string/app_name"-->
+    <!--        android:textAllCaps="true"-->
+    <!--        android:textSize="@dimen/_40sdp"  />-->
+    <!--    <TextView-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:fontFamily="@font/work_sans_bold"-->
+    <!--        android:textColor="@color/colorWhite"-->
+    <!--        android:layout_gravity="center"-->
+    <!--        android:textAllCaps="false"-->
+    <!--        android:text="@string/invest_influence_impact_text"-->
+    <!--        android:textSize="@dimen/_18sdp"  />-->
+
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="@dimen/_160sdp"
+        android:layout_gravity="center"
+        android:contentDescription="@string/app_name"
         android:src="@drawable/logo"
-        android:layout_gravity="center"
-        android:contentDescription="@string/app_name" />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/work_sans_bold"
-        android:textColor="@color/colorWhite"
-        android:layout_gravity="center"
-        android:textAllCaps="false"
-        android:text="@string/invest_influence_impact_text"
-        android:textSize="@dimen/_18sdp"  />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-</LinearLayout>
+    <com.mecofarid.squeezeloader.SqueezeLoader
+        android:id="@+id/squeezeLoader"
+        android:layout_width="@dimen/_200sdp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginStart="@dimen/_40sdp"
+        android:layout_marginEnd="@dimen/_40sdp"
+        android:layout_marginBottom="@dimen/_30sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:sl_colorSqueezebar="@color/colorPrimary" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

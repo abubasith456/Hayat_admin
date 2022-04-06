@@ -77,6 +77,7 @@
                         android:ellipsize="end"
                         android:fontFamily="@font/work_sans_medium"
                         android:gravity="start|center"
+                        android:textAlignment="center"
                         android:singleLine="false"
                         android:text="@string/project_details"
                         android:textColor="@color/colorBlack"
