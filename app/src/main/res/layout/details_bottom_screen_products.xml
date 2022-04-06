@@ -42,7 +42,7 @@
             android:fontFamily="@font/work_sans_bold"
             android:text="@string/product_details"
             android:textColor="@color/colorWhite"
-            android:textSize="@dimen/_16sdp" />
+            android:textSize="@dimen/_15sdp" />
 
     </RelativeLayout>
 
@@ -68,7 +68,7 @@
             android:fontFamily="@font/work_sans_bold"
             android:text="@string/product_name"
             android:textColor="@color/colorPrimary"
-            android:textSize="@dimen/_16sdp"
+            android:textSize="@dimen/_15sdp"
             android:textStyle="bold" />
 
         <TextView
@@ -82,46 +82,10 @@
             android:fontFamily="@font/work_sans_medium"
             android:text="@string/product_details"
             android:textColor="@color/colorBlack"
-            android:textSize="@dimen/_14sdp" />
-
-        <TextView
-            android:id="@+id/textViewDelete"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:layout_marginEnd="@dimen/_10sdp"
-            android:layout_marginBottom="@dimen/_10sdp"
-            android:fontFamily="@font/work_sans_medium"
-            android:text="@string/delete"
-            android:textColor="@color/colorRed"
-            android:textSize="@dimen/_16sdp"
-            android:visibility="gone" />
-
-
-        <TextView
-            android:id="@+id/enterYours"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_15sdp"
-            android:layout_marginTop="@dimen/_5sdp"
-            android:layout_marginEnd="@dimen/_15sdp"
-            android:fontFamily="@font/work_sans_semibold"
-            android:text="Enter your kg or pcs:"
-            android:textColor="@color/colorBlack"
-            android:textSize="@dimen/_15sdp" />
-
-        <EditText
-            android:id="@+id/editTextGetPrice"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_15sdp"
-            android:inputType="numberDecimal"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:layout_marginEnd="@dimen/_15sdp"
-            android:hint=" Ex: 1 = 1kg , 0.5 = 1/2 kg" />
+            android:textSize="@dimen/_13sdp" />
 
         <Button
-            android:id="@+id/buttonAddToCart"
+            android:id="@+id/buttonEdit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_15sdp"
@@ -131,9 +95,20 @@
             android:background="@color/colorPrimary"
             android:elevation="@dimen/_10sdp"
             android:padding="@dimen/_5sdp"
-            android:text="Add to cart"
+            android:text="Edit"
             android:textAlignment="center"
             android:textColor="@color/colorWhite" />
+
+        <TextView
+            android:id="@+id/textViewDelete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Delete item"
+            android:padding="@dimen/_5sdp"
+            android:textColor="@color/colorRed"
+            android:layout_marginBottom="@dimen/_10sdp"
+            android:layout_gravity="center"
+            android:textSize="@dimen/_13sdp"/>
 
     </LinearLayout>
 

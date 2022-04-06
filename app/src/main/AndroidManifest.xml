@@ -41,22 +41,22 @@
         <!--            android:name=".ui.dashboard.tab_fragments.clients.AddClientsActivity"-->
         <!--            android:exported="true" />-->
         <activity
-            android:name=".ui.dashboard.tab_fragments.items.EditProductsAndServicesActivity"
+            android:name="com.hayatAdmin.ui.dashboard.tab_fragments.items.EditProductsAndServicesActivity"
             android:exported="true" />
         <activity
-            android:name=".ui.dashboard.tab_fragments.items.AddProductsAndServicesActivity"
+            android:name="com.hayatAdmin.ui.dashboard.tab_fragments.items.AddProductsAndServicesActivity"
             android:exported="true" />
         <activity
-            android:name=".ui.login.VerifyOTPActivity"
+            android:name="com.hayatAdmin.ui.login.VerifyOTPActivity"
             android:exported="true" />
         <activity
-            android:name=".ui.login.LoginWithMobileNumberActivity"
+            android:name="com.hayatAdmin.ui.login.LoginWithMobileNumberActivity"
             android:exported="true" />
         <activity
-            android:name=".ui.dashboard.ChangePasswordActivity"
+            android:name="com.hayatAdmin.ui.dashboard.ChangePasswordActivity"
             android:exported="true" />
         <activity
-            android:name=".ui.splash.SplashActivity"
+            android:name="com.hayatAdmin.ui.splash.SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -65,42 +65,42 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.login.LoginActivity"
+            android:name="com.hayatAdmin.ui.login.LoginActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".ui.login.RegisterActivity"
+            android:name="com.hayatAdmin.ui.login.RegisterActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".ui.login.ForgotPasswordActivity"
+            android:name="com.hayatAdmin.ui.login.ForgotPasswordActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".ui.login.ScanBarCodeActivity"
+            android:name="com.hayatAdmin.ui.login.ScanBarCodeActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".ui.dashboard.DashBoardActivity"
+            android:name="com.hayatAdmin.ui.dashboard.DashBoardActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".ui.dashboard.tab_fragments.MessageChatActivity"
+            android:name="com.hayatAdmin.ui.dashboard.tab_fragments.MessageChatActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".ui.dashboard.ChatActivityNew"
+            android:name="com.hayatAdmin.ui.dashboard.ChatActivityNew"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".ui.dashboard.NotificationActivity"
+            android:name="com.hayatAdmin.ui.dashboard.NotificationActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustPan" />
@@ -115,7 +115,7 @@
         <!--            android:theme="@style/AppTheme.NoActionBar"-->
         <!--            android:windowSoftInputMode="adjustPan" />-->
         <activity
-            android:name=".utils.PhotoPreViewActivity"
+            android:name="com.hayatAdmin.utils.PhotoPreViewActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustPan" />
@@ -140,7 +140,7 @@
             android:value="barcode" />
 
         <service
-            android:name=".service.MyFirebaseMessagingService"
+            android:name="com.hayatAdmin.service.MyFirebaseMessagingService"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
